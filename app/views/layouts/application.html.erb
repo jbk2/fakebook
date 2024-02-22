@@ -12,6 +12,23 @@
   </head>
 
   <body>
+    <div>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
+
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+      <% if user_signed_in? %>
+        <li><%= link_to "Edit Profile", edit_user_registration_path, class: "" %></li>
+        <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "" %></li>
+      <% else %>
+        <li><%= link_to "Login", new_user_session_path, class: "" %></li>
+        <li><%= link_to "Sign up", new_user_registration_path, class: "" %></li>
+      <% end %>
+      </ul>
+    </div>
+
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
