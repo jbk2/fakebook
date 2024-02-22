@@ -11,27 +11,39 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <div class="flex-none">
-      <ul class="menu menu-horizontal px-1">
-        <% if user_signed_in? %>
-          <li><%= link_to "Edit Profile", edit_user_registration_path, class: "" %></li>
-          <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "" %></li>
-        <% else %>
-          <li><%= link_to "Login", new_user_session_path, class: "" %></li>
-          <li><%= link_to "Sign up", new_user_registration_path, class: "" %></li>
-        <% end %>
-        <% if notice %>
-          <p class="notice"><%= notice %></p>
-        <% end %>
-        <% if alert %>
-          <p class="alert"><%= alert %></p>
-        <% end %>
-      </ul>
-    </div>
+  <body class="h-screen flex flex-col">
+    <div class="hover:drop-shadow">
+      <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+          <% if user_signed_in? %>
+            <li><%= link_to "Edit Profile", edit_user_registration_path, class: "" %></li>
+            <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "" %></li>
+          <% else %>
+            <li><%= link_to "Login", new_user_session_path, class: "" %></li>
+            <li><%= link_to "Sign up", new_user_registration_path, class: "" %></li>
+          <% end %>
+          <% if notice %>
+            <p class="notice"><%= notice %></p>
+          <% end %>
+          <% if alert %>
+            <p class="alert"><%= alert %></p>
+          <% end %>
+        </ul>
+      </div>
 
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
+    </div>
+    <main class="w-full flex-grow bg-gray-100">
+      <div class="flex">
+        <div class="hidden lg:flex w-full min-w-[280px] max-w-[450px] p-5 text-left">
+          Nav left
+        </div>
+        <div class="flex-grow min-w-[728px] max-w-[900px] mx-auto p-5 text-center">
+          <%= yield %>
+        </div>
+        <div class="hidden xl:flex w-full min-w-[280px] max-w-[450px] p-5 text-right">
+          Nav right
+        </div>
+      </div>      
     </main>
   </body>
 </html>
