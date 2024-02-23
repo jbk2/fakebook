@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-theme="">
   <head>
     <title>Fakebook</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,15 +12,15 @@
   </head>
 
   <body class="h-screen flex flex-col">
-    <div class="hover:drop-shadow">
-      <div class="flex-none">
-        <ul class="menu menu-horizontal px-1">
+    <div class="navbar h-12 bg-white drop-shadow">
+      <div class="">
+        <ul class="menu menu-horizontal pl-6 2xl:pl-16 items-center">
           <% if user_signed_in? %>
-            <li><%= link_to "Edit Profile", edit_user_registration_path, class: "" %></li>
-            <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "" %></li>
+            <li><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-sm" %></li>
+            <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-sm" %></li>
           <% else %>
-            <li><%= link_to "Login", new_user_session_path, class: "" %></li>
-            <li><%= link_to "Sign up", new_user_registration_path, class: "" %></li>
+            <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
+            <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
           <% end %>
           <% if notice %>
             <p class="notice"><%= notice %></p>
@@ -35,13 +35,13 @@
     <main class="w-full flex-grow bg-gray-100">
       <div class="flex">
         <div class="hidden lg:flex w-full min-w-[280px] max-w-[450px] p-5 text-left">
-          Nav left
+          <%= render "sidebar_left" %>
         </div>
         <div class="flex-grow min-w-[728px] max-w-[900px] mx-auto p-5 text-center">
           <%= yield %>
         </div>
         <div class="hidden xl:flex w-full min-w-[280px] max-w-[450px] p-5 text-right">
-          Nav right
+          <%= render "sidebar_right" %> 
         </div>
       </div>      
     </main>
