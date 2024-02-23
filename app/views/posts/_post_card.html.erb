@@ -1,0 +1,49 @@
+<div class="card bg-base-100 shadow-xl my-4">
+  <div class="card-body pt-8 pb-6">
+    
+    <section id="header">
+      <%#= image_tag post.owner.profile_photo %>
+      <h3><%= post.owner.email %></h3>
+      <p><%= post.created_at %></p>
+    </section>
+    
+    <section id="body">
+      <p><%= post.body %></p>
+    </section>
+
+    <% if post.image.any? %>
+      <section id="images">
+        <%= image_tag post.image %>
+      </section>
+    <% end %>
+
+    <section id="post-actions">
+      <div class="card-actions justify-between px-24">
+        <div class="flex flex-row items-center">
+          <%= link_to image_tag('haha.png', alt: 'funny icon', height: '24', width: '24'), root_path, id: 'laughs', class: "mx-1" %>
+          <%= link_to image_tag('like2.png', alt: 'like icon', height: '24', width: '24'), root_path, id: 'likes', class: "mx-1" %>
+        </div>
+        <div class="flex flex-row items-center">
+          <p class="mx-1">#Comments</p>
+          <p class="mx-1">#Shares</p>
+        </div>
+      </div>
+      <hr class="my-2">
+      <div class="card-actions justify-between px-24">
+        <div class="flex flex-row items-center">
+          <%= link_to image_tag('like.png', alt: 'thumbs up icon', height: '24', width: '24'), root_path, id: 'like-action' %>
+          <span class="ml-2">Like</span>
+        </div>
+        <div class="flex flex-row items-center">
+          <%= link_to image_tag('chat.png', alt: 'chat icon', height: '24', width: '24'), root_path, id: 'comment-action' %>
+          <span class="ml-2">Comment</span>
+        </div>
+        <div class="flex flex-row items-center">
+          <%= link_to image_tag('send.png', alt: 'send icon', height: '24', width: '24'), root_path, id: 'send-action' %>
+          <span class="ml-2">Send</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

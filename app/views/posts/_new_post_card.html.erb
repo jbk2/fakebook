@@ -1,4 +1,4 @@
-<div class="card min-w-[628px] max-w-[800px] bg-base-100 shadow-xl">
+<div class="card bg-base-100 shadow-xl">
   <div class="card-body pt-8 pb-6">
     <%= form_with model: [@user, @post] do |f| %>
       <div class="flex flex-row items-center">
@@ -8,9 +8,9 @@
     <% end %>
     <hr class="my-2">
     <div class="card-actions justify-between px-24">
-      <%= image_tag 'video.png', alt: 'video icon', id: 'video-action', height: '24', width: '24' %>
-      <%= image_tag 'gallery.png', alt: 'photo icon', id: 'gallery-action', height: '24', width: '24' %>
-      <%= image_tag 'smiling-face.png', alt: 'feeling icon', id: 'feeling-action', height: '24', width: '24' %>
+      <%= link_to image_tag('video.png', alt: 'video icon', height: '24', width: '24'), root_path, id: 'video-action' %>
+      <%= link_to image_tag('gallery.png', alt: 'photo icon', height: '24', width: '24'), root_path, id: 'gallery-action' %>
+      <%= link_to image_tag('smiling-face.png', alt: 'feeling icon', height: '24', width: '24'), root_path, id: 'feeling-action' %>
     </div>
   </div>
 </div>
