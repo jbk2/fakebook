@@ -11,7 +11,7 @@
       <p><%= post.body %></p>
     </section>
 
-    <% if post.image.any? %>
+    <% if post.image.present? %>
       <section id="images">
         <%= image_tag post.image %>
       </section>
