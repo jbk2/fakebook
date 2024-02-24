@@ -7,6 +7,11 @@
     <%= f.label :username %><br />
     <%= f.text_field :username, required: true, autocomplete: "username" %>
   </div>
+  
+  <div class="field">
+    <%= f.label :profile_photo %><br />
+    <%= f.file_field :profile_photo, required: true %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
