@@ -12,34 +12,8 @@
   </head>
 
   <body class="h-screen flex flex-col bg-gray-100">
-    <div class="navbar h-12 bg-white drop-shadow flex justify-between">
-      <div class="" id="left-section">
-        <ul class="flex flex-row menu menu-horizontal pl-6 2xl:pl-16 items-center">
-          <% if user_signed_in? %>
-            <li><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-sm mr-2" %></li>
-            <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-sm mr-2" %></li>
-          <% else %>
-            <% unless current_page?(new_user_session_path)  %>
-              <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm mr-2" %></li>
-            <% end %>
-            <% unless current_page?(new_user_registration_path) %> 
-              <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm mr-2" %></li>
-            <% end %>  
-          <% end %>
-
-          <% if notice %>
-            <li><p class="alert alert-info mr-2"><%= notice %></p></li>
-          <% end %>
-          <% if alert %>
-            <li><p class="alert alert-warning mr-2"><%= alert %></p></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="pr-6 2xl:pr-16" id="right-section">
-        <label for="theme-toggle" class="pr-2 text-sm">Toggle theme</label>
-        <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle theme-controller"/>
-      </div>
-    </div>
+    <%= render "/layouts/navbar" %>
+    
 
     <main class="w-full flex-grow bg-gray-100">
       <%= yield %>
