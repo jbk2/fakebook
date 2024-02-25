@@ -20,13 +20,20 @@ Technologies/libraries used:
   Backend
   - 
 
-
 ### Rspec Tested
   - 
 
 ---
 
-### Further ToDos:
+### Next ToDos:
+- Enable multiple photo attachmeents to posts
+- Enable comments on posts
+- Enable likes on posts
+- Enable followers
+- Limit posts#index to only authored & friends posts
+- Enable chat
+
+### Future ToDos:
 
 - General
   - Test everywhere everything
@@ -35,9 +42,7 @@ Technologies/libraries used:
 
 - Validations
   
-
 - Features
-  
 
 - UI
   
