@@ -1,31 +1,29 @@
-<div class="navbar h-9 bg-white drop-shadow flex justify-between">
+<div class="navbar h-6 py-0 bg-white drop-shadow flex justify-between">
   <div class="pl-6 2xl:pl-16" id="left-section">
     <div class="brand-logo mr-4">
       <%= link_to image_tag('facebook.png', width: "42", height: "42"), root_path %>
     </div>
     <div class="search-field">
       <input type="text" placeholder="     Search" class="border-none rounded-full h-[40px] bg-gray-100">
-       <i class="fas fa-search -ml-48" style="color: gray;"></i>
+       <i class="fas fa-search -ml-48 pt-3 absolute" style="color: gray;"></i>
     </div>
     <div class="flash">
       <% if notice %>
-        <li><p class="alert alert-info mr-2"><%= notice %></p></li>
+        <i class="alert alert-info mr-2 h-10 flex items-center"><%= notice %></i>
       <% end %>
       <% if alert %>
-        <li><p class="alert alert-warning mr-2"><%= alert %></p></li>
+        <i class="alert alert-warning mr-2 h-10 flex items-center"><%= alert %></i>
       <% end %>
     </div>
   </div>
   
   <div class="pr-6 2xl:pr-16" id="right-section">
-    <label for="theme-toggle" class="pr-2 text-sm">Toggle theme</label>
-    <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle theme-controller"/>
+
+    <label for="theme-toggle" class="pr-2 text-sm italic">Toggle theme</label>
+    <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
     
-    <ul class="flex flex-row menu menu-horizontal pl-6 2xl:pl-16 items-center">
-      <% if user_signed_in? %>
-        <li><%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-sm mr-2" %></li>
-        <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-sm mr-2" %></li>
-      <% else %>
+    <ul class="flex flex-row py-0 menu menu-horizontal items-center">
+      <% unless user_signed_in? %>
         <% unless current_page?(new_user_session_path)  %>
           <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm mr-2" %></li>
         <% end %>
@@ -33,6 +31,22 @@
           <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm mr-2" %></li>
         <% end %>  
       <% end %>
+
+      <% if user_signed_in? %>
+        <div class="profile-photo-dropdown">
+          <details class="dropdown dropdown-end">
+            <summary class="m-1 flex items-center justify-center w-12 h-12 rounded-full overflow-hidden">
+              <%= image_tag current_user.profile_photo, class: "object-cover w-full" %>
+            </summary>
+            <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-32">
+              <% if user_signed_in? %>
+                <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
+                <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "" %></li>
+              <% end %>  
+            </ul>
+          </details>
+        </div>
+      <% end %>  
     </ul>
   </div>
 </div>
