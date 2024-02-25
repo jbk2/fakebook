@@ -54,6 +54,7 @@ gem "image_processing", "~> 1.2"
 gem "devise", "~> 4.9"
 gem "ruby-vips", "~> 2.2"
 gem "aws-sdk-s3", "~> 1.143", require: false
+gem "font-awesome-sass", "~> 6.5"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -79,6 +80,3 @@ group :test do
   gem "selenium-webdriver"
 
 end
-
-
-
