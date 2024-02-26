@@ -1,5 +1,8 @@
+include ActionView::Helpers::DateHelper
+
 class PostsController < ApplicationController
   before_action :set_user, only: [:new, :create, :index]
+
 
   def new
     @post = Post.new

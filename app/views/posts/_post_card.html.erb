@@ -2,13 +2,23 @@
   <div class="card-body pt-8 pb-6">
     
     <section id="header">
-      <%#= image_tag post.owner.profile_photo %>
-      <h3><%= post.owner.email %></h3>
-      <p><%= post.created_at %></p>
+      <section class="flex flex-row items-center">
+        <div class="w-14 h-14 rounded-full overflow-hidden mr-2">
+          <%= image_tag current_user.profile_photo, class: "object-cover" %>
+        </div>
+
+        <div class="flex flex-col items-start mr-2">
+          <h3 class="text-md font-bold"><%= post.owner.username %></h3>
+          <p class="text-xs"><%= distance_of_time_in_words(Time.now - post.created_at) %> ago</p>
+        </div>
+        <div class="self-start mt-2">
+          <p class="link text-sky-600 text-xs font-bold">Follow</p>
+        </div>
+      </section>
     </section>
     
-    <section id="body">
-      <p><%= post.body %></p>
+    <section id="body" class="mt-2">
+      <p class="text-left"><%= post.body %></p>
     </section>
     
     <% if post.photos.present? %>
