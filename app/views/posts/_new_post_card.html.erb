@@ -1,16 +1,20 @@
 <div class="card bg-base-100 shadow-xl">
   <div class="card-body pt-8 pb-6">
-    <%= form_with model: [@user, @post] do |f| %>
-      <div class="flex flex-row items-center">
-        <%= f.text_field :body, placeholder: "Whats on your mind #{@user.username}?", class: "border-none rounded-full h-11 w-full bg-gray-100" %>
-        <%= f.submit class: "btn btn-sm ml-2" %>
+    <div data-controller="post-photo">
+      <%= form_with model: [@user, @post], multipart: true do |f| %>
+        <div class="flex flex-row items-center">
+          <%= f.text_field :body, placeholder: "Whats on your mind #{@user.username}?", class: "border-none rounded-full h-11 w-full bg-gray-100" %>
+          <%= f.submit class: "btn btn-sm ml-2" %>
+        </div>
+          <div data-post-photo-target="fileInput">
+          </div>
+      <% end %>
+      <hr class="my-2">
+      <div class="card-actions justify-between px-24">
+        <%= link_to image_tag('video.png', alt: 'video icon', height: '24', width: '24'), root_path, id: 'video-action' %>
+          <%= link_to image_tag('gallery.png', alt: 'photo icon', height: '24', width: '24'), root_path, data: { action: "click->post-photo#loadFileInput" }, id: 'gallery-action' %>  
+        <%= link_to image_tag('smiling-face.png', alt: 'feeling icon', height: '24', width: '24'), root_path, id: 'feeling-action' %>
       </div>
-    <% end %>
-    <hr class="my-2">
-    <div class="card-actions justify-between px-24">
-      <%= link_to image_tag('video.png', alt: 'video icon', height: '24', width: '24'), root_path, id: 'video-action' %>
-      <%= link_to image_tag('gallery.png', alt: 'photo icon', height: '24', width: '24'), root_path, id: 'gallery-action' %>
-      <%= link_to image_tag('smiling-face.png', alt: 'feeling icon', height: '24', width: '24'), root_path, id: 'feeling-action' %>
     </div>
   </div>
 </div>

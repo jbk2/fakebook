@@ -11,9 +11,11 @@
       <p><%= post.body %></p>
     </section>
 
-    <% if post.image.present? %>
+    <% if post.photos.present? %>
       <section id="images">
-        <%= image_tag post.image %>
+        <% post.photos.each do |p| %>
+          <%= image_tag p %>
+        <% end %>  
       </section>
     <% end %>
 

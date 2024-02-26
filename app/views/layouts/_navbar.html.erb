@@ -38,7 +38,7 @@
             <summary class="m-1 flex items-center justify-center w-12 h-12 rounded-full overflow-hidden">
               <%= image_tag current_user.profile_photo, class: "object-cover w-full" %>
             </summary>
-            <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-32">
+            <ul class="shadow menu dropdown-content z-[1] bg-base-100 rounded-md w-32">
               <% if user_signed_in? %>
                 <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
                 <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "" %></li>

@@ -43,6 +43,9 @@ Technologies/libraries used:
 - Validations
   
 - Features
+  - Posts
+    - Photos
+      - allow additional photo add events to posts (?)
 
 - UI
   
