@@ -12,8 +12,11 @@
     </section>
 
     <% if post.photos.present? %>
+      <p>photos do exist</p>
+      <p><%= post.photos.count %></p>
       <section id="images">
         <% post.photos.each do |p| %>
+          <%= p.representable? %>
           <%= image_tag p %>
         <% end %>  
       </section>

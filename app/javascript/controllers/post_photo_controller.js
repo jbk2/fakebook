@@ -9,18 +9,16 @@ export default class extends Controller {
     console.log("fileInput taget found", this.fileInputTarget)
   }
 
-  // build filInput element, add to target, hide, add listener for file adding to call #handleFiles
+  // build hidden fileInput element, add to target, add listener to call handleFiles
   loadFileInput(event) {
-    console.log('loadFileInput called');
     event.preventDefault();
-    console.log('event is here;', event);
-    
     let fileInput = document.createElement('input');
+
     fileInput.type = 'file';
     fileInput.name = 'post[photos][]';
     fileInput.multiple = true;
     fileInput.style.display = 'none';
-    
+
     this.fileInputTarget.appendChild(fileInput);
     
     fileInput.addEventListener('change', (event) => {
@@ -30,11 +28,15 @@ export default class extends Controller {
     fileInput.click();
   }
 
-  // clear target div, create img elements for each file, append to target div
+  // append a div to target to render each styled file within
   handleFiles(files) {
     const fileList = Array.from(files);
 
-    this.fileInputTarget.innerHTML = '';
+    let previewsContainer = document.createElement('div');
+    previewsContainer.classList.add('previews', 'flex', 'flex-row', 'justify-center');
+    this.fileInputTarget.after(previewsContainer); 
+
+    previewsContainer.innerHTML = '';
 
     fileList.forEach(file => {
       const reader = new FileReader();
@@ -42,12 +44,8 @@ export default class extends Controller {
       reader.onload = (e) => {
         let img = document.createElement('img');
         img.src = e.target.result;
-        img.style.width = '100px';
-        img.style.height = '100px';
-        img.style.objectFit = 'cover';
-        img.style.marginRight = '5px';
-
-        this.fileInputTarget.appendChild(img);
+        img.classList.add('w-24', 'h-24', 'object-fit', 'rounded-sm', 'mx-1', 'object-cover');
+        previewsContainer.appendChild(img);
       };
       
       reader.readAsDataURL(file);
