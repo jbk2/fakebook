@@ -20,6 +20,23 @@ Technologies/libraries used:
   Backend
   - 
 
+#### Tech to implement
+- Turbo Streams
+- Turbo Frames
+- Stimulus ✅
+- Tailwindcss / DaisyUI ✅, FontAwesome ✅, 
+- Devise ✅
+- Faker
+- Complex forms; fields_for
+- Polmorphic models
+- Custom validation, callbacks
+- POROs
+- Active Storage
+- Active Job
+- Action Mailer
+- Rspec
+
+
 ### Rspec Tested
   - 
 
