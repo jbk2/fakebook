@@ -42,7 +42,7 @@ def create_posts(no_of_posts, user_id)
       images = []
       
       image_nos.each do |n|
-        image_path = Rails.root.join('app', 'assets', 'images', 'post_images', "post_#{n}.jpg")
+        image_path = Rails.root.join('app', 'assets', 'images', 'post_photos', "post_#{n}.jpg")
         if File.exist?(image_path)
           images << {
             io: File.open(image_path),

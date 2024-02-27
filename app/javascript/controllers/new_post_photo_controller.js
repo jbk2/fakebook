@@ -1,11 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="post-photo"
+// Connects to data-controller="new-post-photo"
 export default class extends Controller {
   static targets = [ "fileInput" ]
 
   connect() {
-    console.log("post-photo Stimulus controller is connected. Here's this;", this.element)
+    console.log("new-post-photo Stimulus controller is connected. Here's this;", this.element)
     console.log("fileInput taget found", this.fileInputTarget)
   }
 
