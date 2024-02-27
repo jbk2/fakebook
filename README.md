@@ -65,4 +65,6 @@ Technologies/libraries used:
       - allow additional photo add events to posts (?)
 
 - UI
-  
+  - Posts
+    - limit visible length of post.body's enabling reveal all in whole post in a modal
+    - 
