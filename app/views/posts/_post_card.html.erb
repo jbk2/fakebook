@@ -4,7 +4,7 @@
     <section id="header">
       <section class="flex flex-row items-center">
         <div class="w-14 h-14 rounded-full overflow-hidden mr-2">
-          <%= image_tag current_user.profile_photo, class: "object-cover" %>
+          <%= image_tag post.owner.profile_photo, class: "object-cover" %>
         </div>
 
         <div class="flex flex-col items-start mr-2">
@@ -24,7 +24,7 @@
     <% if post.photos.present? %>
       <section id="images" class="grid grid-cols-2 gap-2 justify-items-center">
         <% post.photos.each do |p| %>
-          <div class="max-w-[300px] max-h-[300px] overflow-hidden flex rounded-md">
+          <div class="max-h-[300px] overflow-hidden flex rounded-md">
             <% if p.content_type == 'application/pdf' %>
               <%= image_tag(p.preview(resize_to_limit: [400, 400]).processed, class: " object-cover ") %>
             <% else %>
