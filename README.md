@@ -26,7 +26,7 @@ Technologies/libraries used:
 - Stimulus ✅
 - Tailwindcss / DaisyUI ✅, FontAwesome ✅, 
 - Devise ✅
-- Faker
+- Seeding, Faker gem
 - Complex forms; fields_for
 - Polmorphic models
 - Custom validation, callbacks
