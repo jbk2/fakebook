@@ -2,18 +2,21 @@
   <div class="card-body pt-8 pb-6">
     
     <section id="header">
-      <section class="flex flex-row items-center">
+      <section class="flex flex-row">
         <div class="w-14 h-14 rounded-full overflow-hidden mr-2">
           <%= image_tag post.owner.profile_photo, class: "object-cover" %>
         </div>
+        <div class="flex flex-row">
+          <div class="flex flex-col items-start mr-2">
+            <h3 class="text-md font-bold mb-2"><%= post.owner.username %></h3>
+            <p class="text-xs"><%= distance_of_time_in_words(Time.now - post.created_at) %> ago</p>
+          </div>
+          <div class="self-start">
+            <%#= link_to new_follow_path %>
+            <p class="link text-sky-600 text-xs font-bold mt-1">Follow</p>
+          </div>
+        </div>
 
-        <div class="flex flex-col items-start mr-2">
-          <h3 class="text-md font-bold"><%= post.owner.username %></h3>
-          <p class="text-xs"><%= distance_of_time_in_words(Time.now - post.created_at) %> ago</p>
-        </div>
-        <div class="self-start mt-2">
-          <p class="link text-sky-600 text-xs font-bold">Follow</p>
-        </div>
       </section>
     </section>
     
