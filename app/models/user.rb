@@ -23,4 +23,6 @@ class User < ApplicationRecord
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :password, presence: true
+  validates :email, format: { with: Devise.email_regexp }
+  validates :username, length: { in: 3..20 }
 end
