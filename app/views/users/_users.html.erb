@@ -1,0 +1,7 @@
+<div class="user-container flex flex-wrap gap-4">
+
+  <% @users.each do |user| %>
+    <%= render 'user_card', user: user %>
+  <% end %>
+
+</div>

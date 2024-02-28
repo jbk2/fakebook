@@ -1,4 +1,15 @@
-<div>
-  <h1 class="font-bold text-4xl">Users#index</h1>
-  <p>Find me in app/views/users/index.html.erb</p>
-</div>
+<div class="flex">
+  
+  <div class="hidden lg:flex w-full min-w-[280px] max-w-[350px] p-5 text-left">
+    <%= render "posts/sidebar_left" %>
+  </div>
+  
+  <div class="flex-grow shrink mx-auto md:px-2 text-center">
+    <section>
+      <div class="my-10">
+        <%= render 'users' %>
+      </div>
+    </section>
+  </div>
+
+</div>      

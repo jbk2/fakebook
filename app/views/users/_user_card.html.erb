@@ -1,0 +1,17 @@
+<div class="card w-60 h-80 bg-base-100 shadow-md">
+  <figure class="">
+    <%= image_tag user.profile_photo.representation(resize_to_fill: [400, 400]).processed,
+      class: "object-cover h-48 w-full" %>
+  </figure>
+  <div class="card-body h-40 px-3 py-1">
+    <h2 class="card-title"><%= user.username %></h2>
+    <div class="common-follows">
+      <p class="prose text-sm text-left">common follow pics</p>
+      <%#= current_user.follows_in_common(user) %>
+      <p class="prose text-sm text-left">x follows in common</p>
+    </div>
+    <div class="card-actions justify-end">
+      <button class="btn bg-blue-600 text-white/80 w-full px-1">Follow</button>
+    </div>
+  </div>
+</div>
