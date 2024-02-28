@@ -26,6 +26,7 @@ Technologies/libraries used:
 - Stimulus ✅
 - Tailwindcss / DaisyUI ✅, FontAwesome ✅, 
 - Devise ✅
+- Omniauth
 - Seeding, Faker gem
 - Complex forms; fields_for
 - Polmorphic models
@@ -43,10 +44,11 @@ Technologies/libraries used:
 ---
 
 ### Next ToDos:
-- Enable multiple photo attachmeents to posts
+- Enable followers
+- Create User profile page - contains profile info and all of their posts
+- Create Users#index page
 - Enable comments on posts
 - Enable likes on posts
-- Enable followers
 - Limit posts#index to only authored & friends posts
 - Enable chat
 
