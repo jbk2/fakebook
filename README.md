@@ -67,4 +67,4 @@ Technologies/libraries used:
 - UI
   - Posts
     - limit visible length of post.body's enabling reveal all in whole post in a modal
-    - 
+    - allow new post attachment files to preview pdfs as well as images
