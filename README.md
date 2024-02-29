@@ -45,12 +45,14 @@ Technologies/libraries used:
 
 ### Next ToDos:
 - Enable followers
+- Update follow buttons to check whether being followed already
 - Create User profile page - contains profile info and all of their posts
 - Create Users#index page
 - Enable comments on posts
 - Enable likes on posts
 - Limit posts#index to only authored & friends posts
 - Enable chat
+- Use Turbo to lazy load posts.
 
 ### Future ToDos:
 

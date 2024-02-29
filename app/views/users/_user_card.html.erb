@@ -10,8 +10,14 @@
       <%#= current_user.follows_in_common(user) %>
       <p class="prose text-sm text-left">x follows in common</p>
     </div>
-    <div class="card-actions justify-end">
-      <button class="btn bg-blue-600 text-white/80 w-full px-1">Follow</button>
+    <div class="card-actions">
+      <%= turbo_frame_tag "follow_button_#{user.id}" do %>
+        <%= button_to follows_path, method: :post, class: "btn bg-blue-600 text-white/80 px-1 w-full", form_class: "button_to w-full", data: { turbo_frame: "follow_button_#{user.id}" } do %>
+          <%= hidden_field_tag 'follow[followed_id]', user.id %>
+          <%= hidden_field_tag 'follow[follower_id]', current_user.id %>
+          Follow
+        <% end %>
+      <% end %>  
     </div>
   </div>
 </div>
