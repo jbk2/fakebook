@@ -7,14 +7,9 @@
       <input type="text" placeholder="     Search" class="border-none rounded-full h-[40px] bg-gray-100">
        <i class="fas fa-search -ml-48 pt-3 absolute" style="color: gray;"></i>
     </div>
-    <div class="flash">
-      <% if notice %>
-        <i class="alert alert-info mr-2 h-10 flex items-center"><%= notice %></i>
-      <% end %>
-      <% if alert %>
-        <i class="alert alert-warning mr-2 h-10 flex items-center"><%= alert %></i>
-      <% end %>
-    </div>
+    <%= turbo_frame_tag "flash_messages" do %>
+        <%= render 'layouts/flash' %>
+    <% end %>
   </div>
 
   <div class="w-48 flex justify-around" id="center-section">

@@ -1,7 +1,7 @@
-  <%= button_to follows_path, method: :post,
+  <%= button_to follow_path(user.id), method: :delete,
     class: "btn bg-blue-600 text-white/80 px-1 w-full", form_class: "button_to",
     data: { turbo_frame: "follow_action_button_#{user.id}" } do %>
     <%= hidden_field_tag 'follow[followed_id]', user.id %>
     <%= hidden_field_tag 'follow[follower_id]', current_user.id %>
-    Follow
+    Un-Follow
   <% end %>

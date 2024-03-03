@@ -46,6 +46,8 @@ Technologies/libraries used:
 ### Next ToDos:
 - Enable followers
 - Update follow buttons to check whether being followed already
+- Do not list current_user in users index
+- 
 - Create User profile page - contains profile info and all of their posts
 - Create Users#index page
 - Enable comments on posts
