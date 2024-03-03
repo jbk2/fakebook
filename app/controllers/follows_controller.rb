@@ -24,7 +24,7 @@ class FollowsController < ApplicationController
 
     @follow = Follow.find_by(follower_id: current_user.id, followed_id: followed_user.id)
     if @follow.destroy
-      flash.now[:notice] = "You are no longer following this user"
+      flash.now[:notice] = "You are no longer following #{followed_user.username}"
       respond_to do |format|
         format.html { redirect_to users_path, notice: "You are no longer following this user" }
         format.turbo_stream do
@@ -38,7 +38,8 @@ class FollowsController < ApplicationController
     else
       flash.now[:alert] = "You are no longer following this user"
       respond_to do |format|
-        format.html { redirect_to users_path, alert: "Either Follow not found or unable to be destroyed" }
+        format.html { redirect_to users_path,
+          alert: "Either Follow not found or unable to be destroyed for #{followed_user.username}" }
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.update("follow_action_button_#{params[:follow][:followed_id]}",

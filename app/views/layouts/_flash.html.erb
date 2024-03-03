@@ -1,8 +1,8 @@
 <div class="flash">
-  <%= flash.each do |type, message| %>
-    <% if type == notice %>
+  <% flash.each do |type, message| %>
+    <% if type == 'notice' %>
       <i class="alert alert-info mr-2 h-10 flex items-center"><%= message %></i>
-    <% elsif type == alert %>
+    <% elsif type == 'alert' %>
       <i class="alert alert-warning mr-2 h-10 flex items-center"><%= message %></i>
     <% end %>
   <% end %>
