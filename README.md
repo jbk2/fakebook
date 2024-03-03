@@ -46,7 +46,6 @@ Technologies/libraries used:
 ### Next ToDos:
 - Enable followers from posts card follow link
 - Do not list current_user in users index
-- Set a transition on the flash messages
 - Create User profile page - contains profile info and all of their posts
 - Create Users#index page
 - Enable comments on posts
