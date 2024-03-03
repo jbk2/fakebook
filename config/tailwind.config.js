@@ -12,6 +12,9 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      animation: {
+        fadeOut: 'fadeOut 2.5s ease-out forwards',
+      },
     },
   },
   plugins: [
