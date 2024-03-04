@@ -1,6 +1,6 @@
 <div class="card bg-base-100 shadow-xl my-4">
   <div class="card-body pt-8 pb-6">
-    
+
     <section id="header">
       <section class="flex flex-row">
         <div class="w-14 h-14 rounded-full overflow-hidden mr-2">
@@ -12,20 +12,21 @@
             <p class="text-xs"><%= distance_of_time_in_words(Time.now - post.created_at) %> ago</p>
           </div>
           <div class="self-start">
-            <% if current_user.followed_users.include?(post.owner) %>
-              <%= turbo_frame_tag "follow_action_button_#{post.owner.id}", class: "grow" do %>
-                <%= render "users/unfollow_button", user: post.owner,
-                  context: 'post_card' %>
-              <% end %>  
-            <% else %>
-              <%= turbo_frame_tag "follow_action_button_#{post.owner.id}", class: "grow" do %>
-                <%= render "users/follow_button", user: post.owner,
-                  current_user: current_user, context: 'post_card' %>
-              <% end %>  
-            <% end %>
+            <% unless post.owner == current_user %>
+              <% if current_user.followed_users.include?(post.owner) %>
+                <%= turbo_frame_tag "follow_action_button_#{post.owner.id}", class: "grow" do %>
+                  <%= render "users/unfollow_button", user: post.owner,
+                    context: 'post_card' %>
+                <% end %>  
+              <% else %>
+                <%= turbo_frame_tag "follow_action_button_#{post.owner.id}", class: "grow" do %>
+                  <%= render "users/follow_button", user: post.owner,
+                    current_user: current_user, context: 'post_card' %>
+                <% end %>  
+              <% end %>
+            <% end %>  
           </div>
         </div>
-
       </section>
     </section>
     
