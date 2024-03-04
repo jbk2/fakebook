@@ -44,7 +44,7 @@ Technologies/libraries used:
 ---
 
 ### Next ToDos:
-- Seed db with followers and more posts
+- Load posts via turbo and ensure posts index is updated when user is unfollowed
 - Stop posts index loading all posts on page load, paginate (maybe) and load on scroll by turbo
 - Reduce profile image sizes, and render different preloaded ones for different uses
 - Create User profile page - contains profile info and all of their posts

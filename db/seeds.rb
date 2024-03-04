@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
-
 # Note - there are only 10 profile photos in assets currently
 def create_users(no_of_users)
   no_of_users.times do |i|
@@ -60,5 +52,9 @@ def create_posts(no_of_posts, user_id)
 end
 
 User.all.each do |user|
-  create_posts(rand(1..3), user.id)
+  create_posts(rand(3..6), user.id)
+  followed_user_ids = (1..10).to_a.sample(5)
+  followed_user_ids.each do |id|
+    Follow.create(follower_id: user.id, followed_id: id)
+  end
 end
