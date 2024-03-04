@@ -19,7 +19,9 @@ class PostsController < ApplicationController
 
   def index
     @post = Post.new
-    @posts = Post.all
+    own_posts = current_user.posts
+    following_posts = current_user.followed_users.map(&:posts).flatten
+    @posts = (own_posts + following_posts).sort_by(&:created_at).reverse
   end
 
   private

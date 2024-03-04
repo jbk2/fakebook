@@ -44,9 +44,8 @@ Technologies/libraries used:
 ---
 
 ### Next ToDos:
-- Do not list current_user in users index
-- Order posts in latest to
-- Filter post index posts for own and follower posts only (seed db with followers and more posts)
+- Seed db with followers and more posts
+- Stop posts index loading all posts on page load, paginate (maybe) and load on scroll by turbo
 - Reduce profile image sizes, and render different preloaded ones for different uses
 - Create User profile page - contains profile info and all of their posts
 - Create Users#index page
