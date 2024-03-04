@@ -12,8 +12,13 @@
             <p class="text-xs"><%= distance_of_time_in_words(Time.now - post.created_at) %> ago</p>
           </div>
           <div class="self-start">
-            <%#= link_to new_follow_path %>
-            <p class="link text-sky-600 text-xs font-bold mt-1">Follow</p>
+            <% if current_user.followed_users.include?(post.owner) %>
+              <%= button_to 'Unfollow', follow_path(post.owner.id), method: :delete,
+                data: { turbo: false }, class: "link text-sky-600 text-xs font-bold mt-1" %>
+            <% else %>
+              <%= button_to 'Follow', follows_path, method: :post,
+                data: { turbo: false }, class: "link text-sky-600 text-xs font-bold mt-1" %>
+            <% end %>
           </div>
         </div>
 
