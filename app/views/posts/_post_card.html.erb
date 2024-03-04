@@ -13,11 +13,15 @@
           </div>
           <div class="self-start">
             <% if current_user.followed_users.include?(post.owner) %>
-              <%= button_to 'Unfollow', follow_path(post.owner.id), method: :delete,
-                data: { turbo: false }, class: "link text-sky-600 text-xs font-bold mt-1" %>
+              <%= turbo_frame_tag "follow_action_button_#{post.owner.id}", class: "grow" do %>
+                <%= render "users/unfollow_button", user: post.owner,
+                  context: 'post_card' %>
+              <% end %>  
             <% else %>
-              <%= button_to 'Follow', follows_path, method: :post,
-                data: { turbo: false }, class: "link text-sky-600 text-xs font-bold mt-1" %>
+              <%= turbo_frame_tag "follow_action_button_#{post.owner.id}", class: "grow" do %>
+                <%= render "users/follow_button", user: post.owner,
+                  current_user: current_user, context: 'post_card' %>
+              <% end %>  
             <% end %>
           </div>
         </div>

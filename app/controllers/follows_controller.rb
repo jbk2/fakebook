@@ -9,7 +9,7 @@ class FollowsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.update("follow_action_button_#{params[:follow][:followed_id]}",
-              partial: "users/unfollow_button", locals: { user: followed_user }),
+              partial: "users/unfollow_button", locals: { user: followed_user, context: params[:context] }),
             turbo_stream.update("flash_messages", partial: "layouts/flash")
           ]
         end
@@ -20,17 +20,17 @@ class FollowsController < ApplicationController
   end
 
   def destroy
-    followed_user = User.find(params[:id])
-
+    followed_user = User.find(params[:follow][:followed_id] )
     @follow = Follow.find_by(follower_id: current_user.id, followed_id: followed_user.id)
+    
     if @follow.destroy
       flash.now[:notice] = "You are no longer following #{followed_user.username}"
       respond_to do |format|
         format.html { redirect_to users_path, notice: "You are no longer following this user" }
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.update("follow_action_button_#{params[:follow][:followed_id]}",
-              partial: "users/follow_button", locals: { user: followed_user }),
+            turbo_stream.update("follow_action_button_#{followed_user.id}",
+              partial: "users/follow_button", locals: { user: followed_user, context: params[:context] }),
             turbo_stream.update("flash_messages", partial: "layouts/flash")
           ] 
         end
@@ -42,8 +42,8 @@ class FollowsController < ApplicationController
           alert: "Either Follow not found or unable to be destroyed for #{followed_user.username}" }
         format.turbo_stream do
           render turbo_stream: [
-            turbo_stream.update("follow_action_button_#{params[:follow][:followed_id]}",
-              partial: "users/follow_button", locals: { user: followed_user }),
+            turbo_stream.update("follow_action_button_#{followed_user.id}",
+              partial: "users/follow_button", locals: { user: followed_user, context: params[:context] }),
             turbo_stream.update("flash_messages", partial: "layouts/flash")
           ]
         end
@@ -53,7 +53,7 @@ class FollowsController < ApplicationController
 
   private 
   def follow_params
-    params.require(:follow).permit(:follower_id, :followed_id)
+    params.require(:follow).permit(:follower_id, :followed_id, :context)
   end
 
 end

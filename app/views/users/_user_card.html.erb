@@ -13,11 +13,13 @@
     <div class="card-actions">
       <% if current_user.followed_users.include?(user) %>
         <%= turbo_frame_tag "follow_action_button_#{user.id}", class: "grow" do %>
-          <%= render "users/unfollow_button", user: user %>
+          <%= render "users/unfollow_button", user: user,
+            context: 'user_card' %>
         <% end %>  
       <% else %>
         <%= turbo_frame_tag "follow_action_button_#{user.id}", class: "grow" do %>
-          <%= render "users/follow_button", user: user, current_user: current_user %>
+          <%= render "users/follow_button", user: user,
+            current_user: current_user, context: 'user_card' %>
         <% end %>  
       <% end %>
     </div>
