@@ -1,7 +1,8 @@
-<div class="card bg-base-100 shadow-xl">
+<div class="card bg-base-100 shadow-xl my-10" id="new_post_card">
   <div class="card-body pt-8 pb-6">
     <div data-controller="new-post-photo">
-      <%= form_with model: [@user, @post], multipart: true do |f| %>
+      <%= form_with model: [@user, Post.new], url: user_posts_path(@user), multipart: true,
+        data: { turbo: true, "new-post-photo-target": "form" } do |f| %>
         <div class="flex flex-row items-center">
           <%= f.text_field :body, placeholder: "Whats on your mind #{@user.username}?", class: "border-none rounded-full h-11 w-full bg-gray-100" %>
           <%= f.submit class: "btn btn-sm ml-2" %>

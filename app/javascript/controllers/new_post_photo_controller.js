@@ -2,11 +2,16 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="new-post-photo"
 export default class extends Controller {
-  static targets = [ "fileInput" ]
+  static targets = [ "fileInput", "form" ]
 
   connect() {
-    console.log("new-post-photo Stimulus controller is connected. Here's this;", this.element)
+    console.log("new_post_photo_controller Stimulus controller is now connected");
     console.log("fileInput taget found", this.fileInputTarget)
+    console.log("form taget found", this.formTarget)
+  }
+
+  disconnect() {
+    console.log("I am disconnecing new_post_photo_controller");
   }
 
   // build hidden fileInput element, add to target, add listener to call handleFiles

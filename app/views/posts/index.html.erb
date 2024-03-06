@@ -6,14 +6,16 @@
   
   <div class="flex-grow shrink mx-auto md:px-2 max-w-[850px] text-center">
     <section>
-      <div class="my-10">
+      <div>
         <%= render 'new_post_card' %>
       </div>
     </section>
     <section>
-      <div class="my-10">
-        <%= render 'posts' %>
-      </div>
+      <%= turbo_frame_tag "posts" do %>
+        <div class="my-10">
+          <%= render 'posts' %>
+        </div>
+      <% end %>
     </section>
   </div>
   

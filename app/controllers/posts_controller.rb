@@ -1,8 +1,8 @@
 include ActionView::Helpers::DateHelper
 
 class PostsController < ApplicationController
+include PostsHandler
   before_action :set_user, only: [:new, :create, :index]
-
 
   def new
     @post = Post.new
@@ -11,7 +11,10 @@ class PostsController < ApplicationController
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
-      redirect_to user_posts_path(@user, @post), notice: "Post was successfully created"
+      respond_to do |format|
+        format.html { redirect_to user_posts_path(@user, @post), notice: "Post was successfully created" }
+        format.turbo_stream
+      end
     else
       render 'new', unprocessable_entity: "Post was not created"
     end
@@ -19,9 +22,7 @@ class PostsController < ApplicationController
 
   def index
     @post = Post.new
-    own_posts = current_user.posts
-    following_posts = current_user.followed_users.map(&:posts).flatten
-    @posts = (own_posts + following_posts).sort_by(&:created_at).reverse
+    @posts = current_user_and_following_posts
   end
 
   private
