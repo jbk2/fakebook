@@ -22,7 +22,7 @@ include PostsHandler
 
   def index
     @post = Post.new
-    @posts = current_user_and_following_posts
+    @posts = current_user_and_following_user_posts
   end
 
   private
