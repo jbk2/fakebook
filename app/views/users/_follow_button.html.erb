@@ -1,7 +1,6 @@
 <% if context == 'user_card' %>
   <%= button_to follows_path, method: :post,
-    class: "btn bg-blue-600 text-white/80 px-1 w-full", form_class: "button_to",
-    data: { turbo_frame: "follow_action_button_#{user.id}" } do %>
+    class: "btn bg-blue-600 text-white/80 px-1 w-full", form_class: "button_to" do %>
     <%= hidden_field_tag 'follow[followed_id]', user.id %>
     <%= hidden_field_tag 'follow[follower_id]', current_user.id %>
     <%= hidden_field_tag 'context', context %>
@@ -9,8 +8,7 @@
   <% end %>
 <% elsif context == 'post_card' %>
   <%= button_to follows_path, method: :post,
-    class: "link text-sky-600 text-xs font-bold mt-1",
-    data: { turbo_frame: "follow_action_button_#{user.id}" } do %>
+    class: "link text-sky-600 text-xs font-bold mt-1" do %>
     <%= hidden_field_tag 'follow[followed_id]', user.id %>
     <%= hidden_field_tag 'follow[follower_id]', current_user.id %>
     <%= hidden_field_tag 'context', context %>

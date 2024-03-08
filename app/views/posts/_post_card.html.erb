@@ -14,13 +14,13 @@
           <div class="self-start">
             <% unless post.owner == current_user %>
               <% if current_user.followed_users.include?(post.owner) %>
-                <%= turbo_frame_tag "follow_action_button_#{post.owner.id}", class: "grow" do %>
-                  <%= render "users/unfollow_button", user: post.owner,
+                <%= turbo_frame_tag "follow_action_button_#{post.owner.id}_#{post.id}", class: "grow" do %>
+                  <%= render "users/unfollow_button", user: post.owner, post: post,
                     context: 'post_card' %>
                 <% end %>  
               <% else %>
-                <%= turbo_frame_tag "follow_action_button_#{post.owner.id}", class: "grow" do %>
-                  <%= render "users/follow_button", user: post.owner,
+                <%= turbo_frame_tag "follow_action_button_#{post.owner.id}_#{post.id}", class: "grow" do %>
+                  <%= render "users/follow_button", user: post.owner, post: post,
                     current_user: current_user, context: 'post_card' %>
                 <% end %>  
               <% end %>
