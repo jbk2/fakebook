@@ -3,11 +3,18 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import { showModal } from "./photo_modal"
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('[data-modal-id]').forEach(element => {
-    element.addEventListener('click', () => {
-      const modalId = element.getAttribute('data-modal-id');
-      showModal(modalId);
+function initModalListenersOnPosts() {
+  const postsContainer = document.getElementById('posts');
+
+  if (postsContainer) {
+    postsContainer.addEventListener('click', function(event) {
+      const target = event.target.closest('[data-modal-id]');
+      if (target) {
+        const modalId = target.getAttribute('data-modal-id');
+        showModal(modalId);
+      }
     });
-  });
-});
+  }
+}
+
+document.addEventListener('turbo:load', initModalListenersOnPosts);
