@@ -11,6 +11,11 @@ include PostsHandler
   def create
     @post = current_user.posts.build(post_params)
     if @post.save
+      if @post.photos.present?
+        @post.photos.each do |photo|
+          ProcessImageJob.perform_later(photo.blob.id)
+        end
+      end
       respond_to do |format|
         format.html { redirect_to user_posts_path(@user, @post), notice: "Post was successfully created" }
         format.turbo_stream
