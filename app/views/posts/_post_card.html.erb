@@ -4,7 +4,7 @@
     <section id="header">
       <section class="flex flex-row">
         <div class="w-14 h-14 rounded-full overflow-hidden mr-2">
-          <%= image_tag post.owner.profile_photo.representation(resize_to_fill: [100, 100]), class: "object-cover" %>
+          <%= image_tag(post.owner.profile_photo.variant(:avatar).processed, class: "object-cover") %>
         </div>
         <div class="flex flex-row">
           <div class="flex flex-col items-start mr-2">
@@ -39,11 +39,13 @@
         <% post.photos.each_with_index do |photo, index| %>
           <% modal_id = "photo_modal_#{post.id}_#{photo.id}" %>
           <div class="overflow-hidden flex rounded-md hover:cursor-pointer" data-modal-id="<%= modal_id %>">
-            <%= image_tag(photo.representation(resize_to_fill: [400, 400]).processed, class: "object-cover") %>
+            <%= image_tag(photo.variant(:medium).processed, loading: "lazy",
+              class: "") %> <!-- alternatively; photo.representation(resize_to_fill: [400, 400]) -->
           </div>
           <dialog id="<%= modal_id %>" class="modal">
             <div class="modal-box max-w-full max-h-none w-[700px] h-[700px]">
-              <%= image_tag(photo.representation(resize_to_fill: [1000, 1000]).processed, class: "object-fit") %>
+              <%= image_tag(photo.variant(:large).processed, loading: "lazy",
+                class: "") %>
             </div>
             <form method="dialog" class="modal-backdrop">
               <button class=""></button>

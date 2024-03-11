@@ -26,7 +26,9 @@ class User < ApplicationRecord
   has_many :following_users, through: :followers, source: :follower
   
   
-  has_one_attached :profile_photo
+  has_one_attached :profile_photo do |attachable|
+    attachable.variant :avatar, resize_to_limit: [100, 100]
+  end
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
