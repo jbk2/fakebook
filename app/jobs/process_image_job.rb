@@ -7,9 +7,12 @@ class ProcessImageJob < ApplicationJob
     
     download_blob_to_tempfile(blob) do |tempfile|
       processed_image = process_image(tempfile.path)
-      post.photos.attach(io: File.open(processed_image.path),
-        filename: "processed_#{blob.filename}",
-        content_type: blob.content_type)
+
+      blob.open(tmpdir: Rails.root.join("tmp")) { |file| file.write(processed_image.read) }
+
+      post.photos.attach(blob)
+      processed_image.close
+      processed_image.unlink
     end
   end
 
