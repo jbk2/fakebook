@@ -44,8 +44,8 @@ Technologies/libraries used:
 ---
 
 ### Next ToDos:
-- New posts form 'x' button on attachements so user can remove them before posting
-- Background Job for image processing.
+
+- Use ImageProcessingJob to process user.profile_photos.
 - Stop posts index loading all posts on page load, paginate (maybe) and load on scroll by turbo
 - Reduce profile image sizes, and render different preloaded ones for different uses
 - Create User profile page - contains profile info and all of their posts
