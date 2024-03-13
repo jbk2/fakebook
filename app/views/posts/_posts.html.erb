@@ -1,3 +1,4 @@
 <% @posts.each do |post| %>
   <%= render 'post_card', post: post %>
 <% end %>
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>

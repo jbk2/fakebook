@@ -28,6 +28,11 @@ include PostsHandler
   def index
     @post = Post.new
     @posts = current_user_and_following_user_posts
+    @pagy, @posts = pagy(@posts)
+  rescue Pagy::OverflowError
+    redirect_to root_path, alert: "Page number is too high"
+    # params[:page] = 1
+    # retry
   end
 
   private
