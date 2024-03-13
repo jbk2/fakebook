@@ -14,6 +14,10 @@
       <%= turbo_frame_tag "posts", class: "my-10" do %>
         <%= render 'posts' %>
       <% end %>
+
+      <%= turbo_frame_tag "pagination",
+        loading: :lazy,
+        src: user_posts_path(@user, format: :turbo_stream) %>
     </section>
   </div>
   

@@ -1,0 +1,13 @@
+<%= turbo_stream.append :posts do %>
+  <%= render partial: 'posts/post_card', collection: @posts, as: :post %>
+<% end %>
+
+<%= turbo_stream.replace :pagination do %>
+  <% if @pagy.next.present? %>
+    <%= turbo_frame_tag :pagination,
+      loading: :lazy,
+      src: user_posts_path(@user, format: :turbo_stream, page: @pagy.next) %>
+  <% end %>
+  
+<% end %>
+
