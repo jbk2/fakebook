@@ -55,7 +55,6 @@
       </section>
     <% end %>
 
-
     <section id="post-actions">
       <div class="card-actions justify-between px-24">
         <div class="flex flex-row items-center">
@@ -70,15 +69,18 @@
       <hr class="my-2">
       <div class="card-actions justify-between px-24">
         <div class="flex flex-row items-center">
-          <%= link_to image_tag('icons/like.png', alt: 'thumbs up icon', height: '24', width: '24'), root_path, id: 'like-action' %>
+          <i class="fa-regular fa-thumbs-up text-xl"></i>
+          <%#= link_to image_tag('icons/like.png', alt: 'thumbs up icon', height: '24', width: '24'), root_path, id: 'like-action' %>
           <span class="ml-2">Like</span>
         </div>
         <div class="flex flex-row items-center">
-          <%= link_to image_tag('icons/chat.png', alt: 'chat icon', height: '24', width: '24'), root_path, id: 'comment-action' %>
+          <i class="fa-regular fa-comment text-xl"></i>
+          <%#= link_to image_tag('icons/chat.png', alt: 'chat icon', height: '24', width: '24'), root_path, id: 'comment-action' %>
           <span class="ml-2">Comment</span>
         </div>
         <div class="flex flex-row items-center">
-          <%= link_to image_tag('icons/send.png', alt: 'send icon', height: '24', width: '24'), root_path, id: 'send-action' %>
+          <i class="fa-regular fa-paper-plane text-xl"></i>
+          <%#= link_to image_tag('icons/send.png', alt: 'send icon', height: '24', width: '24'), root_path, id: 'send-action' %>
           <span class="ml-2">Send</span>
         </div>
       </div>

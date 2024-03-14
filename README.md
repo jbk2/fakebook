@@ -52,7 +52,7 @@ Technologies/libraries used:
 - Create User profile page - contains profile info and all of their posts
 - Create Users#index page
 - Enable comments on posts
-- Enable likes on posts
+- Enable likes on posts, posts has_many likes
 - Limit posts#index to only authored & friends posts
 - Enable chat
 - Use Turbo to lazy load posts.
