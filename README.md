@@ -46,7 +46,6 @@ Technologies/libraries used:
 ### Next ToDos:
 
 - Use ImageProcessingJob to process user.profile_photos as well as post.photos
-- Adapt pagination to infinite scroll
 - Replace all icon images with font_awesome icons
 - Stop posts index loading all posts on page load, paginate (maybe) and load on scroll by turbo
 - Reduce profile image sizes, and render different preloaded ones for different uses
