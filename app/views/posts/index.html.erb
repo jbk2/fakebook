@@ -17,7 +17,7 @@
 
       <%= turbo_frame_tag "pagination",
         loading: :lazy,
-        src: user_posts_path(@user, format: :turbo_stream) %>
+        src: user_posts_path(@user ,format: :turbo_stream, page: (@pagy.next || 1)) %>
     </section>
   </div>
   

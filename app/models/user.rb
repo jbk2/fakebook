@@ -20,10 +20,10 @@ class User < ApplicationRecord
   has_many :posts
 
   has_many :following, foreign_key: :follower_id, class_name: "Follow"
-  has_many :followed_users, through: :following, source: :followed
+  has_many :followed_users, through: :following, source: :followed # those u r following
   
   has_many :followers, foreign_key: :followed_id, class_name: "Follow"
-  has_many :following_users, through: :followers, source: :follower
+  has_many :following_users, through: :followers, source: :follower # those following u
   
   
   has_one_attached :profile_photo do |attachable|
