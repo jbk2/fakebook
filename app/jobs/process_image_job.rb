@@ -1,11 +1,11 @@
 class ProcessImageJob < ApplicationJob
   queue_as :default
 
-  def perform(blob_id)
+  def perform(blob_id, width: nil, height: nil)
     original_blob = ActiveStorage::Blob.find(blob_id)
     
     download_blob_to_tempfile(original_blob) do |tempfile|
-      processed_image = process_image(tempfile.path)
+      processed_image = process_image(tempfile.path, width, height)
       new_blob = nil
 
       File.open(processed_image.path, 'rb') do |file|
@@ -18,8 +18,11 @@ class ProcessImageJob < ApplicationJob
 
       original_blob.attachments.each do |attachment|
         if new_blob
-          attachment.purge
           attachment.record.photos.attach(new_blob)
+          
+          new_blob.attachments.last.record.after_commit do
+            original_blob.purge
+          end
         end
       end
 
@@ -40,12 +43,12 @@ class ProcessImageJob < ApplicationJob
     tempfile.unlink
   end
 
-  def process_image(image_path)
+  def process_image(image_path, width, height)
     processed_file = Tempfile.new(['processed', '.jpg'])
 
     ImageProcessing::Vips
       .source(image_path)
-      .resize_to_fill(1000, 1000)
+      .resize_to_fill(width || 1000, height || 1000)
       .call(destination: processed_file.path)
 
       processed_file
