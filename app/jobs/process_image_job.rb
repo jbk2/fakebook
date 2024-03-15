@@ -1,7 +1,7 @@
 class ProcessImageJob < ApplicationJob
   queue_as :default
 
-  def perform(blob_id, width: nil, height: nil)
+  def perform(blob_id, image_type, width: nil, height: nil)
     original_blob = ActiveStorage::Blob.find(blob_id)
     
     download_blob_to_tempfile(original_blob) do |tempfile|
@@ -16,19 +16,25 @@ class ProcessImageJob < ApplicationJob
         )
       end
 
-      original_blob.attachments.each do |attachment|
-        if new_blob
-          attachment.record.photos.attach(new_blob)
-          
-          new_blob.attachments.last.record.after_commit do
-            original_blob.purge
+      ApplicationRecord.transaction do
+        original_blob.attachments.each do |attachment|
+          if new_blob
+            if image_type == "post"
+              attachment.record.photos.attach(new_blob)
+            elsif image_type == "user"
+              attachment.record.profile_photo.attach(new_blob)
+            end
           end
         end
+        original_blob.purge
       end
 
       processed_image.close
       processed_image.unlink
     end
+  rescue => e
+    Rails.logger.error("Failed to process and replace image: #{e.message}")
+    retry
   end
 
   private
