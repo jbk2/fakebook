@@ -13,7 +13,7 @@ include PostsHandler
     if @post.save
       if @post.photos.present?
         @post.photos.each do |photo|
-          ProcessImageJob.perform_later(photo.blob.id, 1000, 1000)
+          ProcessImageJob.perform_later(photo.blob.id)
         end
       end
       respond_to do |format|

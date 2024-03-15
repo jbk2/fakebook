@@ -1,16 +1,28 @@
 class ProcessImageJob < ApplicationJob
   queue_as :default
 
-  def perform(blob_id, width, height)
-    blob = ActiveStorage::Blob.find(blob_id)
-    post = blob.attachments.first.record
+  def perform(blob_id)
+    original_blob = ActiveStorage::Blob.find(blob_id)
     
-    download_blob_to_tempfile(blob) do |tempfile|
-      processed_image = process_image(tempfile.path, width, height)
+    download_blob_to_tempfile(original_blob) do |tempfile|
+      processed_image = process_image(tempfile.path)
+      new_blob = nil
 
-      blob.open(tmpdir: Rails.root.join("tmp")) { |file| file.write(processed_image.read) }
+      File.open(processed_image.path, 'rb') do |file|
+        new_blob = ActiveStorage::Blob.create_and_upload!(
+          io: file,
+          filename: original_blob.filename,
+          content_type: original_blob.content_type
+        )
+      end
 
-      post.photos.attach(blob)
+      original_blob.attachments.each do |attachment|
+        if new_blob
+          attachment.purge
+          attachment.record.photos.attach(new_blob)
+        end
+      end
+
       processed_image.close
       processed_image.unlink
     end
@@ -28,12 +40,12 @@ class ProcessImageJob < ApplicationJob
     tempfile.unlink
   end
 
-  def process_image(image_path, width, height)
+  def process_image(image_path)
     processed_file = Tempfile.new(['processed', '.jpg'])
 
     ImageProcessing::Vips
       .source(image_path)
-      .resize_to_fill(width, height)
+      .resize_to_fill(1000, 1000)
       .call(destination: processed_file.path)
 
       processed_file
