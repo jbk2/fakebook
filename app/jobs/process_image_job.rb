@@ -48,7 +48,8 @@ class ProcessImageJob < ApplicationJob
   def create_new_blob(processed_image, original_blob)
     File.open(processed_image.path, 'rb') do |file|
       ActiveStorage::Blob.create_and_upload!(
-        io: file, filename: original_blob.filename, content_type: original_blob.content_type
+        io: file, filename: original_blob.filename,
+        content_type: original_blob.content_type
       )
     end
   end

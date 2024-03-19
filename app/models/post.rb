@@ -14,6 +14,6 @@ class Post < ApplicationRecord
 
   has_many_attached :photos do |attachable|
     attachable.variant :medium, resize_to_fill: [400, 400]
-    attachable.variant :large, resize_to_fill: [1000, 1000]
   end
+  
 end
