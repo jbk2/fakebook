@@ -1,36 +1,21 @@
 class ProcessImageJob < ApplicationJob
   queue_as :default
 
-  def perform(blob_id, image_type, width: nil, height: nil)
+  def perform(blob_id, image_association_name, width: nil, height: nil)
     original_blob = ActiveStorage::Blob.find(blob_id)
     
     download_blob_to_tempfile(original_blob) do |tempfile|
       processed_image = process_image(tempfile.path, width, height)
-      new_blob = nil
-
-      File.open(processed_image.path, 'rb') do |file|
-        new_blob = ActiveStorage::Blob.create_and_upload!(
-          io: file,
-          filename: original_blob.filename,
-          content_type: original_blob.content_type
-        )
-      end
+      new_blob = create_new_blob(processed_image, original_blob)
 
       ApplicationRecord.transaction do
-        original_blob.attachments.each do |attachment|
-          if new_blob
-            if image_type == "post"
-              attachment.record.photos.attach(new_blob)
-            elsif image_type == "user"
-              attachment.record.profile_photo.attach(new_blob)
-            end
-          end
-        end
-        original_blob.purge
+        attatch_new_blob(new_blob, original_blob, image_association_name)
       end
 
       processed_image.close
       processed_image.unlink
+
+      PurgeBlobJob.set(wait: 15.seconds).perform_later(original_blob.id)
     end
   rescue => e
     Rails.logger.error("Failed to process and replace image: #{e.message}")
@@ -57,6 +42,25 @@ class ProcessImageJob < ApplicationJob
       .resize_to_fill(width || 1000, height || 1000)
       .call(destination: processed_file.path)
 
-      processed_file
-  end 
+    processed_file
+  end
+
+  def create_new_blob(processed_image, original_blob)
+    File.open(processed_image.path, 'rb') do |file|
+      ActiveStorage::Blob.create_and_upload!(
+        io: file, filename: original_blob.filename, content_type: original_blob.content_type
+      )
+    end
+  end
+
+  def attatch_new_blob(new_blob, original_blob, image_association_name)
+    original_attachments = original_blob.attachments.where(name: image_association_name)
+
+    ApplicationRecord.transaction do
+      original_attachments.each do |attachment|
+        attachment.record.public_send(image_association_name).attach(new_blob)
+      end
+    end
+  end
+
 end
