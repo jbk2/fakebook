@@ -13,7 +13,7 @@ class Post < ApplicationRecord
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
 
   has_many_attached :photos do |attachable|
-    attachable.variant :medium, resize_to_fill: [400, 400]
+    attachable.variant :medium, resize_to_fill: [400, 400], preprocessed: true
   end
   
 end

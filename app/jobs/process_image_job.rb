@@ -9,13 +9,15 @@ class ProcessImageJob < ApplicationJob
       new_blob = create_new_blob(processed_image, original_blob)
 
       ApplicationRecord.transaction do
-        attatch_new_blob(new_blob, original_blob, image_association_name)
+        attach_new_blob(new_blob, original_blob, image_association_name)
       end
 
       processed_image.close
       processed_image.unlink
 
-      PurgeBlobJob.set(wait: 15.seconds).perform_later(original_blob.id)
+      if image_association_name.to_s == 'photos'
+        PurgeBlobJob.set(wait: 15.seconds).perform_later(original_blob.id)
+      end
     end
   rescue => e
     Rails.logger.error("Failed to process and replace image: #{e.message}")
@@ -54,12 +56,19 @@ class ProcessImageJob < ApplicationJob
     end
   end
 
-  def attatch_new_blob(new_blob, original_blob, image_association_name)
-    original_attachments = original_blob.attachments.where(name: image_association_name)
-
+  def attach_new_blob(new_blob, original_blob, image_association_name)
     ApplicationRecord.transaction do
-      original_attachments.each do |attachment|
-        attachment.record.public_send(image_association_name).attach(new_blob)
+      original_attachments = original_blob.attachments.where(name: image_association_name)
+
+      if image_association_name.to_s == 'profile_photo'
+        user = original_attachments.first.record
+        user.public_send("#{image_association_name}=", new_blob)
+        user.save!(validate: false)
+        # original_attachments.first.record.public_send("#{image_association_name}=", new_blob)
+      elsif image_association_name.to_s == 'photos'
+        original_attachments.each do |attachment|
+          attachment.record.public_send(image_association_name).attach(new_blob)
+        end
       end
     end
   end

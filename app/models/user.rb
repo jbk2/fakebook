@@ -24,10 +24,10 @@ class User < ApplicationRecord
   has_many :following_users, through: :followers, source: :follower # those following u
   
   has_one_attached :profile_photo do |attachable|
-    attachable.variant :avatar, resize_to_limit: [100, 100]
+    attachable.variant :avatar, resize_to_limit: [100, 100], preprocessed: true
   end
 
-  after_save_commit :enqueue_profile_photo_processing, if: :profile_photo_attached?
+  # after_save_commit :enqueue_profile_photo_processing, if: :profile_photo_attached?
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def enqueue_profile_photo_processing
-    ProcessImageJob.perform_later(profile_photo.blob.id, 'user', width: 500, height: 500)
+    ProcessImageJob.perform_later(profile_photo.blob.id, 'profile_photo', width: 500, height: 500)
   end
 
 end

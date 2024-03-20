@@ -8,12 +8,13 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Turn false under Spring and add config.action_view.cache_template_loading = true.
-  config.cache_classes = true
+  # While tests run files are not watched, reloading is not necessary.
+  config.enable_reloading = false
 
-  # Eager loading loads your whole application. When running a single test locally,
-  # this probably isn't necessary. It's a good idea to do in a continuous integration
-  # system, or in some way before deploying your code.
+  # Eager loading loads your entire application. When running a single test locally,
+  # this is usually not necessary, and can slow down your test suite. However, it's
+  # recommended that you enable it in continuous integration systems to ensure eager
+  # loading is working properly before deploying your code.
   config.eager_load = ENV["CI"].present?
 
   # Configure public file server for tests with Cache-Control for performance.
@@ -23,12 +24,16 @@ Rails.application.configure do
   }
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
 
-  # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
+  if Rails.env.local?
+    config.log_file_size = 100 * 1024 * 1024
+  end
+
+  # Render exception templates for rescuable exceptions and raise for other exceptions.
+  config.action_dispatch.show_exceptions = :rescuable
 
   # Disable request forgery protection in test environment.
   config.action_controller.allow_forgery_protection = false
@@ -43,6 +48,32 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Configure Action View to use HTML5 standards-compliant sanitizers.
+  config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
+
+  # Configure Action Text to use an HTML5 standards-compliant sanitizer.
+  config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
+
+  # Enable the Active Job `BigDecimal` argument serializer, which guarantees
+  # roundtripping. Without this serializer, some queue adapters may serialize
+  # `BigDecimal` arguments as simple (non-roundtrippable) strings.
+  config.active_job.use_big_decimal_serializer = true
+
+  # See https://www.sqlite.org/quirks.html#double_quoted_string_literals_are_accepted for more details.
+  config.active_record.sqlite3_adapter_strict_strings_by_default = true
+
+  # Enable raising on assignment to attr_readonly attributes. The previous
+  # behavior would allow assignment but silently not persist changes to the
+  # database.
+  config.active_record.raise_on_assign_to_attr_readonly = true
+
+  # Enable a performance optimization that serializes Active Record models
+  # in a faster and more compact way.
+  config.active_record.marshalling_format_version = 7.1
+
+  # Run `after_commit` and `after_*_commit` callbacks in the order they are defined in a model.
+  config.active_record.run_after_transaction_callbacks_in_order_defined = true
+
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
@@ -52,9 +83,16 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
+  # For more information, see
+  # https://guides.rubyonrails.org/v7.1/configuring.html#config-active-support-message-serializer
+  config.active_support.message_serializer = :json_allow_marshal
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Raise error when a before_action's only/except options reference missing actions
+  config.action_controller.raise_on_missing_callback_actions = true
 end
