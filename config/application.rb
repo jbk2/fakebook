@@ -27,5 +27,10 @@ module Fakebook
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.active_job.queue_adapter = :sidekiq
+
+    # Changing this default means that all new cache entries added to the cache
+    # will have a different format that is not supported by Rails 7.0
+    # applications.
+    config.active_support.cache_format_version = 7.1
   end
 end
