@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def enqueue_profile_photo_processing
-    ProcessImageJob.perform_later(profile_photo.blob.id, 'profile_photo', width: 500, height: 500)
+    ProcessImageJob.perform_later(profile_photo.id, 'profile_photo', width: 500, height: 500)
   end
 
 end

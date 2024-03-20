@@ -17,6 +17,7 @@ include PostsHandler
           ProcessImageJob.perform_later(photo.blob.id, 'photos')
         end
       end
+      
       respond_to do |format|
         format.html { redirect_to user_posts_path(@user, @post), notice: "Post was successfully created" }
         format.turbo_stream
