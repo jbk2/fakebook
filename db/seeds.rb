@@ -47,6 +47,10 @@ def create_posts(no_of_posts, user_id)
       end
 
       post.photos.attach(images) if images.any?
+
+      post.photos.each do |photo|
+        ProcessImageJob.perform_later(photo.blob.id, 'photos')
+      end
     end
   end
 end

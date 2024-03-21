@@ -12,16 +12,18 @@ class ProcessImageJob < ApplicationJob
         attach_new_blob(new_blob, original_blob, image_association_name)
       end
 
-      new_blob_id = new_blob.id
-      new_attachment_id = new_blob.attachments.first.id
-
       processed_image.close
       processed_image.unlink
 
+      
       if image_association_name.to_s == 'photos'
         PurgeBlobJob.set(wait: 15.seconds).perform_later(original_blob.id)
+        
+        new_blob_id = new_blob.id
+        new_attachment_id = new_blob.attachments.first.id
+        
+        PhotoProcessState.find_by(attachment_id: new_attachment_id).update(processed: true)
       end
-      PhotoProcessState.find_by(attachment_id: new_attachment_id).update(processed: true)
     end
   rescue => e
     Rails.logger.error("Failed to process and replace image: #{e.message}")
@@ -66,8 +68,14 @@ class ProcessImageJob < ApplicationJob
         post = original_blob.attachments.first.record
         post.photos.attach(new_blob)
       elsif image_association_name.to_s == 'profile_photo'
-        user = original_blob.attachments.first.record
-        user.profile_photo.attach(new_blob)
+        attachment = original_blob.attachments.first
+        if attachment && attachment.respond_to?(:record)
+          user = attachment.record
+          user.public_send("#{image_association_name}=", new_blob)
+          user.save!(validate: false)
+        else
+          Rails.logger.error "Attachment is nil or does not respond to 'record'"
+        end
       end
     end
   end

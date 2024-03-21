@@ -37,6 +37,8 @@ Rails.application.configure do
     config.log_file_size = 100 * 1024 * 1024
   end
 
+  config.log_level = :debug
+
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
