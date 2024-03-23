@@ -26,11 +26,6 @@ class ProcessImageJob < ApplicationJob
       
       if image_association_name.to_s == 'photos'
         PurgeBlobJob.set(wait: 1.second).perform_later(original_blob.id)
-        
-        new_blob_id = new_blob.id
-        new_attachment_id = new_blob.attachments.first.id
-        
-        PhotoProcessState.find_by(attachment_id: new_attachment_id).update(processed: true)
       end
     end
   rescue => e
