@@ -3,10 +3,18 @@ class ProcessImageJob < ApplicationJob
 
   def perform(blob_id, image_association_name, width: nil, height: nil)
     original_blob = ActiveStorage::Blob.find(blob_id)
+    retry_attempts = 0
+
+    Rails.logger.info("Processing blob #{blob_id}: processed flag = #{original_blob.metadata['processed'].inspect}")    
+    if original_blob.metadata['processed'] == true
+      Rails.logger.info("#################\/nBlob #{blob_id} has metadata['processed'=>true]. Skipping processing ################.")
+      return
+    end
 
     download_blob_to_tempfile(original_blob) do |tempfile|
       processed_image = process_image(tempfile.path, width, height)
       new_blob = create_new_blob(processed_image, original_blob)
+      new_blob.update!(metadata: new_blob.metadata.merge('processed' => true))
 
       ApplicationRecord.transaction do
         attach_new_blob(new_blob, original_blob, image_association_name)
@@ -17,7 +25,7 @@ class ProcessImageJob < ApplicationJob
 
       
       if image_association_name.to_s == 'photos'
-        PurgeBlobJob.set(wait: 15.seconds).perform_later(original_blob.id)
+        PurgeBlobJob.set(wait: 1.second).perform_later(original_blob.id)
         
         new_blob_id = new_blob.id
         new_attachment_id = new_blob.attachments.first.id
@@ -26,8 +34,11 @@ class ProcessImageJob < ApplicationJob
       end
     end
   rescue => e
+    retry_attempts += 1
     Rails.logger.error("Failed to process and replace image: #{e.message}")
-    retry
+    if retry_attempts < 3
+      retry
+    end
   end
 
   private
@@ -67,15 +78,11 @@ class ProcessImageJob < ApplicationJob
       if image_association_name.to_s == 'photos'
         post = original_blob.attachments.first.record
         post.photos.attach(new_blob)
+        post.save!(validate: false)
       elsif image_association_name.to_s == 'profile_photo'
-        attachment = original_blob.attachments.first
-        if attachment && attachment.respond_to?(:record)
-          user = attachment.record
-          user.public_send("#{image_association_name}=", new_blob)
-          user.save!(validate: false)
-        else
-          Rails.logger.error "Attachment is nil or does not respond to 'record'"
-        end
+        user = original_blob.attachments.last.record
+        user.profile_photo.attach(new_blob)
+        user.save!(validate: false)
       end
     end
   end
