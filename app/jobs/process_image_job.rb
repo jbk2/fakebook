@@ -1,9 +1,9 @@
 class ProcessImageJob < ApplicationJob
   queue_as :default
 
-  def perform(blob_id, image_association_name, width: nil, height: nil)
+  def perform(blob_id, image_association_name, width: nil, height: nil, retry_attempts: 0)
     original_blob = ActiveStorage::Blob.find(blob_id)
-    retry_attempts = 0
+    record = original_blob.attachments.first.record
 
     Rails.logger.info("Processing blob #{blob_id}: processed flag = #{original_blob.metadata['processed'].inspect}")    
     if original_blob.metadata['processed'] == true
@@ -14,10 +14,9 @@ class ProcessImageJob < ApplicationJob
     download_blob_to_tempfile(original_blob) do |tempfile|
       processed_image = process_image(tempfile.path, width, height)
       new_blob = create_new_blob(processed_image, original_blob)
-      new_blob.update!(metadata: new_blob.metadata.merge('processed' => true))
 
       ApplicationRecord.transaction do
-        attach_new_blob(new_blob, original_blob, image_association_name)
+        attach_new_blob(new_blob, original_blob, record, image_association_name)
       end
 
       processed_image.close
@@ -25,14 +24,18 @@ class ProcessImageJob < ApplicationJob
 
       
       if image_association_name.to_s == 'photos'
-        PurgeBlobJob.set(wait: 1.second).perform_later(original_blob.id)
+        PurgeBlobJob.set(wait: 20.seconds).perform_later(original_blob.id)
       end
     end
   rescue => e
     retry_attempts += 1
-    Rails.logger.error("Failed to process and replace image: #{e.message}")
+    Rails.logger.error("Failed to process and replace image on attempt #{retry_attempts}: #{e.message}\nBacktrace:\n#{e.backtrace.join("\n")}")
     if retry_attempts < 3
-      retry
+      Rails.logger.info("Retrying processing blob #{blob_id}, attempt #{retry_attempts + 1}")
+      perform(blob_id, image_association_name, width: width, height: height, retry_attempts: retry_attempts)
+    else
+      Rails.logger.error("All retry attempts failed for blob #{blob_id}")
+      return
     end
   end
 
@@ -68,17 +71,18 @@ class ProcessImageJob < ApplicationJob
     end
   end
 
-  def attach_new_blob(new_blob, original_blob, image_association_name)
+  def attach_new_blob(new_blob, original_blob, record, image_association_name)
     ApplicationRecord.transaction do
       if image_association_name.to_s == 'photos'
-        post = original_blob.attachments.first.record
-        post.photos.attach(new_blob)
-        post.save!(validate: false)
+        Rails.logger.info("######################### Original Blob is #{original_blob.inspect}")
+        record.photos.attach(new_blob)
+        record.save!(validate: false)
       elsif image_association_name.to_s == 'profile_photo'
         user = original_blob.attachments.last.record
-        user.profile_photo.attach(new_blob)
-        user.save!(validate: false)
+        record.profile_photo.attach(new_blob)
+        record.save!(validate: false)
       end
+      new_blob.update!(metadata: new_blob.metadata.merge('processed' => true))
     end
   end
 

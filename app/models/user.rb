@@ -27,7 +27,7 @@ class User < ApplicationRecord
     attachable.variant :avatar, resize_to_limit: [100, 100], preprocessed: true
   end
 
-  # after_save_commit :enqueue_profile_photo_processing, if: -> { profile_photo_attached? && !processed? }
+  after_save_commit :enqueue_profile_photo_processing, if: -> { profile_photo_attached? && !processed? }
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
@@ -46,7 +46,7 @@ class User < ApplicationRecord
 
   def enqueue_profile_photo_processing
     Rails.logger.info("Enqueuing profile photo processing job for user: #{profile_photo.blob_id}")
-    ProcessImageJob.set(wait: 15.seconds).perform_later(profile_photo.blob.id, 'profile_photo', width: 500, height: 500)
+    ProcessImageJob.perform_later(profile_photo.blob.id, 'profile_photo', width: 500, height: 500) #set(wait: 30.seconds).
   end
 
 end
