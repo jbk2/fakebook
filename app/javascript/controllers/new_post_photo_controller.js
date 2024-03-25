@@ -55,7 +55,7 @@ export default class extends Controller {
 
         let img = document.createElement('img');
         img.src = e.target.result;
-        img.classList.add('w-24', 'h-24', 'object-fit', 'rounded-sm', 'm-2');
+        img.classList.add('w-24', 'h-24', 'object-cover', 'rounded-sm', 'm-2');
 
         let removeButton = document.createElement('button');
         removeButton.textContent = 'x';

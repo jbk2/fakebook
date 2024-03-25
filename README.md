@@ -18,7 +18,8 @@ Technologies/libraries used:
   - TailwindCSS, DaisyUI, FontAwesome
   - 
   Backend
-  - 
+  - ActiveStorage
+  - ActiveJob, ImageProcessing gem - handle queued job race conditions for attachment purging
 
 #### Tech to implement
 - Turbo Streams
@@ -45,14 +46,10 @@ Technologies/libraries used:
 
 ### Next ToDos:
 
-- Use ImageProcessingJob to process user.profile_photos as well as post.photos
-- Replace all icon images with font_awesome icons
-- Stop posts index loading all posts on page load, paginate (maybe) and load on scroll by turbo
-- Reduce profile image sizes, and render different preloaded ones for different uses
 - Create User profile page - contains profile info and all of their posts
 - Create Users#index page
 - Enable comments on posts
-- Enable likes on posts, posts has_many likes
+- Enable likes on posts, posts has_many likes, cannot like own post, cannot like same post twice
 - Limit posts#index to only authored & friends posts
 - Enable chat
 - Use Turbo to lazy load posts.
@@ -76,3 +73,4 @@ Technologies/libraries used:
   - Posts
     - limit visible length of post.body's enabling reveal all in whole post in a modal
     - allow new post attachment files to preview pdfs as well as images
+    - limit new post file attachment UI (& backend) to 6 files

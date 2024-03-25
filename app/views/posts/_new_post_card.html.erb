@@ -20,7 +20,7 @@
         <% end %>
         
         <%#= link_to image_tag('icons/gallery.png', alt: 'photo icon', height: '24', width: '24'), root_path, data: { action: "click->new-post-photo#loadFileInput" }, id: 'gallery-action' %>  
-        <%= link_to root_path, id: 'video-action', data: { action: "click->new-post-photo#loadFileInput" }, id: 'gallery-action' do %>
+        <%= link_to root_path, data: { action: "click->new-post-photo#loadFileInput" }, id: 'gallery-action' do %>
           <i class="fa-regular fa-image text-xl text-green-500"></i>
         <% end %>
         
