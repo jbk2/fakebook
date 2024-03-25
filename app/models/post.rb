@@ -16,4 +16,6 @@ class Post < ApplicationRecord
     attachable.variant :medium, resize_to_fill: [400, 400], preprocessed: true
   end
 
+  has_many :likes, dependent: :destroy
+
 end

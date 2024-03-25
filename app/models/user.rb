@@ -18,11 +18,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :posts
+  
   has_many :following, foreign_key: :follower_id, class_name: "Follow"
   has_many :followed_users, through: :following, source: :followed # those u r following
   has_many :followers, foreign_key: :followed_id, class_name: "Follow"
   has_many :following_users, through: :followers, source: :follower # those following u
-  
+
+  has_many :likes
   has_one_attached :profile_photo do |attachable|
     attachable.variant :avatar, resize_to_limit: [100, 100], preprocessed: true
   end
