@@ -46,7 +46,7 @@ class User < ApplicationRecord
 
   def enqueue_profile_photo_processing
     Rails.logger.info("Enqueuing profile photo processing job for user: #{profile_photo.blob_id}")
-    ProcessImageJob.perform_later(profile_photo.blob.id, 'profile_photo', width: 500, height: 500) #set(wait: 30.seconds).
+    ProcessImageJob.perform_later(profile_photo.blob.id, 'profile_photo', width: 500, height: 500)
   end
 
 end

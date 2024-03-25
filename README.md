@@ -62,7 +62,8 @@ Technologies/libraries used:
 - General
   - Test everywhere everything
   - Allow User profile_photo to be null and if null render daisy placeholder avatar
-  - 
+  - ProcessImageJob - implement job chaining or tracking to ensure all jobs are completed before
+    deletion
 
 - Validations
   
