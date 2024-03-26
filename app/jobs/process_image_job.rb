@@ -2,11 +2,12 @@ class ProcessImageJob < ApplicationJob
   queue_as :default
 
   def perform(blob_id, width: nil, height: nil, retry_attempts: 0)
-    @original_blob = ActiveStorage::Blob.find(blob_id)
-    @owning_record = @original_blob.attachments.first.record
+    @original_blob = ActiveStorage::Blob.find_by(id: blob_id)
 
+    return Rails.logger.info("Blob with ID #{blob_id} no longer exists. Exiting job.") unless @original_blob
     return if @original_blob.metadata['processed']
-
+    
+    @owning_record = @original_blob.attachments.first.record
     orig_img_tempfile, processed_img = create_img_tempfile, nil
 
     begin
@@ -15,6 +16,9 @@ class ProcessImageJob < ApplicationJob
       attach_new_blob(new_blob)
       PurgeBlobJob.perform_later(@original_blob.id) if @owning_record.is_a?(Post)
       #No need to purge the User.profile_photo original blob as it's a has_one_attachment so it gets overwritten
+    rescue ActiveRecord::RecordNotFound => e
+      # Specifically catch and log missing records without retrying
+      Rails.logger.error("Record not found: #{e.message}. No retry will be performed.")
     rescue => e
       retry_attempts += 1
       Rails.logger.error("Failed to process and replace image on attempt #{retry_attempts}: #{e.message}\nBacktrace:\n#{e.backtrace.join("\n")}")
