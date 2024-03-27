@@ -46,13 +46,12 @@ Technologies/libraries used:
 
 ### Next ToDos:
 
-- Create User profile page - contains profile info and all of their posts
-- Create Users#index page
-- Enable comments on posts
-- Enable likes on posts, posts has_many likes, cannot like own post, cannot like same post twice
-- Limit posts#index to only authored & friends posts
-- Enable chat
-- Use Turbo to lazy load posts.
+- Create User profile page - contains profile info and all of their posts (extend the Devise boilerplate view)
+- Build in omniauth Githuib Signin
+- Set up a mailer to welcome new users (ActiveJob)
+- Enable chat (actionCable (or Hotwire))
+- RSPEC test, test, test - set in background with Guard
+- Deploy App
 
 ### Future ToDos:
 
@@ -71,7 +70,8 @@ Technologies/libraries used:
   - Comments
     - Add ability to like comments
     - Add ability to comment on comments
-    - 
+    - Add ability to add photos to comments
+    - Add ability to Like comments (enable existing Likes model to be used for Comment and Post likes)
 
 - UI
   - Posts
