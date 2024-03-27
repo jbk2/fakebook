@@ -1,10 +1,26 @@
-<div class="flex flex-row p-4 items-center">
-  <div class="user-avatar">
-    <%= image_tag(comment.owner.profile_photo.variant(:avatar),
-      class: "w-12 h-12 rounded-full overflow-hidden mr-2") %>
+<article class="p-4">
+  <div class="flex flex-row">
+    <div class="user-avatar">
+      <%= image_tag(comment.owner.profile_photo.variant(:avatar),
+        class: "w-12 h-12 rounded-full overflow-hidden mr-2") %>
+    </div>
+    <div class="comment-text mx-6 text-left">
+      <div class="comment-body border-none bg-gray-100 rounded-full px-4 py-1">
+        <p class="text-xs font-bold"><%= comment.owner.username %></p>
+        <p class=""><%= comment.body %></p>
+      </div>
+  
+      <div class="comment-actions flex pl-4">
+        <div class="">
+          <p class="text-xs"><%= distance_of_time_in_words(Time.now - comment.created_at) %> ago</p>
+        </div>
+        <div class="">
+          <p class="ml-2 text-xs font-bold opacity-70">Like</p>
+        </div>
+        <div class="">
+          <p class="ml-2 text-xs  font-bold opacity-70">Reply</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="comment-text border-none rounded-full px-6 bg-gray-100 text-left">
-    <p class="text-md font-bold"><%= comment.owner.username %></p>
-    <p class=""><%= comment.body %></p>
-  </div>
-</div>
+</article>
