@@ -25,6 +25,7 @@ class User < ApplicationRecord
   has_many :following_users, through: :followers, source: :follower # those following u
 
   has_many :likes
+  has_many :comments
   has_one_attached :profile_photo do |attachable|
     attachable.variant :avatar, resize_to_limit: [100, 100], preprocessed: true
   end

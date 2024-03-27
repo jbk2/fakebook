@@ -76,15 +76,29 @@
           <% end %>
         </div>
         <div class="flex flex-row items-center">
-          <i class="fa-regular fa-comment text-xl"></i>
-          <%#= link_to image_tag('icons/chat.png', alt: 'chat icon', height: '24', width: '24'), root_path, id: 'comment-action' %>
-          <span class="ml-2">Comment</span>
+          <%= link_to new_post_comment_path(post), remote: true,
+          class: "mx-1 hover:cursor-pointer", id: "new-#{post.id}-comment-form" do %>
+            <i class="fa-regular fa-comment text-xl"></i>
+            <span class="ml-1">Comment</span>
+          <% end %>
         </div>
         <div class="flex flex-row items-center">
           <i class="fa-regular fa-paper-plane text-xl"></i>
           <%#= link_to image_tag('icons/send.png', alt: 'send icon', height: '24', width: '24'), root_path, id: 'send-action' %>
           <span class="ml-2">Send</span>
         </div>
+      </div>
+    </section>
+
+    <section class="comments-section">
+      <%= turbo_frame_tag "new-post-#{post.id}-comment" %>
+      <!-- turbo rendered new comment form goes here -->
+      <div class="post-comments">
+        <%= turbo_frame_tag "post-#{post.id}-comments" %>
+        <article id="comment-1">
+        </article>
+        <article id="comment-2">
+        </article>
       </div>
     </section>
 

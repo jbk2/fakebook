@@ -1,0 +1,17 @@
+<div class="flex flex-row px-4 items-center">
+  <div class="user-avatar">
+    <%= image_tag(current_user.profile_photo.variant(:avatar),
+      class: "w-12 h-12 rounded-full overflow-hidden mr-2") %>
+  </div>
+  <div class="comment-text flex-grow">
+    <%= form_with model: comment, url: post_comments_path(@post), data: { turbo: true } do |f| %>
+      <div class="flex flex-row items-center">
+        <%= f.text_field :body, placeholder: "Add a comment...", class: "border-none rounded-full h-11 w-full bg-gray-100" %>
+        <%= button_tag(type: 'submit', class: "submit-button-class") do %>
+          <i class="-ml-14 px-4 fa-regular fa-paper-plane"></i>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

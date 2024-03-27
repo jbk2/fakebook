@@ -1,0 +1,10 @@
+<div class="flex flex-row p-4 items-center">
+  <div class="user-avatar">
+    <%= image_tag(comment.owner.profile_photo.variant(:avatar),
+      class: "w-12 h-12 rounded-full overflow-hidden mr-2") %>
+  </div>
+  <div class="comment-text border-none rounded-full px-6 bg-gray-100 text-left">
+    <p class="text-md font-bold"><%= comment.owner.username %></p>
+    <p class=""><%= comment.body %></p>
+  </div>
+</div>
