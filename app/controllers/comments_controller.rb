@@ -11,7 +11,10 @@ class CommentsController < ApplicationController
 
     if @comment.save
       respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.append("post-#{params[:post_id]}-comments", partial: 'comments/comment', locals: { comment: @comment }) }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.append("post-#{params[:post_id]}-comments",
+            partial: 'comments/comment', locals: { comment: @comment })
+        end
         format.html { redirect_to user_posts_path(current_user), notice: "Comment was created" }
       end
     else
