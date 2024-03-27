@@ -68,6 +68,10 @@ Technologies/libraries used:
   - Posts
     - Photos
       - allow additional photo add events to posts (?)
+  - Comments
+    - Add ability to like comments
+    - Add ability to comment on comments
+    - 
 
 - UI
   - Posts

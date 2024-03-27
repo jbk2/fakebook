@@ -7,7 +7,10 @@ class LikesController < ApplicationController
 
     if @like.save
       respond_to do |format|
-        format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("post-#{params[:post_id]}-like-count",
+          partial: "likes/count", locals: { post: @post })
+        end
         format.html { redirect_to user_posts_path(current_user), notice: "Post was liked" } # html should redirect to the liked post?
       end
     else
