@@ -11,12 +11,12 @@
 class Post < ApplicationRecord
   belongs_to :user
   belongs_to :owner, class_name: "User", foreign_key: "user_id"
-  
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many_attached :photos do |attachable|
     attachable.variant :medium, resize_to_fill: [400, 400], preprocessed: true
   end
-  
-  has_many :likes, dependent: :destroy
-  has_many :comments, dependent: :destroy
 
+  validates :body, presence: true
+  validates :body, length: { in: 3..250 }
 end
