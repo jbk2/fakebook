@@ -83,7 +83,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 6.2"
-  gem "factory_bot", "~> 6.4"
-
+  gem "factory_bot_rails", "~> 6.4"
 end
+
 
