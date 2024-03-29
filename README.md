@@ -46,6 +46,7 @@ Technologies/libraries used:
 
 ### Next ToDos:
 
+- Write ProcessImageJob user.profile_photo integration tests
 - Create User profile page - contains profile info and all of their posts (extend the Devise boilerplate view)
 - Build in omniauth Githuib Signin
 - Set up a mailer to welcome new users (ActiveJob)
