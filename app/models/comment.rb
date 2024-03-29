@@ -12,7 +12,7 @@
 class Comment < ApplicationRecord
   belongs_to :user
   belongs_to :post
-  alias_attribute :owner, :user
+  alias_method :owner, :user
 
   validates :body, presence: true
   validates :body, length: { in: 3..250 }
