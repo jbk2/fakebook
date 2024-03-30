@@ -45,7 +45,11 @@
         <div class="profile-photo-dropdown">
           <details class="dropdown dropdown-end">
             <summary class="m-1 flex items-center justify-center w-12 h-12 rounded-full overflow-hidden">
-              <%= image_tag current_user.profile_photo, class: "object-cover w-full" %>
+              <% if current_user.profile_photo.attached? %>
+                <%= image_tag current_user.profile_photo, class: "object-cover w-full" %>
+              <% else %>
+                <i class="fa-regular fa-user w-12 h-12 rounded-full overflow-hidden"></i>
+              <% end %>  
             </summary>
             <ul class="shadow menu dropdown-content z-[1] bg-base-100 rounded-md w-32">
               <% if user_signed_in? %>
