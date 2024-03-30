@@ -17,5 +17,13 @@ FactoryBot.define do
     sequence(:username) { |n| "user#{n}" }
     sequence(:email) { |n| "user#{n}@example.com" }
     password { 'Password12!' }
+
+    after(:build) do |user|
+      user.profile_photo.attach(
+        io: File.open(Rails.root.join('spec', 'fixtures', 'jpg_test_img_1.jpg')),
+        filename: 'jpg_test_img_1.jpg',
+        content_type: 'image/jpg'
+      )
+    end
   end
 end

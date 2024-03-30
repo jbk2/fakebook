@@ -79,3 +79,5 @@ Technologies/libraries used:
     - limit visible length of post.body's enabling reveal all in whole post in a modal
     - allow new post attachment files to preview pdfs as well as images
     - limit new post file attachment UI (& backend) to 6 files
+  - Users
+    - Index; populate data in users cards.

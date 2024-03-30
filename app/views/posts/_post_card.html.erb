@@ -3,8 +3,12 @@
 
     <section id="header">
       <section class="flex flex-row">
-        <div class="w-14 h-14 rounded-full overflow-hidden mr-2">
-          <%= image_tag(post.owner.profile_photo.variant(:avatar), class: "object-cover") %>
+        <div class="w-14 h-14 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
+          <% if current_user.profile_photo.attached? %>
+            <%= image_tag(post.owner.profile_photo.variant(:avatar), class: "object-cover") %>
+          <% else %>
+            <i class="fa-regular fa-user text-center text-xl"></i>
+          <% end %>  
         </div>
         <div class="flex flex-row">
           <div class="flex flex-col items-start mr-2">
