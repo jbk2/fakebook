@@ -59,6 +59,10 @@ Rails.application.configure do
   # `BigDecimal` arguments as simple (non-roundtrippable) strings.
   config.active_job.use_big_decimal_serializer = true
 
+  # To try to get tests to run Analyze jobs by forcing the queue adapter to be synchronous
+  config.active_job.queue_adapter = :inline
+
+
   # See https://www.sqlite.org/quirks.html#double_quoted_string_literals_are_accepted for more details.
   config.active_record.sqlite3_adapter_strict_strings_by_default = true
 
