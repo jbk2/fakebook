@@ -1,7 +1,7 @@
-<div class="card bg-base-100 shadow-xl my-4">
+<div class="card bg-base-100 shadow-xl my-4" id="post-<%= post.id %>-card">
   <div class="card-body pt-8 pb-6">
 
-    <section id="header">
+    <section class="header">
       <section class="flex flex-row">
         <div class="w-14 h-14 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
           <% if current_user.profile_photo.attached? %>
@@ -34,12 +34,12 @@
       </section>
     </section>
     
-    <section id="body" class="mt-2">
+    <section class="mt-2 body">
       <p class="text-left"><%= post.body %></p>
     </section>
     
     <% if post.photos.present? %>
-      <section id="images" class="grid grid-cols-2 gap-2 justify-items-center">
+      <section class="grid grid-cols-2 gap-2 justify-items-center images">
         <% post.photos.each_with_index do |photo, index| %>
           <% modal_id = "photo_modal_#{post.id}_#{photo.id}" %>
           <div class="overflow-hidden flex rounded-md hover:cursor-pointer" data-modal-id="<%= modal_id %>">
@@ -59,8 +59,8 @@
       </section>
     <% end %>
 
-    <section id="post-actions">
-      <div class="card-actions justify-between px-24">
+    <section class="actions">
+      <div class="justify-between px-24">
         <div class="flex flex-row items-center" >
           <%= image_tag('icons/like2.png', alt: 'like icon', height: '24', width: '24', class: "mx-1") %>
           <span id="post-<%= post.id %>-like-count"><%= pluralize(post.likes.count, 'like') %></span>
@@ -93,7 +93,7 @@
       </div>
     </section>
 
-    <section class="comments-section">
+    <section class="comments">
       <%= turbo_frame_tag "new-post-#{post.id}-comment" %>
       <!-- turbo rendered new comment form goes here -->  
       <div class="post-comments">

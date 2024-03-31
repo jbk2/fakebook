@@ -1,2 +1,3 @@
 <%= turbo_stream.prepend "posts", partial: "posts/post_card", locals: { post: @post } %>
 <%= turbo_stream.replace "new_post_card", partial: "posts/new_post_card", locals: { user: @user, post: Post.new } %>
+<%= turbo_stream.update 'flash_messages', partial: 'layouts/flash' %>
