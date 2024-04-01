@@ -26,7 +26,7 @@ RSpec.describe Like, type: :model do
       expect(valid_like_2.user).to be_instance_of(User)
     end
 
-    it "should belong_to a post"  do
+    it "should belong to a post"  do
       expect(valid_like_1.post).to be_instance_of(Post)
       expect(valid_like_2.post).to be_instance_of(Post)
     end

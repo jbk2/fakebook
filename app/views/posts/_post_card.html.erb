@@ -22,7 +22,7 @@
                   <%= render "users/unfollow_button", user: post.owner, post: post,
                     context: 'post_card' %>
                 <% end %>  
-              <% else %>
+              <% else %> <!--Condition never met as only own and followed_users posts are rendered so-->
                 <%= turbo_frame_tag "follow_action_button_#{post.owner.id}_#{post.id}", class: "grow" do %>
                   <%= render "users/follow_button", user: post.owner, post: post,
                     current_user: current_user, context: 'post_card' %>
