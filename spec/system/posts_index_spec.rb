@@ -31,6 +31,12 @@ describe 'Posts Index', type: :system do
     expect(page).to have_css("#post-#{post[0].id}-card .actions")
   end
   
+  it 'allows a user to add a post without a photo' do
+    fill_in 'post[body]', with: 'Test post with 1 photo'
+    click_button 'Create Post'
+    expect(page).to have_content('Post was successfully created')
+  end
+
   it 'allows a user to add a post with one photo' do
     fill_in 'post[body]', with: 'Test post with 1 photo'
     find("#gallery-action").click
@@ -38,6 +44,24 @@ describe 'Posts Index', type: :system do
     click_button 'Create Post'
     expect(page).to have_content('Post was successfully created')
     expect(page).to have_css("img[src*='jpg_test_img_1.jpg']")
+  end
+  
+  it 'allows a user to add a two jpg and two png photos' do
+    fill_in 'post[body]', with: 'Test post with 1 photo'
+    find("#gallery-action").click
+    attach_file('post[photos][]', [
+      Rails.root.join('spec', 'fixtures', 'jpg_test_img_1.jpg'),
+      Rails.root.join('spec', 'fixtures', 'jpg_test_img_2.jpg'),
+      Rails.root.join('spec', 'fixtures', 'png_test_img_1.png'),
+      Rails.root.join('spec', 'fixtures', 'png_test_img_2.png'),
+      ],
+      make_visible: true)
+    click_button 'Create Post'
+    expect(page).to have_content('Post was successfully created')
+    expect(page).to have_css("img[src*='jpg_test_img_1.jpg']")
+    expect(page).to have_css("img[src*='jpg_test_img_2.jpg']")
+    expect(page).to have_css("img[src*='png_test_img_1.png']")
+    expect(page).to have_css("img[src*='png_test_img_2.png']")
   end
   
   it "displays only the user's and their followed_user's posts" do
