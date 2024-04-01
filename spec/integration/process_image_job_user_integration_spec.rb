@@ -20,7 +20,7 @@
     end
   
     describe '#perform' do
-      it 'replaces original blob with a processed blob ' do
+      it "replaces user's original profile_photo blob with a processed blob" do
         original_blob_id = user.profile_photo.blob.id
         # puts "user.profile_photo attached t/f? #{user.profile_photo.attached?}"
         # puts "user.profile_photo inspect: #{user.profile_photo.inspect}"

@@ -33,8 +33,8 @@ describe 'Authentication', type: :request do
       sign_in user
     end
 
-    it 'renders the page' do
-      get user_posts_path(user)
+    it 'root path successfully renders the user_posts_path' do
+      get root_path
       expect(response).to have_http_status(:success)
       expect(response.body).to include("Whats on your mind #{user.username}?")
 
