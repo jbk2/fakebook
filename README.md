@@ -22,31 +22,51 @@ Technologies/libraries used:
   - ActiveJob, ImageProcessing gem - handle queued job race conditions for attachment purging
 
 #### Tech to implement
-- Turbo Streams
-- Turbo Frames
+- Turbo Streams ✅
+- Turbo Frames ✅
 - Stimulus ✅
 - Tailwindcss / DaisyUI ✅, FontAwesome ✅, 
 - Devise ✅
 - Omniauth
-- Seeding, Faker gem
-- Complex forms; fields_for
+- Seeding, Faker gem ✅
+- Complex forms; fields_for ✅
 - Polmorphic models
-- Custom validation, callbacks
+- Custom validation, callbacks ✅
 - POROs
-- Active Storage
-- Active Job
+- Active Storage ✅
+- Active Job ✅
 - Action Mailer
-- Rspec
+- Rspec; factories, Capybara ✅
 
 
-### Rspec Tested
-  - 
+### Full Test Coverage (Rspec, Shoulda-matchers, FactoryBot, Capybara, Selenium)
+
+Unit Tests
+  - Models; all tested for:
+    - associations
+    - validations
+    - custom methods
+  - ActiveJob; ProcessImageJob
+    - unit tests
+
+Request Tests
+  - Authentication tested on all routes
+
+Integration Tests
+  - User.profile_photo integration with ProcessImageJob
+  - Post.photos integration with ProcessImageJob
+
+System Tests
+  - Users index page
+  - Posts index page
+  - Following & Un-Following from Users index
+  - Unfollowing from Posts index
+  - Post Liking from Posts index 
 
 ---
 
 ### Next ToDos:
 
-- Write ProcessImageJob user.profile_photo integration tests
 - Create User profile page - contains profile info and all of their posts (extend the Devise boilerplate view)
 - Build in omniauth Githuib Signin
 - Set up a mailer to welcome new users (ActiveJob)
