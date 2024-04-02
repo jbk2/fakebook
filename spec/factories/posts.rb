@@ -10,7 +10,7 @@
 #
 FactoryBot.define do
   factory :post do
-    sequence(:body) { |n| "Post content/body #{n}" }
+    sequence(:body) { |n| "Post body content #{n} & id #{self.id}" }
     user { create(:user) }
   end
 
