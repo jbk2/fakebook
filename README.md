@@ -16,7 +16,7 @@ A facebook clone app which will featuring
 Technologies/libraries used:
   Frontend
   - TailwindCSS, DaisyUI, FontAwesome
-  - 
+  - Hotwire - Turbo; streams & frames, Stimulus JS (new_post_photo_controller)
   Backend
   - ActiveStorage
   - ActiveJob, ImageProcessing gem - handle queued job race conditions for attachment purging

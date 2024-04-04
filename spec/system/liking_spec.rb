@@ -18,8 +18,7 @@ describe 'Liking', type: :system do
     expect(page).to have_css("[data-turbo-frame='like_action_#{followed_user_posts[0].id}']")
     expect(page).to have_css("#post-#{followed_user_posts[0].id}-like-count", text: /0 likes/)
     find("[data-turbo-frame='like_action_#{followed_user_posts[0].id}'] button").click
-    sleep 1
-    save_and_open_page
+    sleep 0.3
     expect(page).to have_css("#post-#{followed_user_posts[0].id}-like-count", text: /1 like/)
   end
   

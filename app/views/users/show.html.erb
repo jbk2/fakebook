@@ -1,16 +1,79 @@
-<div>
-  <h1 class="font-bold text-4xl">Users#show</h1>
-  <p>Find me in app/views/users/show.html.erb</p>
-  <p>Here i'll build out a user view which shows the users public info:</p>
-  <ol>
-    <li>username</li>
-    <li>email</li>
-    <li>profile_photo</li>
-    <li>no of followers</li>
-    <li>no following</li>
-    <li>no of posts</li>
-    <li>total no of likes accross all posts</li>
-    <li>online or not?</li>
-  </ol>
-  <p>then lists all of their posts</p>
+<div class="max-w-[1250px] mx-auto">
+  <section class="header">
+    <div class="background-image h-[450px] object-fill rounded-b-md object-center overflow-hidden z-0">
+      <%= image_tag 'backgrounds/bg_1.jpg', alt: "background image", class: "" %>
+    </div>
+    
+    <div class="header-info mx-8 flex mt-6">
+      <div class="profile-photo -mt-28 relative z-10">
+        <%= image_tag @user.profile_photo, alt: "user profile photo", class: "rounded-full size-48 border-4 border-white"%>
+      </div>
+
+      <div class="text ml-4">
+        <h2 class="text font-semibold text-2xl"><%= @user.username %></h2>
+        <p class="mt-1 text-sm font-semibold text-slate-500"><%= pluralize(@friends.count, 'friend') %></p>
+      </div>
+
+      <div class="actions ml-auto">
+        <%= button_to '#', method: :post, remote: true, class: "btn btn-primary" do  %> <!-- user_message_path(@user) -->
+          <i class="fa-brands fa-facebook-messenger"></i>
+          <span>Message</span>
+        <% end %>
+      </div>
+      <hr>
+    </div>
+  </section>
+
+  <div class="mx-8 grid grid-cols-2 gap-2">
+    <section class="left-col">
+      <div class="intro">
+        <header>
+          <h2>Intro</h2>
+        </header>
+      </div>
+
+      <div class="photos">
+        <header>
+          <h2>Photos</h2>
+          <p>View all</p>
+        </header>
+        <div class="container">
+          <% @user.posts.each do |post| %>
+            <% post.photos.each do |photo| %>
+              <img src="<%= photo %>" alt="a post photo">
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="friends">
+        <header>
+          <h2>Friends</h2> <!-- Friends == followers & following -->
+          <p>View all</p>
+        </header>
+        <div class="container">
+          <% @friends.each do |friend| %>%
+            <img src="<%= friend.profile_photo %>" alt="friends profile photo">
+            <p><%= friend.username %></p>
+          <% end %>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="right-col">
+      
+      <div class="header">
+        <h1>Posts</h1>
+        <p class="btn">Filters</p>
+      </div>
+      
+      <div class="posts">
+        <% @user.posts.each do |post| %>
+          <%= render 'posts/post_card', post: post %>
+        <% end %>
+      </div>
+
+    </section>
+  </div>
 </div>

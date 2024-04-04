@@ -10,8 +10,6 @@ describe 'Posts Index', type: :system do
   before do
     sign_in user
     visit user_posts_path(user)
-    # puts "Created post id's: #{post.map(&:id)}"
-    # puts "user.post count is: #{user.posts.count}"
   end
   
   it 'has a form to create new posts' do
@@ -74,7 +72,7 @@ describe 'Posts Index', type: :system do
     visit current_path
 
     expect(page).to have_css(".post-card", count: 5)
-    page.save_screenshot('screenshot3.png')
+    # page.save_screenshot('screenshot3.png')
   end
   
 
