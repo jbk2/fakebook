@@ -20,27 +20,41 @@
           <span>Message</span>
         <% end %>
       </div>
-      <hr>
     </div>
   </section>
 
-  <div class="mx-8 grid grid-cols-2 gap-2">
+  <div class="mx-8 mt-8 grid grid-cols-2 gap-2">
+    <hr class="border-slate-300 col-span-2 mb-6">
     <section class="left-col">
-      <div class="intro">
-        <header>
-          <h2>Intro</h2>
-        </header>
+      <div class="intro card bg-base-100">
+        <div class="card-body p-6">
+          <header class="card-title">
+            <h2 class="text-lg font-semibold mb-1">Intro</h2>
+          </header>
+          <div class="content">
+            <ul>
+              <li class="mb-1">
+                <i class="fa-solid fa-tree-city text-slate-400 text-sm"></i>
+                <span class="ml-2 text-sm">From London, United Kingdom</span>
+              </li>
+              <li>
+                <i class="fa-solid fa-user-group text-slate-400 text-sm"></i>
+                <span class="ml-2 text-sm"><%= pluralize(@common_friends.count, 'friend') %> in common</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
 
-      <div class="photos">
+      <div class="photos mt-4">
         <header>
-          <h2>Photos</h2>
-          <p>View all</p>
+          <h2 class="text-lg font-semibold mb-2">Photos</h2>
+          <span>View all</span>
         </header>
         <div class="container">
           <% @user.posts.each do |post| %>
             <% post.photos.each do |photo| %>
-              <img src="<%= photo %>" alt="a post photo">
+              <%= image_tag photo, class: "size-60", alt: "a post photo" %>
             <% end %>
           <% end %>
         </div>
@@ -63,9 +77,15 @@
 
     <section class="right-col">
       
-      <div class="header">
-        <h1>Posts</h1>
-        <p class="btn">Filters</p>
+      <div class="header flex items-center">
+        <h1 class="text-lg font-semibold">Posts</h1>
+        <details class="dropdown ml-auto">
+          <summary class="m-1 btn">Filters</summary>
+          <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+            <li><a>Item 1</a></li>
+            <li><a>Item 2</a></li>
+          </ul>
+        </details>
       </div>
       
       <div class="posts">
