@@ -89,7 +89,7 @@ System Tests
       - allow additional photo add events to posts (?)
   - Comments
     - Add ability to like comments
-    - Add ability to comment on comments
+    - Add ability to comment on/reply to comments
     - Add ability to add photos to comments
     - Add ability to Like comments (enable existing Likes model to be used for Comment and Post likes)
 

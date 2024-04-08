@@ -97,15 +97,15 @@
 
     <section class="comments">
       <%= turbo_frame_tag "new-post-#{post.id}-comment" %>
-      <!-- turbo rendered new comment form goes here -->  
+      <!-- turbo rendered new comment form goes here -->
+
       <div class="post-comments">
-        
         <% if post.comments.any? %>
           <% post.comments.order(:created_at).each do |comment| %>
             <%= render 'comments/comment', comment: comment %>
           <% end %>
         <% end %>
-          
+      
         <%= turbo_frame_tag "post-#{post.id}-comments" %>
         <!-- turbo rendered comments go here -->
       </div>

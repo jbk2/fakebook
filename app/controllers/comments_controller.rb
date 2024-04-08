@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   def new
     @comment = @post.comments.build
-    render turbo_stream: turbo_stream.replace("new-post-#{params[:post_id]}-comment", partial: 'comments/form', locals: { post: @post, comment: @comment })
+    render turbo_stream: turbo_stream.append("new-post-#{params[:post_id]}-comment", partial: 'comments/form', locals: { post: @post, comment: @comment })
   end
   
   def create
@@ -14,9 +14,11 @@ class CommentsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.append("post-#{params[:post_id]}-comments", partial: 'comments/comment',
-            locals: { comment: @comment }),
+              locals: { comment: @comment }),
             turbo_stream.replace("post-#{params[:post_id]}-comment-count", partial: 'comments/count',
-            locals: { post: @post })
+              locals: { post: @post }),
+            turbo_stream.replace("new-post-#{params[:post_id]}-comment", partial: 'comments/form',
+              locals: { post: @post, comment: @post.comments.build })
           ]
         end
         format.html { redirect_to user_posts_path(current_user), notice: "Comment was created" }
