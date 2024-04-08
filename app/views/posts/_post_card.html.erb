@@ -61,55 +61,61 @@
       </section>
     <% end %>
 
-    <section class="actions">
-      <div class="flex justify-between px-24">
-        <div class="flex items-center" >
-          <%= image_tag('icons/like2.png', alt: 'like icon', height: '24', width: '24', class: "mx-1") %>
-          <span id="post-<%= post.id %>-like-count"><%= pluralize(post.likes.count, 'like') %></span>
+    <div data-controller="comment">
+      <section class="actions">
+        <div class="flex justify-between px-24">
+          <div class="flex items-center" >
+            <%= image_tag('icons/like2.png', alt: 'like icon', height: '24', width: '24', class: "mx-1") %>
+            <span id="post-<%= post.id %>-like-count"><%= pluralize(post.likes.count, 'like') %></span>
+          </div>
+          <div class="">
+            <%= render 'comments/count', post: post %>
+          </div>
         </div>
-        <div class="">
-          <%= render 'comments/count', post: post %>
+        <hr class="my-2">
+        <div class="card-actions justify-between px-24">
+          <div class="flex flex-row items-center">
+            <%= button_to post_likes_path(post), method: :post, remote: true,
+              form: { "data-turbo-frame" => "like_action_#{post.id}" }, id: 'like-action',
+              class: "mx-1 hover:cursor-pointer" do %>
+              <i class="fa-regular fa-thumbs-up text-xl"></i>
+              <span class="ml-2">Like</span>
+            <% end %>
+          </div>
+          <div class="flex flex-row items-center">
+            <%= link_to "#", data: { action: "click->comment#toggle" },
+              class: "mx-1 hover:cursor-pointer" do %>
+              <i class="fa-regular fa-comment text-xl"></i>
+              <span class="ml-1">Comment</span>
+            <% end %>
+          </div>
+          <div class="flex flex-row items-center">
+            <i class="fa-regular fa-paper-plane text-xl"></i>
+            <span class="ml-2">Send</span>
+          </div>
         </div>
-      </div>
-      <hr class="my-2">
-      <div class="card-actions justify-between px-24">
-        <div class="flex flex-row items-center">
-          <%= button_to post_likes_path(post), method: :post, remote: true,
-            form: { "data-turbo-frame" => "like_action_#{post.id}" }, id: 'like-action',
-            class: "mx-1 hover:cursor-pointer" do %>
-            <i class="fa-regular fa-thumbs-up text-xl"></i>
-            <span class="ml-2">Like</span>
-          <% end %>
-        </div>
-        <div class="flex flex-row items-center">
-          <%= link_to new_post_comment_path(post), remote: true,
-          class: "mx-1 hover:cursor-pointer", id: "new-#{post.id}-comment-form" do %>
-            <i class="fa-regular fa-comment text-xl"></i>
-            <span class="ml-1">Comment</span>
-          <% end %>
-        </div>
-        <div class="flex flex-row items-center">
-          <i class="fa-regular fa-paper-plane text-xl"></i>
-          <span class="ml-2">Send</span>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="comments">
-      <%= turbo_frame_tag "new-post-#{post.id}-comment" %>
-      <!-- turbo rendered new comment form goes here -->
+      <section class="comments">
+        <div data-comment-target="form", class="hidden">
+          <%= render 'comments/form', comment: Comment.new, post: post %>
+        </div>
 
-      <div class="post-comments">
-        <% if post.comments.any? %>
-          <% post.comments.order(:created_at).each do |comment| %>
-            <%= render 'comments/comment', comment: comment %>
+        <%= turbo_frame_tag "new-post-#{post.id}-comment" %>
+
+        <!-- turbo rendered new comment form goes here -->
+
+        <div class="post-comments">
+          <% if post.comments.any? %>
+            <% post.comments.order(:created_at).each do |comment| %>
+              <%= render 'comments/comment', comment: comment %>
+            <% end %>
           <% end %>
-        <% end %>
-      
-        <%= turbo_frame_tag "post-#{post.id}-comments" %>
-        <!-- turbo rendered comments go here -->
-      </div>
-    </section>
-
+        
+          <%= turbo_frame_tag "post-#{post.id}-comments" %>
+          <!-- turbo rendered comments go here -->
+        </div>
+      </section>
+    </div>
   </div>
 </div>

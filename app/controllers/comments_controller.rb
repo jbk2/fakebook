@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
 
   def new
     @comment = @post.comments.build
-    render turbo_stream: turbo_stream.append("new-post-#{params[:post_id]}-comment", partial: 'comments/form', locals: { post: @post, comment: @comment })
+    # render turbo_stream: turbo_stream.append("new-post-#{params[:post_id]}-comment", partial: 'comments/form', locals: { post: @post, comment: @comment })
   end
   
   def create
