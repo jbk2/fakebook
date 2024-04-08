@@ -60,8 +60,8 @@
     <% end %>
 
     <section class="actions">
-      <div class="justify-between px-24">
-        <div class="flex flex-row items-center" >
+      <div class="flex justify-between px-24">
+        <div class="flex items-center" >
           <%= image_tag('icons/like2.png', alt: 'like icon', height: '24', width: '24', class: "mx-1") %>
           <span id="post-<%= post.id %>-like-count"><%= pluralize(post.likes.count, 'like') %></span>
         </div>

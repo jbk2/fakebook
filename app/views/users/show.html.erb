@@ -15,7 +15,7 @@
       </div>
 
       <div class="actions ml-auto">
-        <%= button_to '#', method: :post, remote: true, class: "btn btn-primary" do  %> <!-- user_message_path(@user) -->
+        <%= button_to '#', method: :post, remote: true, class: "btn btn-primary bg-blue-600 hover:bg-blue-700" do  %> <!-- user_message_path(@user) -->
           <i class="fa-brands fa-facebook-messenger"></i>
           <span>Message</span>
         <% end %>
@@ -51,26 +51,22 @@
       <div class="photos card rounded-lg bg-base-100 mt-4 pb-4 max-h-[800px]">
         <div class="card-body p-6">
           <h2 class="card-title text-lg font-semibold mb-2">Recent photos</h2>
-          <div class=" max-h-[700px] overflow-auto">
-            <div class="flex flex-wrap gap-2 rounded">
-              <% @user.posts.each do |post| %>
-                <% post.photos.each do |photo| %>
-                  <%= image_tag photo, class: "size-[170px]", alt: "a post photo" %>
-                <% end %>
+          <div class="flex flex-wrap gap-2 rounded max-h-[700px] overflow-auto">
+            <% @user.posts.each do |post| %>
+              <% post.photos.each do |photo| %>
+                <%= image_tag photo, class: "size-[175px]", alt: "a post photo" %>
               <% end %>
-            </div>
-
+            <% end %>
           </div>
         </div>
       </div>
 
-      <div class="friends card rounded-lg bg-base-100 mt-4">
+      <div class="friends card rounded-lg bg-base-100 mt-4 max-h-[600px]">
         <div class="card-body p-6">
           <h2 class="card-title text-lg font-semibold mb-2">Friends</h2> <!-- Friends == followers & following -->
-          <div class="container">
-            <% @friends.each do |friend| %>%
-              <img src="<%= friend.profile_photo %>" alt="friends profile photo">
-              <p><%= friend.username %></p>
+          <div class="flex flex-wrap gap-2 rounded max-h-[510px] overflow-auto">
+            <% @friends.each do |friend| %>
+              <%= image_tag friend.profile_photo,class: "size-[175px]", alt: "friends profile photo" %>
             <% end %>
           </div>
 
