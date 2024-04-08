@@ -67,7 +67,6 @@ System Tests
 
 ### Next ToDos:
 
-- Create User profile page - contains profile info and all of their posts (extend the Devise boilerplate view)
 - Build in omniauth Githuib Signin
 - Set up a mailer to welcome new users (ActiveJob)
 - Enable chat (actionCable (or Hotwire))

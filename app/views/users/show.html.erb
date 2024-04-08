@@ -77,6 +77,7 @@
 
     <section class="right-col">
       
+      
       <div class="header flex items-center">
         <h1 class="text-lg font-semibold">Posts</h1>
         <details class="dropdown ml-auto">
@@ -87,12 +88,12 @@
           </ul>
         </details>
       </div>
-      
-      <div class="posts">
+        
+      <%= turbo_frame_tag "posts", class: "my-10 posts" do %>
         <% @user.posts.each do |post| %>
           <%= render 'posts/post_card', post: post %>
         <% end %>
-      </div>
+      <% end %>
 
     </section>
   </div>
