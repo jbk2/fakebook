@@ -28,11 +28,13 @@ class CommentsController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:alert] = error_message
-          redirect_to user_posts_path(current_user)
+          render 'posts/index', status: :unprocessable_entity
+          # redirect_to user_posts_path(current_user)
         end
         format.turbo_stream do
           flash.now[:alert] = error_message
-          render turbo_stream: turbo_stream.update('flash_messages', partial: 'layouts/flash')
+          render turbo_stream: turbo_stream.update('flash_messages', partial: 'layouts/flash',
+            locals: { message: @comment.errors.full_messages.to_sentence })
         end
       end
     end
