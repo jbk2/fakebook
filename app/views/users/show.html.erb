@@ -15,11 +15,37 @@
       </div>
 
       <div class="actions ml-auto">
-        <%= button_to '#', method: :post, remote: true, class: "btn btn-primary bg-blue-600 hover:bg-blue-700" do  %> <!-- user_message_path(@user) -->
-          <i class="fa-brands fa-facebook-messenger"></i>
-          <span>Message</span>
-        <% end %>
+        <details class="dropdown dropdown-left">
+          <summary class="m-1 btn btn-primary bg-blue-600 hover:bg-blue-700">
+            <i class="fa-brands fa-facebook-messenger"></i>
+            <span>Message</span>
+          </summary>
+
+          <div class="dropdown-content new-message-form">
+            <!-- Message input for action cable broadcast here -->
+            <%= form_with model: @message, url: messages_path, scope: :message do |f| %>
+              <div class="field">
+                <div class="control">
+                  <%= f.text_field :body, id: 'message-input', class: 'input' %>
+                </div>
+                <div>
+                  <%= f.hidden_field :message_recipient_id, value: @user.id %>
+                </div>
+                <div class="control">
+                  <%= f.submit 'Send Message', class: 'btn btn-primary' %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <div id="message-display">
+            <!-- Action cable broadcasted messages go here -->
+          </div>
+        </details>
       </div>
+
+
+
     </div>
   </section>
 

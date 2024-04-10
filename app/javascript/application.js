@@ -1,6 +1,7 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 import "@hotwired/turbo-rails"
 import "controllers"
+import "channels"
 import { showModal } from "./photo_modal"
 
 function initModalListenersOnPosts() {
@@ -18,3 +19,4 @@ function initModalListenersOnPosts() {
 }
 
 document.addEventListener('turbo:load', initModalListenersOnPosts);
+
