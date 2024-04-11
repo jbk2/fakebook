@@ -67,9 +67,18 @@ System Tests
 
 ### Next ToDos:
 
+- Enable chat/messages (actionCable (or Hotwire))
+  - create card to contain messages
+    - display absolute
+    - display all messages (paginate, load only n)
+  - form:
+    - contains sender_id & recipient_id
+    - creates message object with sender_id (aka user_id) & recipient_id
+    - form submit captured by js:
+      - sent to consumer subscription & broadcasted to sender_id & recipient_id
+  
 - Build in omniauth Githuib Signin
 - Set up a mailer to welcome new users (ActiveJob)
-- Enable chat (actionCable (or Hotwire))
 - RSPEC test, test, test - set in background with Guard
 - Deploy App
 
