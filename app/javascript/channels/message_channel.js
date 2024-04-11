@@ -1,6 +1,6 @@
 import consumer from "channels/consumer"
 
-consumer.subscriptions.create("MessageChannel", {
+const messageChannel = consumer.subscriptions.create("MessageChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
     console.log('Connected to the message channel')
@@ -8,6 +8,7 @@ consumer.subscriptions.create("MessageChannel", {
 
   disconnected() {
     // Called when the subscription has been terminated by the server
+    console.log('Disconnected from the message channel')
   },
 
   received(data) {
@@ -29,3 +30,19 @@ consumer.subscriptions.create("MessageChannel", {
   }
 
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  const form = document.getElementById('message-form');
+  const input = document.getElementById('message-input');
+
+  if (form && input) {
+    form.addEventListener('submit', function(e) {
+      console.log('Form submitted');
+      e.preventDefault();
+      messageChannel.send({ body: input.value });
+      input.value = '';
+    });
+  }
+});
+

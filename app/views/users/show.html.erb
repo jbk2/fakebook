@@ -21,9 +21,9 @@
             <span>Message</span>
           </summary>
 
-          <div class="dropdown-content new-message-form">
+          <div class="dropdown-content">
             <!-- Message input for action cable broadcast here -->
-            <%= form_with model: @message, url: messages_path, scope: :message do |f| %>
+            <%= form_with model: @message, url: messages_path, scope: :message, id: "message-form" do |f| %>
               <div class="field">
                 <div class="control">
                   <%= f.text_field :body, id: 'message-input', class: 'input' %>
