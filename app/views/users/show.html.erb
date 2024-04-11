@@ -15,13 +15,33 @@
       </div>
 
       <div class="actions ml-auto">
-        <details class="dropdown dropdown-left">
+        
+    
+        <!-- <div class="card" id="messaging-card">
+          <div class="card-body">
+            <div class="card-title">
+              <div class="w-14 h-14 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
+                <%# if current_user.profile_photo.attached? %>
+                  <%#= image_tag(post.owner.profile_photo.variant(:avatar), class: "object-cover") %>
+                <%# else %>
+                  <i class="fa-regular fa-user text-center text-xl"></i>
+                <%# end %>  
+              </div>
+              <div class="">
+                <h3 class="text-md font-bold mb-2"><%#= post.owner.username %></h3>
+              </div>
+            </div>
+            <div class="card-actions"></div>
+          </div>
+        </div> -->
+
+        <details class="dropdown dropdown-right">
           <summary class="m-1 btn btn-primary bg-blue-600 hover:bg-blue-700">
             <i class="fa-brands fa-facebook-messenger"></i>
             <span>Message</span>
           </summary>
 
-          <div class="dropdown-content">
+          <div class="dropdown-content"%>
             <!-- Message input for action cable broadcast here -->
             <%= form_with model: @message, url: messages_path, scope: :message, id: "message-form" do |f| %>
               <div class="field">
