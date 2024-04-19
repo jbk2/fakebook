@@ -68,20 +68,14 @@ System Tests
 ### Next ToDos:
 
 - Enable chat/messages (actionCable (or Hotwire))
-  - create card to contain messages
-    - display absolute
+  - message card
+    - display data more clearly in card, i.e. who message form directed at, who
+      messages are from
     - display all messages (paginate, load only n)
-    - card only visible when message button clicked
+    - introduce concept of 'conversations' - group messages between two users
     - message button indicates messages waiting if (new/unread) messages
-    
-  - form:
-    - contains sender_id & recipient_id
-    - creates message object with sender_id (aka user_id) & recipient_id
-    - form submit captured by js:
-      - sent to consumer subscription & broadcasted to sender_id & recipient_id
-  
 
-- Install bullet rails gem and correct N+1 queries
+- Optimise for N+1 in views other than post#index
 - Build in omniauth Githuib Signin
 - Set up a mailer to welcome new users (ActiveJob)
 - RSPEC test, test, test - set in background with Guard
