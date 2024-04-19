@@ -44,23 +44,23 @@ function formatDateTime(date) {
 }
 
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   const form = document.getElementById('message-form');
-//   const input = document.getElementById('message-input');
+document.addEventListener('turbo:load', function() {
+  const form = document.getElementById('message-form');
+  const input = document.getElementById('message-input');
 
-//   if (form && input) {
-//     form.addEventListener('submit', function(e) {
-//       e.preventDefault();
-//       const formData = new FormData(form);
-//       const messageData = {};
-//       formData.forEach((value, key) => {
-//         messageData[key] = value;
-//       });
+  if (form && input) {
+    form.addEventListener('turbo:submit-end', function(e) {
+      // e.preventDefault();
+      // const formData = new FormData(form);
+      // const messageData = {};
+      // formData.forEach((value, key) => {
+      //   messageData[key] = value;
+      // });
 
-//       console.log('Form submitted, default http post prevented');
-//       messageChannel.send(messageData);
-//       input.value = '';
-//     });
-//   }
-// });
+      // console.log('Form submitted, default http post prevented');
+      // messageChannel.send(messageData);
+      input.value = '';
+    });
+  }
+});
 
