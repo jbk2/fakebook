@@ -71,12 +71,17 @@ System Tests
   - create card to contain messages
     - display absolute
     - display all messages (paginate, load only n)
+    - card only visible when message button clicked
+    - message button indicates messages waiting if (new/unread) messages
+    
   - form:
     - contains sender_id & recipient_id
     - creates message object with sender_id (aka user_id) & recipient_id
     - form submit captured by js:
       - sent to consumer subscription & broadcasted to sender_id & recipient_id
   
+
+- Install bullet rails gem and correct N+1 queries
 - Build in omniauth Githuib Signin
 - Set up a mailer to welcome new users (ActiveJob)
 - RSPEC test, test, test - set in background with Guard
@@ -89,6 +94,7 @@ System Tests
   - Allow User profile_photo to be null and if null render daisy placeholder avatar
   - ProcessImageJob - implement job chaining or tracking to ensure all jobs are completed before
     deletion
+  - Integrate more partials, use strict locals where you can.
 
 - Validations
   

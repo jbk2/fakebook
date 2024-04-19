@@ -1,5 +1,6 @@
 <div class="max-w-[1250px] mx-auto">
   <section class="header">
+
     <div class="background-image h-[450px] object-fill rounded-b-md object-center overflow-hidden z-0">
       <%= image_tag 'backgrounds/bg_1.jpg', alt: "background image", class: "" %>
     </div>
@@ -14,57 +15,56 @@
         <p class="mt-1 text-sm font-semibold text-slate-500"><%= pluralize(@friends.count, 'friend') %></p>
       </div>
 
-      <div class="actions ml-auto">
-        
-    
-        <!-- <div class="card" id="messaging-card">
-          <div class="card-body">
-            <div class="card-title">
-              <div class="w-14 h-14 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
-                <%# if current_user.profile_photo.attached? %>
-                  <%#= image_tag(post.owner.profile_photo.variant(:avatar), class: "object-cover") %>
-                <%# else %>
-                  <i class="fa-regular fa-user text-center text-xl"></i>
-                <%# end %>  
-              </div>
-              <div class="">
-                <h3 class="text-md font-bold mb-2"><%#= post.owner.username %></h3>
-              </div>
-            </div>
-            <div class="card-actions"></div>
-          </div>
-        </div> -->
 
-        <details class="dropdown dropdown-right">
-          <summary class="m-1 btn btn-primary bg-blue-600 hover:bg-blue-700">
+      <div class="header-actions ml-auto">
+        <div data-controller="message">
+
+          <button class="m-1 btn btn-primary bg-blue-600 hover:bg-blue-700" id="message-button"
+            data-action="click->message#toggleMessageCard">
             <i class="fa-brands fa-facebook-messenger"></i>
             <span>Message</span>
-          </summary>
+          </button>
 
-          <div class="dropdown-content"%>
-            <!-- Message input for action cable broadcast here -->
-            <%= form_with model: @message, url: messages_path, scope: :message, id: "message-form" do |f| %>
-              <div class="field">
-                <div class="control">
-                  <%= f.text_field :body, id: 'message-input', class: 'input' %>
+          <div class="card fixed w-80 h-96 bottom-0 right-80 mb-4 bg-base-100" id="message-card"
+            data-message-target="messageCard">
+            <div class="card-body p-3">
+              <div class="card-title">
+                <div class="w-12 h-12 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
+                  <% if @user.profile_photo.attached? %>
+                    <%= image_tag(@user.profile_photo.variant(:avatar), class: "object-cover") %>
+                  <% else %>
+                    <i class="fa-regular fa-user text-center text-xl"></i>
+                  <% end %>  
                 </div>
-                <div>
-                  <%= f.hidden_field :message_recipient_id, value: @user.id %>
-                </div>
-                <div class="control">
-                  <%= f.submit 'Send Message', class: 'btn btn-primary' %>
+                <div class="">
+                  <h3 class="text-md font-bold mb-2"><%= @user.username %></h3>
                 </div>
               </div>
-            <% end %>
+
+              <div class="card-messages" id="message-display">
+                <!-- Action cable broadcasted messages go here -->
+              </div>
+
+              <div class="card-actions">
+                <%= form_with model: @message, url: messages_path, scope: :message, id: "message-form" do |f| %>
+                  <div class="field flex items-center bottom-0 mb-2">
+                    <div class="control">
+                      <%= f.text_field :body, id: 'message-input', class: 'bg-slate-100 rounded-full border-none' %>
+                    </div>
+                    <div>
+                      <%= f.hidden_field :recipient_id, value: @user.id %>
+                    </div>
+                    <div class="control">
+                      <%= f.submit 'Send', class: 'btn btn-sm btn-primary ml-1 p-2' %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
           </div>
 
-          <div id="message-display">
-            <!-- Action cable broadcasted messages go here -->
-          </div>
-        </details>
+        </div>
       </div>
-
-
 
     </div>
   </section>
@@ -112,17 +112,19 @@
           <h2 class="card-title text-lg font-semibold mb-2">Friends</h2> <!-- Friends == followers & following -->
           <div class="flex flex-wrap gap-2 rounded max-h-[510px] overflow-auto">
             <% @friends.each do |friend| %>
-              <%= image_tag friend.profile_photo,class: "size-[175px]", alt: "friends profile photo" %>
-            <% end %>
+              <% if friend.profile_photo.attached? %>
+                <%= image_tag friend.profile_photo, class: "size-[175px]", alt: "friends profile photo" %>
+              <% else %>
+                <i class="fa-regular fa-user size-[175px] text-center text-8xl content-center bg-slate-100"></i>
+              <% end %>  
+            <% end %>  
           </div>
-
         </div>
       </div>
 
     </section>
 
     <section class="right-col">
-      
       
       <div class="header flex items-center">
         <h1 class="text-lg font-semibold">Posts</h1>

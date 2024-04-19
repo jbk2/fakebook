@@ -10,7 +10,7 @@
 #
 class Like < ApplicationRecord
   belongs_to :user
-  belongs_to :post
+  belongs_to :post, counter_cache: true
 
   validates :user_id, uniqueness: { scope: :post_id, message: "you've already liked this post"}
   validate :not_own_post

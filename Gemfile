@@ -68,14 +68,15 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-
+  
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
-
+  
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   
   gem "annotate", "~> 3.2"
+  gem "bullet", "~> 7.1"
 end
 
 group :test do
@@ -86,6 +87,7 @@ group :test do
   gem "factory_bot_rails", "~> 6.4"
   gem "launchy", "~> 3.0"
 end
+
 
 
 

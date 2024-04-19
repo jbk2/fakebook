@@ -65,11 +65,22 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-   # Include factory bot methods enabling use througout specs/tests
-   config.include FactoryBot::Syntax::Methods
+  # Include factory bot methods enabling use througout specs/tests
+  config.include FactoryBot::Syntax::Methods
 
-   config.include Devise::Test::ControllerHelpers, type: :controller
-   config.include Devise::Test::IntegrationHelpers, type: :request
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
 
-  #  config.include ActiveStorage::TestHelper
+  # config.include ActiveStorage::TestHelper
+
+  # if Bullet.enable?
+  #   config.before(:each) do
+  #     Bullet.start_request
+  #   end
+
+  #   config.after(:each) do
+  #     Bullet.perform_out_of_channel_notifications if Bullet.notification?
+  #     Bullet.end_request
+  #   end
+  # end
 end

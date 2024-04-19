@@ -1,1 +1,2 @@
-<span id="post-<%= post.id %>-like-count"><%= pluralize(post.likes.count, 'like') %></span>
+<%= image_tag('icons/like2.png', alt: 'like icon', height: '24', width: '24', class: "mx-1") %>
+<span id="post-<%= post.id %>-like-count"><%= pluralize(post.likes_count, 'like') %></span>

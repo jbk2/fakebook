@@ -2,11 +2,14 @@
 #
 # Table name: posts
 #
-#  id         :bigint           not null, primary key
-#  body       :string
-#  user_id    :bigint           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id             :bigint           not null, primary key
+#  body           :string
+#  user_id        :bigint           not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  likes_count    :integer          default(0), not null
+#  comments_count :integer          default(0), not null
+#
 
 
 require 'rails_helper'

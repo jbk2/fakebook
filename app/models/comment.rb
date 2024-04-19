@@ -11,7 +11,7 @@
 #
 class Comment < ApplicationRecord
   belongs_to :user
-  belongs_to :post
+  belongs_to :post, counter_cache: true
   alias_method :owner, :user
 
   validates :body, presence: true

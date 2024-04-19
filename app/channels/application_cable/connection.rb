@@ -4,6 +4,7 @@ module ApplicationCable
 
     def connect
       self.current_user = find_verified_user
+      logger.add_tags 'ActionCable', "User id#; #{current_user.id}"
     end
 
     private

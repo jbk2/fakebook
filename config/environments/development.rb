@@ -1,6 +1,15 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.alert         = true
+    Bullet.bullet_logger = true
+    Bullet.console       = true
+    Bullet.rails_logger  = true
+    Bullet.add_footer    = true
+  end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -111,4 +120,14 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.active_job.queue_adapter = :sidekiq
+
+  # Cpnfig for Bullet N+1 query identification gem
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = false # Pop up a JavaScript alert in the browser
+    Bullet.bullet_logger = true # Log to the Bullet log file
+    # Bullet.console = true # Log warnings to your browser's console.log
+    # Bullet.rails_logger = true # Add warnings directly to the Rails log
+    # Bullet.add_footer = true # Add a footer with debug info to the HTML
+  end
 end

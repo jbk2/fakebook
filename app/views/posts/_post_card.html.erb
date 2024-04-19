@@ -4,7 +4,7 @@
     <section class="header">
       <section class="flex flex-row">
         <div class="w-14 h-14 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
-          <% if current_user.profile_photo.attached? %>
+          <% if post.owner.profile_photo.attached? %>
             <%= link_to image_tag(post.owner.profile_photo.variant(:avatar), class: "object-cover"),
               user_path(post.owner), data: { turbo: false } %>
             <%#= image_tag(post.owner.profile_photo.variant(:avatar), class: "object-cover") %>
@@ -65,8 +65,7 @@
       <section class="actions">
         <div class="flex justify-between px-24">
           <div class="flex items-center" >
-            <%= image_tag('icons/like2.png', alt: 'like icon', height: '24', width: '24', class: "mx-1") %>
-            <span id="post-<%= post.id %>-like-count"><%= pluralize(post.likes.count, 'like') %></span>
+            <%= render 'likes/count', post: post %>
           </div>
           <div class="">
             <%= render 'comments/count', post: post %>
@@ -91,7 +90,7 @@
           </div>
           <div class="flex flex-row items-center">
             <i class="fa-regular fa-paper-plane text-xl"></i>
-            <span class="ml-2">Send</span>
+            <span class="ml-2">Share</span>
           </div>
         </div>
       </section>
