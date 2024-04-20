@@ -66,14 +66,26 @@ System Tests
 ---
 
 ### Next ToDos:
+--------------------------------
+_Conversation & Message Feature_
+  
+  Entity Relationship Modeling:
+    - User has_many conversations
+    - Conversation has_many messages
+    - Message belongs_to conversation
+    - Message belongs_to user
 
-- Enable chat/messages (actionCable (or Hotwire))
-  - message card
-    - display data more clearly in card, i.e. who message form directed at, who
-      messages are from
-    - display all messages (paginate, load only n)
-    - introduce concept of 'conversations' - group messages between two users
-    - message button indicates messages waiting if (new/unread) messages
+  Features:
+    - messages button in navbar - which shows index of conversations in dropdown
+      - click on a conversation and message card is displayed populated with that conversation
+    
+    - message button in user show view which reveals the message card, which only populates with messages from between the current_user and the user being viewed
+      - display data more clearly in message card, i.e. who message form directed at, who
+    
+    - paginate conversations index and messages index
+    
+    - introduce notifications to indicate in UI when messages (unread) are waiting
+--------------------------------
 
 - Optimise for N+1 in views other than post#index
 - Build in omniauth Githuib Signin
