@@ -88,6 +88,7 @@ _Conversation & Message Feature_
 --------------------------------
 
 - Optimise for N+1 in views other than post#index
+- Write factories & seed data for conversations and messages
 - Build in omniauth Githuib Signin
 - Set up a mailer to welcome new users (ActiveJob)
 - RSPEC test, test, test - set in background with Guard

@@ -64,7 +64,8 @@
     <div data-controller="comment">
       <section class="actions">
         <div class="flex justify-between px-24">
-          <div class="flex items-center" >
+          <div class="flex items-center">
+            <%= image_tag('icons/like2.png', alt: 'like icon', height: '24', width: '24', class: "mx-1") %>
             <%= render 'likes/count', post: post %>
           </div>
           <div class="">

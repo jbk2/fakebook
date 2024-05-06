@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_18_194458) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_30_111242) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_18_194458) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "participant_one_id", null: false
+    t.bigint "participant_two_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["participant_one_id"], name: "index_conversations_on_participant_one_id"
+    t.index ["participant_two_id"], name: "index_conversations_on_participant_two_id"
+  end
+
   create_table "follows", force: :cascade do |t|
     t.bigint "follower_id", null: false
     t.bigint "followed_id", null: false
@@ -74,7 +83,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_18_194458) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "recipient_id"
+    t.bigint "conversation_id", null: false
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -105,8 +114,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_18_194458) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users"
+  add_foreign_key "conversations", "users", column: "participant_one_id"
+  add_foreign_key "conversations", "users", column: "participant_two_id"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
   add_foreign_key "posts", "users"
 end

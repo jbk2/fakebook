@@ -3,6 +3,8 @@
   <head>
     <title>Fakebook</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-refresh-method" content="morph">
+    <meta name="turbo-refresh-scroll" content="preserve">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
@@ -14,10 +16,19 @@
 
   <body class="h-screen flex flex-col bg-gray-100">
     <%= render "/layouts/navbar" %>
-    
 
     <main class="w-full flex-grow bg-gray-100 mt-16">
       <%= yield %>
+    
+      <turbo-frame id="conversation_card">
+        <% if session[:active_conversation_id].present? %>
+          <%= render "conversations/conversation" %>
+        <% end %>
+      </turbo-frame>
     </main>
+
+    
+    
+
   </body>
 </html>

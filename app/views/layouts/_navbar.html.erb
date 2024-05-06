@@ -27,24 +27,45 @@
   </div>
   
   <div class="pr-6 2xl:pr-16" id="right-section">
+    <div class="theme-toggle mr-5">
+      <label for="theme-toggle" class="text-sm italic">Toggle theme</label>
+      <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
+    </div>
 
-    <label for="theme-toggle" class="pr-2 text-sm italic">Toggle theme</label>
-    <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
+
+    <% if user_signed_in? %>
+      <details class="conversations-dropdown dropdown dropdown-end w-11 h-11 flex justify-center items-center">
+        <summary class="btn bg-slate-100 hover:bg-slate-200 w-11 h-11 rounded-full min-h-11 border-none">
+          <i class="items-center fa-brands fa-facebook-messenger text-xl"></i>
+        </summary>
+        <div class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box mt-2 w-72">
+          <h3 class="text-lg font-bold m-2">Chats</h3>
+            <%#= turbo_frame_tag 'conversations' do %>
+              <%= render 'conversations/conversations', conversations: @conversations %>
+            <%# end %>
+        </div>
+      </details>
+    <% else %>
+      <div class="bg-slate-100 w-11 h-11 rounded-full min-h-11 border-none flex justify-center items-center">
+        <i class="items-center fa-brands fa-facebook-messenger text-xl"></i>
+      </div>
+    <% end %>
     
-    <ul class="flex flex-row py-0 menu menu-horizontal items-center">
+    
+    <ul class="flex flex-row py-0 menu menu-horizontal items-center mr-2">
       <% unless user_signed_in? %>
         <% unless current_page?(new_user_session_path)  %>
-          <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm mr-2" %></li>
+          <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
         <% end %>
         <% unless current_page?(new_user_registration_path) %> 
-          <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm mr-2" %></li>
+          <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
         <% end %>  
       <% end %>
 
       <% if user_signed_in? %>
         <div class="profile-photo-dropdown">
           <details class="dropdown dropdown-end">
-            <summary class="m-1 flex items-center justify-center w-12 h-12 rounded-full overflow-hidden bg-slate-200">
+            <summary class="m-1 flex items-center justify-center w-11 h-11 rounded-full overflow-hidden bg-slate-200 hover:brightness-90 hover:cursor-pointer">
               <% if current_user.profile_photo.attached? %>
                 <%= image_tag current_user.profile_photo, class: "object-cover w-full" %>
               <% else %>

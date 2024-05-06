@@ -127,7 +127,7 @@ Rails.application.configure do
     Bullet.alert = false # Pop up a JavaScript alert in the browser
     Bullet.bullet_logger = true # Log to the Bullet log file
     # Bullet.console = true # Log warnings to your browser's console.log
-    # Bullet.rails_logger = true # Add warnings directly to the Rails log
+    Bullet.rails_logger = false # Add warnings directly to the Rails log
     # Bullet.add_footer = true # Add a footer with debug info to the HTML
   end
 end

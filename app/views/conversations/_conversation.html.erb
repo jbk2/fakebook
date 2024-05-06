@@ -1,0 +1,56 @@
+<turbo-frame id="conversation_card">
+  <div class="card w-96 bg-base-100 fixed right-8 bottom-8">
+    <div class="card-body p-3">
+      <div class="card-title pb-2 border-b">
+        <div class="w-11 h-11 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
+          <% if @conversation.other_participant(current_user).profile_photo.attached? %>
+            <%= image_tag(@conversation.other_participant(current_user).profile_photo.variant(:avatar), class: "object-cover") %>
+          <% else %>
+            <i class="fa-regular fa-user text-center text-xl"></i>
+          <% end %>  
+        </div>
+        <div class="">
+          <h3 class="text-md font-bold mb-2"><%= @conversation.other_participant(current_user).username %></h3>
+        </div>
+        <div>
+          <%= link_to "X", close_conversation_card_path, method: :delete, data: { turbo_method: :delete } %>
+        </div>
+        <hr>
+      </div>
+
+      <div class="card-messages" id="message-display">
+        <% @conversation.messages.each do |message| %>
+          <div id="message_<%= message.id %>" class="flex">
+            <div id="sender-profile-photo" class="mr-1">
+              <%= image_tag message.user.profile_photo, class: "w-10 h-10 rounded-full object-cover" %>
+            </div>
+            <div id="body" class="text-xs">
+              <p><%= message.body %></p>
+              <span>· <%= time_ago_in_words(message.created_at) %> ago</span>
+              <% if session[:active_conversation_id].present? %>
+                <p>I have an active conversation session present <%= session[:active_conversation_id] %></p>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <!-- Action cable broadcasted messages go here -->
+      </div>
+
+      <div class="card-actions">
+        <% form_with model: @message, url: messages_path, scope: :message, id: "message-form" do |f| %>
+          <div class="field flex items-center bottom-0 mb-2">
+            <div class="control">
+              <%= f.text_field :body, id: 'message-input', class: 'bg-slate-100 rounded-full border-none' %>
+            </div>
+            <div>
+              <%= f.hidden_field :recipient_id, value: @conversation.other_participant(current_user).id %>
+            </div>
+            <div class="control">
+              <%= f.submit 'Send', class: 'btn btn-sm btn-primary ml-1 p-2' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</turbo-frame>

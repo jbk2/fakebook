@@ -24,9 +24,21 @@ class User < ApplicationRecord
   # Those the user is being followed by:
   has_many :followers, foreign_key: :followed_id, class_name: "Follow" # those following u (returns join table records)
   has_many :following_users, through: :followers, source: :follower # those following u (returns user records)
+  
   has_many :likes
   has_many :comments
   has_many :messages
+
+  # To differentiate whether the user was initiator of conversation - participant_one, or recipient of original message - participant_two
+  has_many :participating_conversations_as_one, foreign_key: :participant_one_id, class_name: "Conversation"
+  has_many :participating_conversations_as_two, foreign_key: :participant_two_id, class_name: "Conversation"
+
+  # To get all conversations the user is participating in, no matter their role
+  def conversations
+    participating_conversations_as_one.or(participating_conversations_as_two)
+    # Conversation.where("participant_one_id = :id OR participant_two_id = :id", id: id) # An alternative to same end
+  end
+  
   has_one_attached :profile_photo do |attachable|
     attachable.variant :avatar, resize_to_limit: [100, 100], preprocessed: true
   end
