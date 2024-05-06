@@ -1,7 +1,7 @@
 <div data-controller="conversations">
   <% conversations.each do |conversation| %>
     <div id="conversation_<%= conversation.id %>">
-      <%= link_to conversation_path(conversation), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation_card" } do %>
+      <%= link_to conversation_path(conversation), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation-card" } do %>
         <%= image_tag conversation.other_participant(current_user).profile_photo, class: "w-11 h-11 rounded-full object-cover" %>
         <div class="ml-2 w-full">
           <h4 class="font-bold text-left"><%= conversation.other_participant(current_user).username %></h4>

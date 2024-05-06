@@ -10,7 +10,7 @@ class ConversationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_path }
       format.turbo_stream {
-        render turbo_stream: turbo_stream.replace('conversation_card', partial: 'conversations/conversation')
+        render turbo_stream: turbo_stream.replace('conversation-card', partial: 'conversations/conversation')
       } 
     end
   end
@@ -20,8 +20,8 @@ class ConversationsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace('conversation_card',
-        '<turbo-frame id="conversation_card"></turbo-frame>')
+        render turbo_stream: turbo_stream.replace('conversation-card',
+        '<turbo-frame id="conversation-card"></turbo-frame>')
       end
       format.html { redirect_to root_path }
     end

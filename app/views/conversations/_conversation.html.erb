@@ -1,24 +1,27 @@
-<turbo-frame id="conversation_card">
+<turbo-frame id="conversation-card">
   <div class="card w-96 bg-base-100 fixed right-8 bottom-8">
-    <div class="card-body p-3">
-      <div class="card-title pb-2 border-b">
-        <div class="w-11 h-11 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
-          <% if @conversation.other_participant(current_user).profile_photo.attached? %>
-            <%= image_tag(@conversation.other_participant(current_user).profile_photo.variant(:avatar), class: "object-cover") %>
-          <% else %>
-            <i class="fa-regular fa-user text-center text-xl"></i>
-          <% end %>  
-        </div>
-        <div class="">
-          <h3 class="text-md font-bold mb-2"><%= @conversation.other_participant(current_user).username %></h3>
-        </div>
-        <div>
-          <%= link_to "X", close_conversation_card_path, method: :delete, data: { turbo_method: :delete } %>
-        </div>
-        <hr>
+    
+    <div class="card-title p-3 w-full flex border-b items-center">
+      <div class="w-11 h-11 content-center rounded-full overflow-hidden bg-slate-200">
+        <% if @conversation.other_participant(current_user).profile_photo.attached? %>
+          <%= image_tag(@conversation.other_participant(current_user).profile_photo.variant(:avatar), class: "object-cover") %>
+        <% else %>
+          <i class="fa-regular fa-user text-center text-xl"></i>
+        <% end %>  
       </div>
+      <div class="">
+        <h3 class="text-md font-bold"><%= @conversation.other_participant(current_user).username %></h3>
+      </div>
+      <div class="ml-auto" id="close-button">
+        <%= link_to close_conversation_card_path, method: :delete, data: { turbo_method: :delete } do %>
+          <i class="fa-solid fa-xmark text-blue-600 text-2xl"></i>
+        <% end %> 
+      </div>
+      <hr>
+    </div>
 
-      <div class="card-messages" id="message-display">
+    <div class="card-body p-3 pt-4">
+      <div id="card-messages">
         <% @conversation.messages.each do |message| %>
           <div id="message_<%= message.id %>" class="flex">
             <div id="sender-profile-photo" class="mr-1">
@@ -36,21 +39,21 @@
         <!-- Action cable broadcasted messages go here -->
       </div>
 
-      <div class="card-actions">
-        <% form_with model: @message, url: messages_path, scope: :message, id: "message-form" do |f| %>
-          <div class="field flex items-center bottom-0 mb-2">
-            <div class="control">
-              <%= f.text_field :body, id: 'message-input', class: 'bg-slate-100 rounded-full border-none' %>
-            </div>
-            <div>
-              <%= f.hidden_field :recipient_id, value: @conversation.other_participant(current_user).id %>
-            </div>
-            <div class="control">
-              <%= f.submit 'Send', class: 'btn btn-sm btn-primary ml-1 p-2' %>
-            </div>
+      <div class="card-actions w-full">
+        <%= form_with model: @message, url: messages_path, scope: :message,
+          class:"flex items-center w-full", id: "message-form" do |f| %>
+          <div class="control flex-grow">
+            <%= f.text_field :body, id: 'message-input', class: 'bg-slate-100 rounded-full border-none text-xs w-full' %>
+          </div>
+          <div>
+            <%= f.hidden_field :recipient_id, value: @conversation.other_participant(current_user).id %>
+          </div>
+          <div class="control">
+            <%= f.submit 'Send', class: 'btn btn-sm btn-primary mx-2 p-2' %>
           </div>
         <% end %>
       </div>
     </div>
+
   </div>
 </turbo-frame>
