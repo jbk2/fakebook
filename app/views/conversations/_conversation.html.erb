@@ -48,8 +48,13 @@
           <div>
             <%= f.hidden_field :recipient_id, value: @conversation.other_participant(current_user).id %>
           </div>
+          <div>
+            <%= f.hidden_field :conversation_id, value: @conversation.id %>
+          </div>
           <div class="control">
-            <%= f.submit 'Send', class: 'btn btn-sm btn-primary mx-2 p-2' %>
+            <%= button_tag(type: 'submit', class:"mx-3") do %>
+              <i class="fa-solid fa-paper-plane text-xl text-blue-600"></i>
+            <% end %>
           </div>
         <% end %>
       </div>

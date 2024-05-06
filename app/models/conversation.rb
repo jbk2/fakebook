@@ -13,7 +13,7 @@ class Conversation < ApplicationRecord
   belongs_to :participant_two, class_name: 'User'
   has_many :messages, dependent: :destroy
 
-  scope :between, -> (participant_one_id, participant_two_id) do
+  scope :between, -> (sender_id, recipient_id) do
     where("(conversations.participant_one_id = ? AND conversations.participant_two_id = ?) OR (conversations.participant_one_id = ? AND conversations.participant_two_id = ?)", sender_id, recipient_id, recipient_id, sender_id)
   end
 
