@@ -6,9 +6,17 @@ class MessagesController < ApplicationController
     @message = conversation.messages.build(message_params.merge(user: current_user))
 
     if @message.save
-      render json: @message.as_json(include: :user)
+      respond_to do |format|
+        format.turbo_stream {
+          # not required as being updated by Conversation ActionCable Channel
+          # turbo_stream.append("conversation-#{@message.conversation_id}-card-messages", partial: "messages/message", locals: { message: @message }),
+          render turbo_stream: turbo_stream.replace("message-input",
+              '<input id="message-input" class="bg-slate-100 rounded-full border-none text-xs w-full" type="text" name="message[body]">')
+        }
+        format.html { redirect_to root_path }
+      end
     else
-      render json: { errors: @message.errors.full_messages }, status: :unprocessable_entity
+      format.html { redirect_to root_path, status: :unprocessable_entity }
     end
   end
 
