@@ -1,17 +1,13 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
-    conversation = Conversation.find(params[:conversation_id])
-    stream_for conversation if conversation.participants.include?(current_user)
-    puts "now subscribed to and streaming from conversation.id no;#{conversation.id}"
+    stream_from "conversation_#{params[:conversationId]}"
   end
 
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
-    stop_all_streams
+    puts "Client has unsubscribed from conversation channel."
   end
 
-  def receive(data)
-    data['sender'] = current_user
-    puts "here's what data looks like #{data}"
+  def send_message
   end
 end

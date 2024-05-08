@@ -4,7 +4,7 @@ class ConversationsController < ApplicationController
     
     if @conversation.participants.include?(current_user)
       session[:active_conversation_id] = @conversation.id
-      Rails.logger.info("Active conversation session variable set to #{session[:active_conversation_id]}")
+      Rails.logger.info("Active conversation session variable set to; #{session[:active_conversation_id]}")
     end
 
     respond_to do |format|
