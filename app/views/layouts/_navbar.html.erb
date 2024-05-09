@@ -1,40 +1,39 @@
 <div class="navbar fixed h-6 py-0 z-50 bg-white drop-shadow flex justify-between">
   <div class="pl-6 2xl:pl-16" id="left-section">
-    <div class="brand-logo mr-4">
-      <%= link_to image_tag('icons/facebook.png', width: "42", height: "42"), root_path %>
+    <div class="brand-logo mr-4 flex-shrink-0">
+      <%= link_to image_tag('icons/facebook.png', width: "42", height: "42", class:""), root_path %>
     </div>
-    <div class="search-field">
+    <div class="hidden md:block search-field">
       <input type="text" placeholder="     Search" class="border-none rounded-full h-[40px] bg-gray-100">
        <i class="fas fa-search -ml-48 pt-3 absolute" style="color: gray;"></i>
     </div>
     <%= turbo_frame_tag "flash_messages" do %>
         <%= render 'layouts/flash' %>
     <% end %>
-    <%= params %>
+    <%#= params %>
   </div>
 
   <div class="w-48 flex justify-around" id="center-section">
     <div class="home">
       <%= link_to root_path do %>
-        <i class="fa-solid fa-house text-blue-600"></i>
+        <i class="fa-solid fa-house text-blue-600 sm:mx-4"></i>
       <% end %>
     </div>
     <div class="users">
       <%= link_to users_path do %>
-        <i class="fa-solid fa-user-group text-blue-600"></i>
+        <i class="fa-solid fa-user-group text-blue-600 sm:mx-4"></i>
       <% end %>
     </div>
   </div>
   
   <div class="pr-6 2xl:pr-16" id="right-section">
-    <div class="theme-toggle mr-5">
-      <label for="theme-toggle" class="text-sm italic">Toggle theme</label>
+    <div class="hidden sm:block theme-toggle mx-5">
+      <label for="theme-toggle" class="text-sm italic text-nowrap">Toggle theme</label>
       <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
     </div>
 
-
     <% if user_signed_in? %>
-      <details class="conversations-dropdown dropdown dropdown-end w-11 h-11 flex justify-center items-center">
+      <details class="conversations-dropdown dropdown dropdown-end w-11 h-11 mr-2 flex justify-center items-center">
         <summary class="btn bg-slate-100 hover:bg-slate-200 w-11 h-11 rounded-full min-h-11 border-none">
           <i class="items-center fa-brands fa-facebook-messenger text-xl"></i>
         </summary>
@@ -43,14 +42,9 @@
           <%= render 'conversations/conversations', conversations: @conversations %>
         </div>
       </details>
-    <% else %>
-      <div class="bg-slate-100 w-11 h-11 rounded-full min-h-11 border-none flex justify-center items-center">
-        <i class="items-center fa-brands fa-facebook-messenger text-xl"></i>
-      </div>
     <% end %>
     
-    
-    <ul class="flex flex-row py-0 menu menu-horizontal items-center mr-2">
+    <ul class="flex flex-row py-0 menu menu-horizontal items-center">
       <% unless user_signed_in? %>
         <% unless current_page?(new_user_session_path)  %>
           <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
@@ -61,9 +55,10 @@
       <% end %>
 
       <% if user_signed_in? %>
-        <div class="profile-photo-dropdown">
+        <div class="hidden sm:block profile-photo-dropdown">
           <details class="dropdown dropdown-end">
-            <summary class="m-1 flex items-center justify-center w-11 h-11 rounded-full overflow-hidden bg-slate-200 hover:brightness-90 hover:cursor-pointer">
+            <summary class="m-1 flex items-center justify-center w-11 h-11 rounded-full overflow-hidden
+            bg-slate-200 hover:brightness-90 hover:cursor-pointer">
               <% if current_user.profile_photo.attached? %>
                 <%= image_tag current_user.profile_photo, class: "object-cover w-full" %>
               <% else %>
@@ -73,12 +68,42 @@
             <ul class="shadow menu dropdown-content z-[1] bg-base-100 rounded-md w-32">
               <% if user_signed_in? %>
                 <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
-                <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "" %></li>
+                <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
               <% end %>  
             </ul>
           </details>
         </div>
-      <% end %>  
+      <% end %>
+
+      <details class="dropdown sm:hidden">
+        <summary class="btn">
+          <i class="fa-solid fa-bars"></i>
+        </summary>
+        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+
+          <% unless user_signed_in? %>
+            <% unless current_page?(new_user_session_path) %>
+              <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
+            <% end %>
+            <% unless current_page?(new_user_registration_path) %> 
+              <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
+            <% end %>  
+          <% end %>
+
+          <% if user_signed_in? %>
+            <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
+            <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
+          <% end %>
+
+          <div class="theme-toggle mx-5">
+            <li class="flex">
+              <label for="theme-toggle" class="text-sm italic text-nowrap">Toggle theme</label>
+              <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
+            </li>
+          </div>
+        </ul>
+      </details>
+
     </ul>
   </div>
 </div>
