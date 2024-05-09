@@ -6,7 +6,7 @@
     <div class="shadow menu dropdown-content flex flex-col flex-nowrap z-[1] bg-base-100 rounded-box mt-2 w-72 h-72">
       <h3 class="text-lg font-bold m-2">Chats</h3>
       <div class="conversations-container overflow-auto">
-        <% conversations.each do |conversation| %>
+        <% conversations.order(updated_at: :desc).each do |conversation| %>
           <div id="conversation_<%= conversation.id %>" class="my-1">
             <%= link_to conversation_path(conversation), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation-card" } do %>
               <%= image_tag conversation.other_participant(current_user).profile_photo, class: "w-11 h-11 rounded-full object-cover" %>
