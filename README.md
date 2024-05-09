@@ -87,9 +87,8 @@ System Tests
 ### Next ToDos:
 ---
 
-- paginate conversations index.
-- introduce notifications to indicate in UI when messages (unread) are waiting
 - refactor conversations and messages controllers
+- introduce notifications to indicate in UI when messages (unread) are waiting
 - mailer functionality - email on sign up, notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)
 - Write factories & seed data for conversations and messages (not yet done)
