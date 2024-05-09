@@ -1,14 +1,24 @@
-<% conversations.each do |conversation| %>
-  <div id="conversation_<%= conversation.id %>" class="my-1">
-    <%= link_to conversation_path(conversation), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation-card" } do %>
-      <%= image_tag conversation.other_participant(current_user).profile_photo, class: "w-11 h-11 rounded-full object-cover" %>
-      <div class="ml-2 w-full">
-        <h4 class="font-bold text-left"><%= conversation.other_participant(current_user).username %></h4>
-        <div class="flex justify-between pr-1 text-gray-600 text-xs">
-          <p><%= conversation.messages.last.body.truncate(22) %></p>
-          <span>· <%= time_ago_in_words(conversation.messages.last.created_at) %> ago</span>
+<turbo-frame id="conversations">
+  <details class="conversations-dropdown dropdown dropdown-end w-11 h-11 mr-2 flex justify-center items-center">
+    <summary class="btn bg-slate-100 hover:bg-slate-200 w-11 h-11 rounded-full min-h-11 border-none">
+      <i class="items-center fa-brands fa-facebook-messenger text-xl"></i>
+    </summary>
+    <div class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box mt-2 w-72">
+      <h3 class="text-lg font-bold m-2">Chats</h3>
+      <% conversations.each do |conversation| %>
+        <div id="conversation_<%= conversation.id %>" class="my-1">
+          <%= link_to conversation_path(conversation), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation-card" } do %>
+            <%= image_tag conversation.other_participant(current_user).profile_photo, class: "w-11 h-11 rounded-full object-cover" %>
+            <div class="ml-2 w-full">
+              <h4 class="font-bold text-left"><%= conversation.other_participant(current_user).username %></h4>
+              <div class="flex justify-between pr-1 text-gray-600 text-xs">
+                <p><%= conversation.messages.last.body.truncate(22) %></p>
+                <span>· <%= time_ago_in_words(conversation.messages.last.created_at) %> ago</span>
+              </div>
+            </div>
+          <% end %>
         </div>
-      </div>
-    <% end %>
-  </div>
-  <% end %>
+      <% end %>
+    </div>
+  </details>
+</turbo-frame>

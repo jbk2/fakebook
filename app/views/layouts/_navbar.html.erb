@@ -33,18 +33,10 @@
     </div>
 
     <% if user_signed_in? %>
-      <details class="conversations-dropdown dropdown dropdown-end w-11 h-11 mr-2 flex justify-center items-center">
-        <summary class="btn bg-slate-100 hover:bg-slate-200 w-11 h-11 rounded-full min-h-11 border-none">
-          <i class="items-center fa-brands fa-facebook-messenger text-xl"></i>
-        </summary>
-        <div class="shadow menu dropdown-content z-[1] bg-base-100 rounded-box mt-2 w-72">
-          <h3 class="text-lg font-bold m-2">Chats</h3>
-          <%= render 'conversations/conversations', conversations: @conversations %>
-        </div>
-      </details>
+      <%= render 'conversations/conversations', conversations: @conversations %>
     <% end %>
     
-    <ul class="flex flex-row py-0 menu menu-horizontal items-center">
+    <ul class="hidden sm:flex flex-row py-0 menu menu-horizontal items-center">
       <% unless user_signed_in? %>
         <% unless current_page?(new_user_session_path)  %>
           <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
@@ -55,7 +47,7 @@
       <% end %>
 
       <% if user_signed_in? %>
-        <div class="hidden sm:block profile-photo-dropdown">
+        <div class="profile-photo-dropdown">
           <details class="dropdown dropdown-end">
             <summary class="m-1 flex items-center justify-center w-11 h-11 rounded-full overflow-hidden
             bg-slate-200 hover:brightness-90 hover:cursor-pointer">
@@ -74,36 +66,36 @@
           </details>
         </div>
       <% end %>
-
-      <details class="dropdown sm:hidden">
-        <summary class="btn">
-          <i class="fa-solid fa-bars"></i>
-        </summary>
-        <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-
-          <% unless user_signed_in? %>
-            <% unless current_page?(new_user_session_path) %>
-              <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
-            <% end %>
-            <% unless current_page?(new_user_registration_path) %> 
-              <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
-            <% end %>  
-          <% end %>
-
-          <% if user_signed_in? %>
-            <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
-            <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
-          <% end %>
-
-          <div class="theme-toggle mx-5">
-            <li class="flex">
-              <label for="theme-toggle" class="text-sm italic text-nowrap">Toggle theme</label>
-              <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
-            </li>
-          </div>
-        </ul>
-      </details>
-
     </ul>
+
+    <details class="dropdown dropdown-end sm:hidden">
+      <summary class="btn">
+        <i class="fa-solid fa-bars"></i>
+      </summary>
+      <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+
+        <% unless user_signed_in? %>
+          <% unless current_page?(new_user_session_path) %>
+            <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
+          <% end %>
+          <% unless current_page?(new_user_registration_path) %> 
+            <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
+          <% end %>  
+        <% end %>
+
+        <% if user_signed_in? %>
+          <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
+          <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
+        <% end %>
+
+        <div class="theme-toggle mx-5">
+          <li class="flex">
+            <label for="theme-toggle" class="text-sm italic text-nowrap">Toggle theme</label>
+            <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
+          </li>
+        </div>
+      </ul>
+    </details>
+
   </div>
 </div>

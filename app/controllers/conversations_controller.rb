@@ -10,8 +10,10 @@ class ConversationsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to root_path }
       format.turbo_stream {
-        render turbo_stream: turbo_stream.replace('conversation-card', partial: 'conversations/conversation')
-      } 
+        render turbo_stream: [ turbo_stream.replace('conversation-card', partial: 'conversations/conversation'),
+          turbo_stream.replace("conversations",
+          partial: 'conversations/conversations', locals: { conversations: current_user.conversations })]
+        }
     end
   end
 
