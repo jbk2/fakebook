@@ -4,9 +4,6 @@
   </div>
   <div id="body" class="text-xs">
     <p><%= message.body %></p>
-    <span>· <%= time_ago_in_words(message.created_at) %> ago</span>
-    <% if session[:active_conversation_id].present? %>
-      <p>I have an active conversation session present <%= session[:active_conversation_id] %></p>
-    <% end %>
+    <span class="text-gray-400 italic">· <%= time_ago_in_words(message.created_at) %> ago</span>
   </div>
 </div>
