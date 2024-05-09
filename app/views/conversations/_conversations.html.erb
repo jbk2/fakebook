@@ -11,10 +11,12 @@
             <%= image_tag conversation.other_participant(current_user).profile_photo, class: "w-11 h-11 rounded-full object-cover" %>
             <div class="ml-2 w-full">
               <h4 class="font-bold text-left"><%= conversation.other_participant(current_user).username %></h4>
-              <div class="flex justify-between pr-1 text-gray-600 text-xs">
-                <p><%= conversation.messages.last.body.truncate(22) %></p>
-                <span>· <%= time_ago_in_words(conversation.messages.last.created_at) %> ago</span>
-              </div>
+              <% if conversation.messages.any? %>
+                <div class="flex justify-between pr-1 text-gray-600 text-xs">
+                  <p><%= conversation.messages.last.body.truncate(22) %></p>
+                  <span>· <%= time_ago_in_words(conversation.messages.last.created_at) %> ago</span>
+                </div>
+              <% end %>  
             </div>
           <% end %>
         </div>

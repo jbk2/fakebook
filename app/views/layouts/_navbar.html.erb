@@ -32,7 +32,7 @@
       <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
     </div>
 
-    <% if user_signed_in? %>
+    <% if user_signed_in? && @conversations %>
       <%= render 'conversations/conversations', conversations: @conversations %>
     <% end %>
     

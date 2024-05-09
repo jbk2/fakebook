@@ -25,7 +25,7 @@
 - ⏳ ActiveJob; 
   - ProcessImageJob - size and format processing of uploaded images.
   - BroadcaseMessageJob - ActionCable broadcasts messages after creation.
-- 🎞️ ActiveStorage; attachments, variants, metadata [excellent article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
+- 🎞️ ActiveStorage; attachments, variants, metadata, [excellent article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
 - 📧 Mailer Functionality; Welcome email on user sign up.
 - 🎨 Styling - All styling done with TailwindCSS & DaisyUI component library.
 
@@ -88,7 +88,7 @@ System Tests
 ---
 
 - paginate conversations index.
-- re-enable message button in user show view
+- if new conversation created it must be added to the conversations index dropdown.
 - introduce notifications to indicate in UI when messages (unread) are waiting
 - mailer functionality - email on sign up, notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)

@@ -15,16 +15,19 @@
         <p class="mt-1 text-sm font-semibold text-slate-500"><%= pluralize(@friends.count, 'friend') %></p>
       </div>
 
-
+<!-- if conversation exists already call conversations#show with convo id -->
+<!-- otherwise 1) create new conversation and 2) call conversations#show with convo ID-->
       <div class="header-actions ml-auto">
-        <button class="m-1 btn btn-primary bg-blue-600 hover:bg-blue-700" id="message-button"
-          data-controller="toggleConversationCard"
-          data-toggle-conversation-card-id-type-value="recipient_id"
-          data-toggle-conversation-card-id-value="<%= @user.id %>"
-          data-action="click@window->toggle-conversation-card#toggle">
+        <!-- <button class="m-1 btn btn-primary bg-blue-600 hover:bg-blue-700" id="message-button">
           <i class="fa-brands fa-facebook-messenger"></i>
           <span>Message</span>
-        </button>
+        </button> -->
+        <%= button_to conversations_path, method: :post, params: { recipient_id: @user.id },
+          class:"m-1 btn btn-primary bg-blue-600 hover:bg-blue-700" do %>
+          <i class="fa-brands fa-facebook-messenger"></i>
+          <span>Message</span>
+        <% end %>
+        
       </div>
       
     </div>

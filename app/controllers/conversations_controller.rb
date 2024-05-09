@@ -1,4 +1,30 @@
 class ConversationsController < ApplicationController
+  def create
+    @recipient_id = params[:recipient_id]
+  
+    if Conversation.between(current_user.id, @recipient_id).present?
+      @conversation = Conversation.between(current_user.id, @recipient_id).first
+    else
+      @conversation = current_user.conversations.build(participant_one_id: current_user.id,
+        participant_two_id: @recipient_id)
+      if @conversation.save
+        Rails.logger.info("Active conversation session variable set to; #{session[:active_conversation_id]}")
+      else
+        Rails.logger.error("Conversation creation failed: #{@conversation.errors.full_messages.to_sentence}")
+        return
+      end
+    end
+    
+    session[:active_conversation_id] = @conversation.id
+
+    respond_to do |format|
+      format.turbo_stream {
+        render turbo_stream: turbo_stream.replace('conversation-card', partial: 'conversations/conversation')
+      }
+      format.html { redirect_to root_path }
+    end
+  end
+  
   def show
     @conversation = Conversation.find(params[:id])
     
