@@ -27,6 +27,9 @@ const ConversationChannel = {
             if (imageElement) {
               imageElement.src = data.image_url;
             }
+
+            // ensure scroll height is adjusted to show the latest message
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
           }
         },
   
