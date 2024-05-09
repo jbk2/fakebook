@@ -8,10 +8,10 @@
 *A facebook clone app featuring:*
 
 - 🖇️ Complex forms; nesting, custom actions, hotwire.
-- 👫 Advanced modeling & associations; m2m, polymorphic, delegation, custom validation, callbacks. 
-- 🔐 Devise authentication - Warden session checks to authorise ActionCable connections.
-- ⚙️ POROs & Helpers:
-  - Built logic to process (size & format) uploaded images.
+- 👫 Advanced associations; m2m, polymorphic, custom validation, callbacks, delegation. 
+- 🔐 Authentication with Devise.
+- ⚙️ Helpers & POROs:
+  - Custom logic to process (size & format(Vips)) uploaded images to ActiveStorage.
   - helpers to display #format_time_from in posts, comments & messages.
 - ⚡️ SPA like; Turbo Frames, Streams & Stimulus:
   🖼️ - Turbo frames & streams:
@@ -25,9 +25,9 @@
 - ⏳ ActiveJob; 
   - ProcessImageJob - size and format processing of uploaded images.
   - BroadcaseMessageJob - ActionCable broadcasts messages after creation.
-- 📧 Mailer Functionality:
-  - Welcome email on user sign up.
-- 🎨 Styling - All tyling done with TailwindCSS & DaidyUI component library.
+- 🎞️ ActiveStorage; attachments, variants, metadata [excellent article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
+- 📧 Mailer Functionality; Welcome email on user sign up.
+- 🎨 Styling - All styling done with TailwindCSS & DaisyUI component library.
 
 ---
 
