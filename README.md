@@ -88,8 +88,8 @@ System Tests
 ---
 
 - paginate conversations index.
-- if new conversation created it must be added to the conversations index dropdown.
 - introduce notifications to indicate in UI when messages (unread) are waiting
+- refactor conversations and messages controllers
 - mailer functionality - email on sign up, notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)
 - Write factories & seed data for conversations and messages (not yet done)

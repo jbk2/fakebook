@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :conversations, only: [:show, :create]
   delete 'close_conversation_card', to: 'conversations#close_conversation_card'
+  post 'message_user', to: 'conversations#find_or_create_conversation'
 
   resources :messages, only: [:create]
   
