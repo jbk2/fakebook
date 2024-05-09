@@ -10,11 +10,9 @@
 - 🖇️ Complex forms; nesting, custom actions, hotwire.
 - 👫 Advanced modeling & associations; m2m, polymorphic, delegation, custom validation, callbacks. 
 - 🔐 Devise authentication - Warden session checks to authorise ActionCable connections.
-
-- 🏥 POROs & Helpers:
+- ⚙️ POROs & Helpers:
   - Built logic to process (size & format) uploaded images.
   - helpers to display #format_time_from in posts, comments & messages.
-
 - ⚡️ SPA like; Turbo Frames, Streams & Stimulus:
   🖼️ - Turbo frames & streams:
      used in various User, Post, Comment, Conversation & Message views.
@@ -23,17 +21,15 @@
     - for toggling comment form presence on posts.
     - for subscribing to ActionCable ConversationChannel when a conversation is opened.
     - for managing scroll of messages container in conversation-card.
-
 - 📡 ActionCable; ConversationChannel manages conversation scoped subcriptions and message updates into the DOM.
-
 - ⏳ ActiveJob; 
   - ProcessImageJob - size and format processing of uploaded images.
   - BroadcaseMessageJob - ActionCable broadcasts messages after creation.
-
 - 📧 Mailer Functionality:
   - Welcome email on user sign up.
-
 - 🎨 Styling - All tyling done with TailwindCSS & DaidyUI component library.
+
+---
 
 **Technologies/libraries used:**
   Frontend
