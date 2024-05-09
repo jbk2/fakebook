@@ -7,35 +7,33 @@
 ### Summary
 *A facebook clone app featuring:*
 
-- Complex forms; nesting, custom actions, hotwire.
+- 🖇️ Complex forms; nesting, custom actions, hotwire.
+- 👫 Advanced modeling & associations; m2m, polymorphic, delegation, custom validation, callbacks. 
+- 🔐 Devise authentication - Warden session checks to authorise ActionCable connections.
 
-- Advanced modeling & associations; m2m, polymorphic, delegation, custom validation, callbacks.
-
-- Devise authentication - Warden session checks to authorise ActionCable connections.
-
-- POROs & Helpers:
+- 🏥 POROs & Helpers:
   - Built logic to process (size & format) uploaded images.
   - helpers to display #format_time_from in posts, comments & messages.
 
-- SPA like; Turbo Frames, Streams & Stimulus:
-  - Turbo frames & streams:
+- ⚡️ SPA like; Turbo Frames, Streams & Stimulus:
+  🖼️ - Turbo frames & streams:
      used in various User, Post, Comment, Conversation & Message views.
-  - Stimulus Controllers used:
+  👮🏼 - Stimulus Controllers used:
     - for managing post image attachments and previewing.
     - for toggling comment form presence on posts.
     - for subscribing to ActionCable ConversationChannel when a conversation is opened.
     - for managing scroll of messages container in conversation-card.
 
-- ActionCable; ConversationChannel manages conversation scoped subcriptions and message updates into the DOM.
+- 📡 ActionCable; ConversationChannel manages conversation scoped subcriptions and message updates into the DOM.
 
-- AcctiveJob; 
+- ⏳ ActiveJob; 
   - ProcessImageJob - size and format processing of uploaded images.
   - BroadcaseMessageJob - ActionCable broadcasts messages after creation.
 
-- Mailer Functionality:
+- 📧 Mailer Functionality:
   - Welcome email on user sign up.
 
-- Styling - All tyling done with TailwindCSS & DaidyUI component library.
+- 🎨 Styling - All tyling done with TailwindCSS & DaidyUI component library.
 
 **Technologies/libraries used:**
   Frontend
@@ -58,7 +56,7 @@
 - Complex forms; fields_for ✅
 - Polmorphic models
 - Custom validation, callbacks ✅
-- POROs
+- POROs ✅
 - Active Storage ✅
 - Active Job ✅
 - Action Mailer
