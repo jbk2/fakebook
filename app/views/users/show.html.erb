@@ -15,10 +15,10 @@
         <p class="mt-1 text-sm font-semibold text-slate-500"><%= pluralize(@friends.count, 'friend') %></p>
       </div>
 
-<!-- if conversation exists already call conversations#show with convo id -->
-<!-- otherwise 1) create new conversation and 2) call conversations#show with convo ID-->
+<!-- if conversation exists already then call conversations#show with convo ID -->
+<!-- otherwise 1) create new conversation and 2) then call conversations#show with convo ID -->
       <div class="header-actions ml-auto">
-        <%= button_to message_user_path, method: :post, params: { recipient_id: @user.id },
+        <%= button_to message_user_path, method: :post, params: { recipient_id: @user.id }, # should post to messages_path
           class:"m-1 btn btn-primary bg-blue-600 hover:bg-blue-700" do %>
           <i class="fa-brands fa-facebook-messenger"></i>
           <span>Message</span>

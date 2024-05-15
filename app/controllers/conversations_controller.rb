@@ -1,18 +1,24 @@
 class ConversationsController < ApplicationController
   
+  # action called from either:
+  # 1) convo index dropdown in navbar, ∴ convo exists, ID is known, ∴ ID sent via params
+  # 2) users#show where convo may not exist, ∴ #find_or_create_conversation called, then
+  # conversations#show called with :conversation_id key/value as an argument to method.
   def show(options = {})
     conversation_id = options.fetch(:conversation_id, params[:id])
     @conversation = Conversation.find(conversation_id)
     
+    # session var used to keep conversation-card rendered & in view on view chnages
     if @conversation.participants.include?(current_user)
       session[:active_conversation_id] = @conversation.id
       Rails.logger.info("Active conversation session variable set to; #{session[:active_conversation_id]}")
     end
 
     respond_to do |format|
-      format.html { redirect_to root_path }
+      format.html { redirect_to root_path } # no full view page for conversation
       format.turbo_stream {
-        render turbo_stream: [ turbo_stream.replace('conversation-card', partial: 'conversations/conversation'),
+        render turbo_stream: [
+          turbo_stream.replace('conversation-card', partial: 'conversations/conversation'),
           turbo_stream.replace("conversations",
           partial: 'conversations/conversations', locals: { conversations: current_user.conversations })]
         }

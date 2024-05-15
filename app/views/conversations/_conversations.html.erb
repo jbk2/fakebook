@@ -3,7 +3,7 @@
     <summary class="btn bg-slate-100 hover:bg-slate-200 w-11 h-11 rounded-full min-h-11 border-none">
       <i class="items-center fa-brands fa-facebook-messenger text-xl"></i>
     </summary>
-    <div class="shadow menu dropdown-content flex flex-col flex-nowrap z-[1] bg-base-100 rounded-box mt-2 w-72 h-72">
+    <div class="shadow menu dropdown-content flex flex-col flex-nowrap z-[1] bg-base-100 rounded-box mt-2 w-72 max-h-72">
       <h3 class="text-lg font-bold m-2">Chats</h3>
       <div class="conversations-container overflow-auto">
         <% conversations.order(updated_at: :desc).each do |conversation| %>

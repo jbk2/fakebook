@@ -8,6 +8,4 @@ class ConversationChannel < ApplicationCable::Channel
     puts "Client has unsubscribed from conversation channel."
   end
 
-  def send_message
-  end
 end

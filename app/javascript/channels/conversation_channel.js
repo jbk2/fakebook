@@ -18,7 +18,7 @@ const ConversationChannel = {
         received(data) {
           // Called when there's incoming data on the websocket for this channel
           let messagesContainer = document.getElementById(`conversation-${conversationId}-card-messages`);
-          console.log(`message data: body: ${data.body}, message user.id: ${data.user_id}, message convo.id : ${data.conversation_id}`);
+          console.log(`message data: ${data.message_html}`);
           if (messagesContainer) {
             messagesContainer.innerHTML += data.message_html;
             let messages = messagesContainer.querySelectorAll('.flex');

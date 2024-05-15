@@ -87,7 +87,12 @@ System Tests
 ### Next ToDos:
 ---
 
-- refactor conversations and messages controllers
+- refactor conversations and messages controllers:
+  - rationalise #find_or_create_user between controllers
+  - have user#show message button uses Restful path, i.e. post to messages_path calling #create
+  - build message create form with @conversation too, perhaps, so that the message is built on the conversation
+  - use dom_id helper
+- validate that there cannot be more than one conversation with the same 2 users
 - introduce notifications to indicate in UI when messages (unread) are waiting
 - mailer functionality - email on sign up, notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)
