@@ -87,7 +87,3 @@ group :test do
   gem "factory_bot_rails", "~> 6.4"
   gem "launchy", "~> 3.0"
 end
-
-
-
-
