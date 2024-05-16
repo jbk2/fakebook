@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :posts, only: [:new, :create, :index]
   end
 
-  resources :conversations, only: [:show, :create]
+  get 'open_conversation_card/:id', to: 'conversations#open_conversation_card', as: 'open_conversation_card'
   delete 'close_conversation_card', to: 'conversations#close_conversation_card'
   post 'message_user', to: 'conversations#find_or_create_conversation'
 
