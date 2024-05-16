@@ -1,9 +1,10 @@
+# require 'conversation_service'
 class MessagesController < ApplicationController
+
+  before_action :set_conversation
+
   def create
-    sender_id = current_user.id
-    recipient_id = params[:message][:recipient_id]
-    conversation = find_or_create_conversation(sender_id, recipient_id)
-    @message = conversation.messages.build(message_params.merge(user: current_user))
+    @message = @conversation.messages.build(message_params.merge(user: current_user))
 
     if @message.save
       respond_to do |format|
@@ -20,7 +21,11 @@ class MessagesController < ApplicationController
 
   private
   def message_params
-    params.require(:message).permit(:body, :conversation_id)
+    params.require(:message).permit(:body)
+  end
+
+  def set_conversation
+    @conversation = ConversationService.find_or_create_conversation(current_user.id, params[:message][:recipient_id])
   end
 
   def find_or_create_conversation(sender_id, recipient_id)

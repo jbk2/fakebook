@@ -1,3 +1,4 @@
+# require 'conversation_service'
 class ConversationsController < ApplicationController
   
   # action called from either:
@@ -24,10 +25,7 @@ class ConversationsController < ApplicationController
   end
 
   def find_or_create_conversation
-    @conversation = Conversation.between(current_user.id, params[:recipient_id]).first_or_create do |conversation|
-      conversation.participant_one_id = current_user.id
-      conversation.participant_two_id = params[:recipient_id]
-    end
+    @conversation = ConversationService.find_or_create_conversation(current_user.id, params[:recipient_id])
 
     unless @conversation.persisted?
       Rails.logger.error("Conversation creation failed: #{@conversation.errors.full_messages.to_sentence}")

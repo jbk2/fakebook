@@ -1,0 +1,10 @@
+class ConversationService
+
+  def self.find_or_create_conversation(sender_id, recipient_id)
+    Conversation.between(sender_id, recipient_id).first_or_create do |conversation|
+      conversation.participant_one_id = sender_id
+      conversation.participant_two_id = recipient_id
+    end
+  end
+
+end
