@@ -11,7 +11,7 @@ export default class extends Controller {
     console.log(`The value of the conversationID from the convo card is ${this.conversationIdValue}`)
     console.log("messages target found: ", this.messagesTarget)
 
-    this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight;
+    this.scrollToBottom()
     this.channel = ConversationChannel.subscribe(this.conversationIdValue);
   }
 
@@ -21,5 +21,9 @@ export default class extends Controller {
       this.channel.unsubscribe();
     }
     console.log("disconnecing Conversation Stimulus Controller");
+  }
+
+  scrollToBottom() {
+    this.messagesTarget.scrollTop = this.messagesTarget.scrollHeight;
   }
 }

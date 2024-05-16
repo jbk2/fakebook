@@ -121,6 +121,10 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
 
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_controller.default_url_options = { host: 'localhost', port: 3000 }
+
+  
   # Cpnfig for Bullet N+1 query identification gem
   config.after_initialize do
     Bullet.enable = true

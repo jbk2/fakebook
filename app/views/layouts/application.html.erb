@@ -19,16 +19,8 @@
 
     <main class="w-full flex-grow bg-base-100 mt-16">
       <%= yield %>
-    
-      <turbo-frame id="conversation-card">
-        <% if session[:active_conversation_id].present? %>
-          <%= render "conversations/conversation" %>
-        <% end %>
-      </turbo-frame>
+      <%= render 'layouts/conversation_card' %>
     </main>
-
-    
-    
 
   </body>
 </html>

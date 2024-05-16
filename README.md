@@ -87,11 +87,9 @@ System Tests
 ### Next ToDos:
 ---
 
-- refactor conversations and messages controllers:
-  - rationalise #find_or_create_user between controllers
-  - have user#show message button use Restful path, i.e. post to messages_path calling #create
-  - build message create form with @conversation too, perhaps, so that the message is built on the conversation
+- refactor conversations and messages logic:
   - use dom_id helper
+  - update conversations turbo_frame when any conversations have new messages, even when user isn't streaming from ConversationChannel.
 - validate that there cannot be more than one conversation with the same 2 users
 - introduce notifications to indicate in UI when messages (unread) are waiting
 - mailer functionality - email on sign up, notification emails if messages not read for period of time

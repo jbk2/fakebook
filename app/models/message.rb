@@ -17,7 +17,7 @@ class Message < ApplicationRecord
   validates :conversation_id, presence: true
 
   after_create_commit do
-    BroadcastMessageJob.perform_later(self)
+    BroadcastMessageJob.perform_later(self, self.user_id, self.conversation_id)
   end
 
 end

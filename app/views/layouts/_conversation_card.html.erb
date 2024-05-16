@@ -1,0 +1,5 @@
+<turbo-frame id="conversation-card">
+  <% if session[:active_conversation_id].present? %>
+    <%= render "conversations/conversation" %>
+  <% end %>
+</turbo-frame>
