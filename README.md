@@ -55,7 +55,7 @@
 - POROs ✅
 - Active Storage ✅
 - Active Job ✅
-- Action Mailer
+- Action Mailer ✅
 - Rspec; factories, Capybara ✅
 
 ### Full Test Coverage (Rspec, Shoulda-matchers, FactoryBot, Capybara, Selenium)

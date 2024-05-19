@@ -69,10 +69,10 @@
           <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
         <% end %>
 
-        <div class="theme-toggle mx-5">
-          <li class="flex">
-            <label for="theme-toggle" class="text-sm italic text-nowrap">Toggle theme</label>
+        <div class="theme-toggle">
+          <li class="flex flex-row flex-nowrap items-center px-4">
             <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
+            <label for="theme-toggle" class="text-sm italic text-nowrap pl-2">Toggle theme</label>
           </li>
         </div>
       </ul>
