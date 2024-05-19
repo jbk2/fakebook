@@ -3,8 +3,8 @@
     <div class="brand-logo mr-4 flex-shrink-0">
       <%= link_to image_tag('icons/facebook.png', width: "42", height: "42", class:""), root_path %>
     </div>
-    <div class="hidden md:block search-field">
-      <input type="text" placeholder="     Search" class="border-none rounded-full h-[40px] bg-gray-100">
+    <div class="hidden md:block search-field mr-4">
+      <input type="text" placeholder="     Search" class="border-none rounded-full h-[40px] bg-gray-200">
        <i class="fas fa-search -ml-48 pt-3 absolute" style="color: gray;"></i>
     </div>
     <%= turbo_frame_tag "flash_messages" do %>
