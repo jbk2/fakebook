@@ -92,12 +92,13 @@ System Tests
   - update conversations turbo_frame when any conversations have new messages, even when user isn't streaming from ConversationChannel.
 - validate that there cannot be more than one conversation with the same 2 users
 - introduce notifications to indicate in UI when messages (unread) are waiting
-- mailer functionality - email on sign up, notification emails if messages not read for period of time
+- mailer functionality - notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)
 - Write factories & seed data for conversations and messages (not yet done)
 - Build in omniauth Githuib Signin (not done)
 - RSPEC test, test, test - set in background with Guard
 - Deploy App
+- Test BroadcastJob & ConversationChannel
 
 ### Future ToDos:
 

@@ -9,4 +9,6 @@ class UsersController < ApplicationController
     @common_friends = (current_user.following_users + current_user.followed_users) & @friends
   end
 
+
+  
 end

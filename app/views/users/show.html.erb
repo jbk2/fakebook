@@ -7,7 +7,11 @@
     
     <div class="header-info mx-8 flex mt-6">
       <div class="profile-photo -mt-28 relative z-10">
-        <%= image_tag @user.profile_photo, alt: "user profile photo", class: "rounded-full size-48 border-4 border-white"%>
+        <% if @user.profile_photo.attached? %>
+          <%= image_tag @user.profile_photo, alt: "user profile photo", class: "rounded-full size-48 border-4 border-white"%>
+        <% else %>
+          <i class="fa-regular fa-user text-center content-center text-6xl rounded-full size-48 border-4 border-white bg-gray-300"></i>
+        <% end %>  
       </div>
 
       <div class="text ml-4">

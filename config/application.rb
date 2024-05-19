@@ -32,5 +32,6 @@ module Fakebook
     # will have a different format that is not supported by Rails 7.0
     # applications.
     config.active_support.cache_format_version = 7.1
+    config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   end
 end

@@ -1,0 +1,13 @@
+<body style="font-family: Arial, sans-serif; line-height: 1.6;">
+  <h1 style="font-size: 24px; font-weight: bold;">Welcome to Fakebook</h1>
+  <p style="font-size: 12px; font-style: italic;">Find & follow friends, chat and post.</p>
+
+  <p><span style="font-weight: bold;"><%= @username %></span>, thanks for signing up, good to have you here.</p>
+
+  <p>Head over to the users index to follow some friends.URL
+  Posts from those that you're following will show in you homepage (posts index); <%= root_url %> .</p>
+
+  <p>Happy socialising!</p>
+
+  <p style="font-style: italic;">View and make any required changes to your profile <%= link_to 'here', user_url(@user) %>.</p>  
+</body>
