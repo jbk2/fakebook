@@ -9,16 +9,12 @@
 #  updated_at      :datetime         not null
 #  conversation_id :bigint           not null
 #
-class Message < ApplicationRecord
-  belongs_to :user
-  belongs_to :conversation
-
-  validates :user_id, presence: true
-  validates :body, presence: true
-  validates :conversation_id, presence: true
-
-  after_create_commit do
-    BroadcastMessageJob.perform_later(self, self.user_id, self.conversation_id)
+FactoryBot.define do
+  
+  factory :message do
+    association :user
+    association :conversation
+    body { "a message" }
   end
 
 end
