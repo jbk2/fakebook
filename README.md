@@ -1,5 +1,3 @@
-# README
-
 ## The Odin Project – RoR Final Project – Facebook clone (_Fakebook_)
 
 ---
@@ -40,11 +38,12 @@
     - for toggling comment form presence on posts.
     - for subscribing to ActionCable ConversationChannel when a conversation is opened.
     - for managing scroll of messages container in conversation-card.
+  🔁 - Turbo 8; using view transitions & turbo morphing.
 - 📡 ActionCable; ConversationChannel manages conversation scoped subcriptions and message updates into the DOM.
 - ⏳ ActiveJob; 
   - ProcessImageJob - size and format processing of uploaded images.
   - BroadcaseMessageJob - ActionCable broadcasts messages after creation.
-- 🎞️ ActiveStorage; attachments, variants, metadata, [excellent article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
+- 🗄️ ActiveStorage; attachments, variants, metadata, [excellent article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
 - 📧 Mailer Functionality; Welcome email on user sign up.
 - 🎨 Styling - All styling done with TailwindCSS & DaisyUI component library.
 

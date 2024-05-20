@@ -28,7 +28,7 @@ def create_posts(no_of_posts, user_id)
     
     if post.persisted?
       puts "created post no #{i + 1} for user #{user_id}"
-      image_nos = (1..24).to_a.sample(rand(1..6))
+      image_nos = (1..24).to_a.sample(rand(1..4))
       images = []
       
       image_nos.each do |n|
