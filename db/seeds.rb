@@ -65,10 +65,20 @@ end
 
 def create_conversations(user)
   no_of_convos = User.all.count / 3
-  users_to_convo_with = User.all.sample(no_of_convos)
-  users_to_convo_with.each do |participant_two|
-    conversation = Conversation.create(participant_one_id: user.id, participant_two_id: participant_two.id)
-    puts "created conversation_id#{conversation.id} for user_id##{user.id}"
+  users_to_converse_with = User.all.sample(no_of_convos)
+  user_existing_convos = Conversation.where(participant_two_id: user.id)
+
+  unless user_existing_convos.empty?
+    user_existing_convos.each do |convo|
+      users_to_converse_with.delete(convo.participant_one_id)
+    end
+  end
+  
+  unless users_to_converse_with.empty?
+    users_to_converse_with.each do |participant_two|
+      conversation = Conversation.create(participant_one_id: user.id, participant_two_id: participant_two.id)
+      puts "created conversation_id#{conversation.id} for user_id##{user.id}"
+    end
   end
 end
 

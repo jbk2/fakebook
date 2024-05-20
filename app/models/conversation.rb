@@ -14,6 +14,7 @@ class Conversation < ApplicationRecord
   has_many :messages, dependent: :destroy
 
   validate :participants_must_be_different
+  validate :conversation_participant_uniqueness
 
   scope :between, -> (sender_id, recipient_id) do
     where("(conversations.participant_one_id = ? AND conversations.participant_two_id = ?) OR (conversations.participant_one_id = ? AND conversations.participant_two_id = ?)", sender_id, recipient_id, recipient_id, sender_id)
@@ -33,6 +34,15 @@ class Conversation < ApplicationRecord
   def participants_must_be_different
     if participant_one_id == participant_two_id
       errors.add(:participant_two_id, "cannot be the same as participant_one_id") 
+    end
+  end
+
+  def conversation_participant_uniqueness
+    existing_conversation = Conversation.between(participant_one_id, participant_two_id).where.not(id: id)
+    unless existing_conversation.empty?
+      puts "Existing conversation found: #{existing_conversation.pluck(:id)}"
+      errors.add(:base,
+        "a conversation between #{participant_two_id} & #{participant_one_id} already exists; conversation_id# #{existing_conversation.first.id}")
     end
   end
 
