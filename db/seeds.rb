@@ -20,14 +20,12 @@ def create_users(no_of_users)
   end
 end
 
-create_users(10)
-
 def create_posts(no_of_posts, user_id)
   user = User.find(user_id)
-
+  
   no_of_posts.times do |i|
     post = user.posts.create(body: Faker::Lorem.paragraph(sentence_count: rand(1..6)))
-  
+    
     if post.persisted?
       puts "created post no #{i + 1} for user #{user_id}"
       image_nos = (1..24).to_a.sample(rand(1..6))
@@ -45,9 +43,9 @@ def create_posts(no_of_posts, user_id)
           puts "Image file does not exist: #{image_path}"
         end
       end
-
+      
       post.photos.attach(images) if images.any?
-
+      
       post.photos.each do |photo|
         ProcessImageJob.perform_later(photo.blob.id)
       end
@@ -55,10 +53,51 @@ def create_posts(no_of_posts, user_id)
   end
 end
 
+def create_follows(user)
+  no_of_follows = User.all.count / 3
+  users_to_follow = User.all.sample(no_of_follows)
+  users_to_follow.each do |follow|
+    
+    follow = Follow.create(follower_id: user.id, followed_id: follow.id)
+    puts "created follow_id#{follow.id} for user_id##{user.id}"
+  end
+end
+
+def create_conversations(user)
+  no_of_convos = User.all.count / 3
+  users_to_convo_with = User.all.sample(no_of_convos)
+  users_to_convo_with.each do |participant_two|
+    conversation = Conversation.create(participant_one_id: user.id, participant_two_id: participant_two.id)
+    puts "created conversation_id#{conversation.id} for user_id##{user.id}"
+  end
+end
+
+def create_messages(user)
+  user.conversations.each do |convo|
+    no_of_messages_from_user = rand(2..6)
+    no_of_messages_to_user = rand(2..6)
+    
+    no_of_messages_from_user.times do
+      create_message(user.id, convo.id)
+    end
+    
+    no_of_messages_to_user.times do
+      create_message(convo.other_participant(user).id, convo.id)
+    end
+  end
+end
+
+def create_message(sender_id, conversation_id)
+  message = Message.create(body: Faker::Lorem.sentence(word_count: rand(3..7)), user_id: sender_id, conversation_id: conversation_id)
+  puts "created message_id#{message.id} for sender_id##{sender_id} in conversation_id##{conversation_id}"
+end
+
+
+create_users(10)
+
 User.all.each do |user|
   create_posts(rand(3..6), user.id)
-  followed_user_ids = (1..10).to_a.sample(5)
-  followed_user_ids.each do |id|
-    Follow.create(follower_id: user.id, followed_id: id)
-  end
+  create_follows(user)
+  create_conversations(user)
+  create_messages(user)  
 end

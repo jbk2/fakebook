@@ -13,6 +13,4 @@ class UsersController < ApplicationController
     @friends = current_user.followed_users
   end
 
-
-  
 end
