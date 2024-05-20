@@ -3,6 +3,25 @@
 ## The Odin Project – RoR Final Project – Facebook clone (_Fakebook_)
 
 ---
+### Clone and run locally
+
+1. Clone into a local repo from [here](https:\\github...)
+2. Run `bundle` on cmdline
+3. Run db:create
+4. Run db:migrate
+5. Run db:seed
+6. Run rails server 
+
+---
+
+### Use in production from www.fakebook_app.com
+
+  - Log in to an existing user account (you'll not receive emails):
+    email; 1@test.com _(can use 1-10)_
+    password; 'Password12!'
+  - Signup to your own account [here](http://localhost:3000/users/sign_up).
+
+---
 
 ### Summary
 *A facebook clone app featuring:*
