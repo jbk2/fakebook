@@ -1,28 +1,32 @@
-<div class="p-5 pl-20">
-  <h2 class="text-lg font-bold mb-4">Log in</h2>
+<div class="flex mt-2 md:mt-6">
+  <div class="form-content p-5 pr-0 md:pl-20 w-[280px]">
+    <h2 class="text-lg font-bold mb-4">Log in</h2>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
-    <div class="field my-2">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input input-bordered" %>
-    </div>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "w-[380px]", data: { turbo: false } }) do |f| %>
+      <div class="field my-2">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input input-bordered" %>
+      </div>
 
-    <div class="field my-2">
-      <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password", class: "input input-bordered" %>
-    </div>
+      <div class="field my-2">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "current-password", class: "input input-bordered" %>
+      </div>
 
-    <% if devise_mapping.rememberable? %>
-      <div class="field">
-        <%= f.check_box :remember_me, class: "checkbox" %>
-        <%= f.label :remember_me %>
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me, class: "checkbox" %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Log in", class: "btn btn-sm btn-primary my-2" %>
       </div>
     <% end %>
-
-    <div class="actions">
-      <%= f.submit "Log in", class: "btn btn-sm btn-primary my-2" %>
-    </div>
-  <% end %>
-
-  <%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %>
+  </div>
+  <div class="welcome-content p-5 pl-0 md:ml-28">
+    <%= render 'layouts/welcome' %>
+  </div>
 </div>

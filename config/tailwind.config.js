@@ -11,6 +11,8 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        helvetica: ['Helvetica'],
+        ariel: ['Ariel']
       },
       animation: {
         fadeOut: 'fadeOut 2.5s ease-out forwards',
