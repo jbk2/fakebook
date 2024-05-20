@@ -12,8 +12,7 @@
 require 'rails_helper'
 
 RSpec.describe Message, type: :model do
-  
-  describe 'attributes' do
+  describe 'validations & associations' do
     let(:user_1) { FactoryBot.create(:user) }
     let(:user_2) { FactoryBot.create(:user) }
     let(:conversation) { FactoryBot.create(:conversation, participant_one: user_1, participant_two: user_2) }
@@ -44,6 +43,6 @@ RSpec.describe Message, type: :model do
         expect(message.errors[:conversation]).to include("must exist")
       end
     end
-    
+
   end
 end
