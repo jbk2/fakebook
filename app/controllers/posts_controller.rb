@@ -32,6 +32,8 @@ include PostsHandler
     @post = Post.new
     @posts = current_user_and_following_user_posts
     @pagy, @posts = pagy_countless(@posts)
+    @followed_users = current_user.followed_users
+    @following_users = current_user.following_users
   rescue Pagy::OverflowError
     redirect_to root_path, alert: "Page number is too high"
 

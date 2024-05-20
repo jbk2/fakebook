@@ -1,13 +1,38 @@
-<div class="flex flex-col w-full pr-6 2xl:pr-16 small:pt-6">
-  <h3>Right Sidebar</h3>
-  <ul>
-    <li>link#1</li>
-    <li>link#2</li>
-    <li>link#3</li>
-    <li>link#4</li>
-    <li>link#5</li>
-  </ul>
-
-  <div data-message-card="messages">
+<div class="pr-6 pl-16 2xl:pr-16 sm:pt-6">
+  <div class="following">
+    <h3 class="text-left text-lg font-semibold mb-4 text-gray-500">Following</h3>
+    <ul>
+      <% @followed_users.each do |user| %>
+        <li class="ml-1 mb-2 opacity-70">
+          <%= link_to user_path(user), class: "flex items-center" do %>
+            <% if user.profile_photo.attached? %>
+              <%= image_tag user.profile_photo, class: "rounded-full w-11 h-11" %>
+            <% else %>
+              <i class="fa-regular fa-user text-center text-xl rounded-full w- h-11"></i>
+            <% end %>
+            <span class="ml-3 text-md font-medium"><%= user.username %></span>
+          <% end %>
+        </li>
+      <% end %>  
+    </ul>
   </div>
+  
+  <div class="mt-9 followers">
+    <h3 class="text-left text-lg font-semibold mb-4 text-gray-500">Followers</h3>
+    <ul>
+      <% @following_users.each do |user| %>
+        <li class="ml-1 mb-2 opacity-70">
+          <%= link_to user_path(user), class: "flex items-center" do %>
+            <% if user.profile_photo.attached? %>
+              <%= image_tag user.profile_photo, class: "rounded-full w-11 h-11" %>
+            <% else %>
+              <i class="fa-regular fa-user text-center text-xl rounded-full w- h-11"></i>
+            <% end %>
+            <span class="ml-3 text-md font-medium"><%= user.username %></span>
+          <% end %>
+        </li>
+      <% end %>  
+    </ul>
+  </div>
+
 </div>
