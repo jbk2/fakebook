@@ -1,16 +1,20 @@
 <div class="flex flex-col w-full pl-6 2xl:pl-16 sm:pt-6">
   <ul class="flex flex-col gap-y-5 xl:gap-y-8">
-    <li class="flex items-center mb-2">
-      <% if current_user.profile_photo.attached? %>
-        <%= image_tag current_user.profile_photo, class: "rounded-full w-11 h-11" %>
-      <% else %>
-        <i class="fa-regular fa-user text-center text-xl rounded-full w- h-11"></i>
-      <% end %>
-      <span class="ml-2 text-md font-medium"><%= current_user.username %></span>
+    <li class="mb-2">
+      <%= link_to edit_user_registration_path, class: "flex items-center" do %>
+        <% if current_user.profile_photo.attached? %>
+          <%= image_tag current_user.profile_photo, class: "rounded-full w-11 h-11" %>
+        <% else %>
+          <i class="fa-regular fa-user text-center text-xl rounded-full w- h-11"></i>
+        <% end %>
+        <span class="ml-2 text-md font-medium"><%= current_user.username %></span>
+      <% end %>  
     </li>
     <li class="font-medium flex items-center">
-      <i class="fa-solid fa-user-group w-12 pr-4 bg-clip-text text-xl text-transparent bg-gradient-to-r from-blue-600 to-cyan-300"></i>
-      Friends
+      <%= link_to friends_path do %>
+        <i class="fa-solid fa-user-group w-12 pr-4 bg-clip-text text-xl text-transparent bg-gradient-to-r from-blue-600 to-cyan-300"></i>
+        Friends
+      <% end %>
     </li>
     
     <li class="font-medium flex items-center">
