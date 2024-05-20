@@ -41,10 +41,10 @@
         <%= render 'layouts/profile_dropdown' %>
       <% else %>
         <% unless current_page?(new_user_session_path)  %>
-          <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
+          <li><%= link_to "Log in", new_user_session_path, class: "btn btn-sm w-[78px]" %></li>
         <% end %>
         <% unless current_page?(new_user_registration_path) %> 
-          <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
+          <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm w-[78px]" %></li>
         <% end %>  
       <% end %>
     </ul>
