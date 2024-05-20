@@ -15,12 +15,12 @@
 
   <div class="w-48 flex justify-around" id="center-section">
     <div class="home">
-      <%= link_to root_path do %>
+      <%= link_to root_path, title: "Home" do %>
         <i class="fa-solid fa-house text-blue-600 sm:mx-4"></i>
       <% end %>
     </div>
     <div class="users">
-      <%= link_to users_path do %>
+      <%= link_to users_path, title: "All users" do %>
         <i class="fa-solid fa-user-group text-blue-600 sm:mx-4"></i>
       <% end %>
     </div>
@@ -29,7 +29,8 @@
   <div class="pr-6 2xl:pr-16" id="right-section">
     <div class="hidden sm:flex sm:flex-nowrap theme-toggle mx-5">
       <label for="theme-toggle" class="text-sm italic text-nowrap mr-2">Toggle theme</label>
-      <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
+      <input type="checkbox" value="cupcake" name="theme-toggle"
+        title="Colour theme" class="toggle toggle-sm theme-controller"/>
     </div>
 
     <% if user_signed_in? && @conversations %>
