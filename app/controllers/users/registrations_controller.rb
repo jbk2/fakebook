@@ -13,7 +13,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super do |resource|
       if resource.persisted?
-        UserMailer.with(user: resource).welcome_email.deliver_later
+        UserMailer.with(user_id: resource.id).welcome_email.deliver_later
       end
     end
   end
