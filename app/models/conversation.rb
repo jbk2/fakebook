@@ -40,7 +40,8 @@ class Conversation < ApplicationRecord
   def conversation_participant_uniqueness
     existing_conversation = Conversation.between(participant_one_id, participant_two_id).where.not(id: id)
     unless existing_conversation.empty?
-      puts "Existing conversation found: #{existing_conversation.pluck(:id)}"
+      Rails.logger.debug "Can't create new conversation with participant id's; #{participant_one_id} & #{participant_two_id} " +
+        "because existing conversation_id#; #{existing_conversation.pluck(:id)} already exists"
       errors.add(:base,
         "a conversation between #{participant_two_id} & #{participant_one_id} already exists; conversation_id# #{existing_conversation.first.id}")
     end
