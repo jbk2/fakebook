@@ -63,7 +63,7 @@
 - Turbo Streams ✅
 - Turbo Frames ✅
 - Stimulus ✅
-- Tailwindcss / DaisyUI ✅, FontAwesome ✅, 
+- Tailwindcss / DaisyUI ✅, FontAwesome ✅,
 - Devise ✅
 - Omniauth
 - Seeding, Faker gem ✅
