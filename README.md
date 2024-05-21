@@ -79,12 +79,13 @@
 ### Full Test Coverage (Rspec, Shoulda-matchers, FactoryBot, Capybara, Selenium)
 
 Unit Tests
-  - Models; all tested for:
-    - associations
-    - validations
-    - custom methods
-  - ActiveJob; ProcessImageJob
-    - unit tests
+  - Models; unit tested:
+    - associations & validations
+    - custom logic
+  - Unit & integration tests for:
+    - ProcessImageJob & BroadcastMessageJob
+    - ActionCable; ConversationChannel
+    - ActionMailer; UserMailer
 
 Request Tests
   - Authentication tested on all routes
@@ -108,15 +109,13 @@ System Tests
 - refactor conversations and messages logic:
   - use dom_id helper
   - update conversations turbo_frame when any conversations have new messages, even when user isn't streaming from ConversationChannel.
-- validate that there cannot be more than one conversation with the same 2 users
 - introduce notifications to indicate in UI when messages (unread) are waiting
 - mailer functionality - notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)
-- Write factories & seed data for conversations and messages (not yet done)
 - Build in omniauth Githuib Signin (not done)
-- RSPEC test, test, test - set in background with Guard
+- Jest test ConversationChannel JS
+- Set RSpec up with Guard
 - Deploy App
-- Test BroadcastJob & ConversationChannel
 
 ### Future ToDos:
 
