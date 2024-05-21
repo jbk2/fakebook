@@ -11,6 +11,7 @@
 require 'rails_helper'
 
 RSpec.describe Conversation, type: :model do
+
   describe 'validations & associations' do
     let(:user_1) { FactoryBot.create(:user) }
     let(:user_2) { FactoryBot.create(:user) }
@@ -38,13 +39,17 @@ RSpec.describe Conversation, type: :model do
       end
     end
 
-    describe 'where a previous conversation had the same two users' do
-      it 'should not be valid' do
-        new_conversation = FactoryBot.build(:conversation, participant_one: user_2, participant_two: user_1)
-        expect(new_conversation).not_to be_valid
-        expect(new_conversation.errors[:base]).to include(
-          "a conversation between #{new_conversation.participant_two_id} & #{new_conversation.participant_one_id} already exists; conversation_id# #{conversation.id}")
-      end
+    it 'cannot have >1 conversation with the same two users' do
+      new_conversation = FactoryBot.build(:conversation, participant_one: user_2, participant_two: user_1)
+      expect(new_conversation).not_to be_valid
+      expect(new_conversation.errors[:base]).to include(
+        "a conversation between #{new_conversation.participant_two_id} & #{new_conversation.participant_one_id} already exists; conversation_id# #{conversation.id}")
+    end
+
+    it 'must have different participants' do
+      conversation.participant_two = conversation.participant_one
+      expect(conversation).not_to be_valid
+      expect(conversation.errors[:participant_two_id]).to include("cannot be the same as participant_one_id")
     end
 
   end
