@@ -10,7 +10,6 @@
 #  conversation_id :bigint           not null
 #
 require 'rails_helper'
-include ActiveJob::TestHelper
 
 RSpec.describe Message, type: :model do
   

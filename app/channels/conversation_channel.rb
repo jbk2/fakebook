@@ -1,11 +1,16 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "conversation_#{params[:conversationId]}"
+    if params[:conversationId].present? && Conversation.find(params[:conversationId])
+      stream_from "conversation_#{params[:conversationId]}"
+    else
+      Rails.logger.debug "Client attempted to subscribe to a conversation channel without a valid conversation_id"
+      reject
+    end
   end
 
   def receive(data)
-    # Called when the client JS chanel instance sends data via the channel
-    puts "Data received from client: #{data}"
+    # Called when the client JS channel instance sends data via the channel
+    puts "Broadcasted data received from JS client channel instance: #{data.inspect}"
   end
   
   def unsubscribed
