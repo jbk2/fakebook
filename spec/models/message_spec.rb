@@ -10,13 +10,20 @@
 #  conversation_id :bigint           not null
 #
 require 'rails_helper'
+include ActiveJob::TestHelper
 
 RSpec.describe Message, type: :model do
+  
+  let(:user_1) { FactoryBot.create(:user) }
+  let(:user_2) { FactoryBot.create(:user) }
+  let(:conversation) { FactoryBot.create(:conversation, participant_one: user_1, participant_two: user_2) }
+  let(:message) { FactoryBot.create(:message, user: user_1, conversation: conversation) }
+
+  before do
+    ActiveJob::Base.queue_adapter = :test
+  end
+
   describe 'validations & associations' do
-    let(:user_1) { FactoryBot.create(:user) }
-    let(:user_2) { FactoryBot.create(:user) }
-    let(:conversation) { FactoryBot.create(:conversation, participant_one: user_1, participant_two: user_2) }
-    let(:message) { FactoryBot.create(:message, user: user_1, conversation: conversation) }
 
     context 'with all associations and attributes ' do
       it "should be valid" do
@@ -44,5 +51,13 @@ RSpec.describe Message, type: :model do
       end
     end
 
+  end
+
+  describe 'after_create callback' do
+    it 'should queue a job to broadcast the message' do
+      expect {
+        message
+      }.to have_enqueued_job(BroadcastMessageJob)
+    end
   end
 end
