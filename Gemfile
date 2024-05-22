@@ -58,6 +58,7 @@ gem "font-awesome-sass", "~> 6.5"
 gem "pagy", "~> 7.0"
 gem "sidekiq", "~> 7.2"
 gem "postmark-rails", "~> 0.22.1"
+gem "whenever", "~> 1.0"
 
 
 group :development, :test do
@@ -90,4 +91,5 @@ group :test do
   gem "factory_bot_rails", "~> 6.4"
   gem "launchy", "~> 3.0"
 end
+
 

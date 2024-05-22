@@ -30,8 +30,25 @@ class ProcessImageJob < ApplicationJob
       end
       raise
     ensure
-      orig_img_tempfile&.close; orig_img_tempfile&.unlink
-      processed_img&.close; processed_img&.unlink
+      if orig_img_tempfile
+        Rails.logger.info("Closing and unlinking orig_img_tempfile for blob ID: #{blob_id}")
+        orig_img_tempfile.close
+        orig_img_tempfile.unlink
+      else
+        Rails.logger.warn("orig_img_tempfile was nil for blob ID: #{blob_id}")
+      end
+    
+      if processed_img
+        Rails.logger.info("Closing and unlinking processed_img for blob ID: #{blob_id}")
+        processed_img.close
+        processed_img.unlink
+      else
+        Rails.logger.warn("processed_img was nil for blob ID: #{blob_id}")
+      end
+      
+      # Rails.logger.info("Cleaning up temporary files for blob ID: #{blob_id}")
+      # orig_img_tempfile&.close; orig_img_tempfile&.unlink
+      # processed_img&.close; processed_img&.unlink
     end
   end
 

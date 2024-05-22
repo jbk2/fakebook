@@ -1,0 +1,27 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+!/log/.keep
+/tmp
+!/tmp/.keep
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
+
+# Ignore node modules
+/node_modules
+
+# Ignore yarn files
+/yarn-error.log
+
+# Ignore dotenv files
+.env
+.env.development
+.env.test
+.env.production
+
+# Ignore any secrets
+config/master.key

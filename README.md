@@ -20,6 +20,12 @@
   - Signup to your own account [here](http://localhost:3000/users/sign_up).
 
 ---
+### DevOps
+- Cronjobs, via Whenever gem, are used to run cleanup tasks.
+  - On deployment need to run `bundle exec whenever --update-crontab`
+
+
+---
 
 ### Summary
 *A facebook clone app featuring:*
