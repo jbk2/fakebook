@@ -1,0 +1,57 @@
+FROM ruby:3.3.0
+
+WORKDIR /rails
+
+ENV RAILS_ENV="production" \
+    BUNDLE_DEPLOYMENT="1" \
+    RAILS_LOG_TO_STDOUT="true" \
+    RAILS_SERVE_STATIC_FILES="true" \
+    RAILS_MAX_THREADS="5" \
+    RAILS_MIN_THREADS="5" \
+    RAILS_WEB_CONCURRENCY="2" \
+    RAILS_MASTER_KEY=""
+
+
+# throw errors if Gemfile has been modified since Gemfile.lock
+RUN bundle config --global frozen 1
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y libvips libvips-dev redis-server postgresql && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Verify PostgreSQL installation path
+RUN ls /usr/lib/postgresql/
+
+# Set environment variables for PostgreSQL
+ENV POSTGRES_USER=postgres \
+    POSTGRES_PASSWORD=password \
+    POSTGRES_DB=myapp_development
+
+# Create a directory for PostgreSQL data
+RUN mkdir -p /var/lib/postgresql/data && chown -R postgres:postgres /var/lib/postgresql
+
+# Create a directory for Redis data
+RUN mkdir -p /var/lib/redis && chown -R redis:redis /var/lib/redis
+
+USER root
+
+WORKDIR /usr/src/app
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+COPY . .
+
+# Copy the production key
+COPY config/credentials/production.key config/credentials/production.key
+
+# Copy custom Redis configuration
+COPY redis.conf /usr/local/etc/redis/redis.conf
+
+# Create a script to run all services
+COPY entrypoint.sh /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
+
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

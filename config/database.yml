@@ -13,17 +13,21 @@
 #
 # Configure Using Gemfile
 # gem "pg"
-#
+
 default: &default
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "your_password" } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>
 
 development:
   <<: *default
   database: fakebook_development
+  # username: <%= ENV.fetch("DATABASE_USERNAME") { "jamesbkemp" } %>
+  # password: <%= ENV.fetch("DATABASE_PASSWORD") { "your_local_password" } %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -82,5 +86,5 @@ test:
 production:
   <<: *default
   database: fakebook_production
-  username: fakebook
-  password: <%= ENV["FAKEBOOK_DATABASE_PASSWORD"] %>
+  username: <%= ENV.fetch("DATABASE_USERNAME") { "postgres" } %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
