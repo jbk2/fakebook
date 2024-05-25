@@ -10,6 +10,9 @@ module Fakebook
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
     
+    
+    puts "RAILS_MASTER_KEY: #{ENV['RAILS_MASTER_KEY']}"
+
     # Override secret_key_base
     config.secret_key_base = Rails.application.credentials.secret_key_base
 
