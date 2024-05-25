@@ -1,5 +1,11 @@
 #!/usr/bin/env sh
 
+if [ "$RAILS_ENV" == "production" ]; then
+  export RAILS_MASTER_KEY=$RAILS_MASTER_KEY_PRODUCTION
+else
+  export RAILS_MASTER_KEY=$RAILS_MASTER_KEY_DEVELOPMENT
+fi
+
 if ! gem list foreman -i --silent; then
   echo "Installing foreman..."
   gem install foreman

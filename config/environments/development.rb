@@ -138,4 +138,6 @@ Rails.application.configure do
     Bullet.rails_logger = false # Add warnings directly to the Rails log
     # Bullet.add_footer = true # Add a footer with debug info to the HTML
   end
+
+  # config.force_ssl = false
 end
