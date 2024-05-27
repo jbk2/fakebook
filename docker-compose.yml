@@ -1,24 +1,24 @@
 services:
   db:
-    image: postgres
+    image: postgres:latest
     restart: always
+    ports:
+      - 5432:5432
     environment:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: postgres
-      POSTGRES_DB: fakebook_production
-    ports:
-      - 5432:5432
+      # POSTGRES_DB: fakebook_production
     volumes:
       - dbdata:/var/lib/postgresql/data
 
   redis:
-    image: "redis:7.2.4-bookworm"
+    image: redis:latest
     ports: 
       - 6379:6379
 
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - .:/rails
     ports:
@@ -26,11 +26,27 @@ services:
     depends_on:
       - db
       - redis
+    # env_file:
+    #   - .env
     environment:
-      RAILS_ENV: production
-      DATABASE_URL: postgresql://postgres:password@db:5432/fakebook_production
+      # RAILS_ENV: development
+      DATABASE_URL: postgresql://postgres:password@db:5432/fakebook_development
       REDIS_URL: redis://redis:6379/1
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY_DEVELOPMENT}
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq
+    volumes:
+      - .:/rails
+    depends_on:
+      - db
+      - redis
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/fakebook_development
+      REDIS_URL: redis://redis:6379/1
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY_DEVELOPMENT}
+      RAILS_ENV: development
 
 volumes:
   dbdata:

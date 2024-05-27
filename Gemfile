@@ -79,7 +79,7 @@ group :development do
   # gem "spring"
   
   gem "annotate", "~> 3.2"
-  gem "bullet", "~> 7.1"
+  # gem "bullet", "~> 7.1"
   gem "letter_opener", "~> 1.10"
   gem "dockerfile-rails", ">= 1.6", :group => :development
 end

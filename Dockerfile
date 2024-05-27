@@ -10,9 +10,9 @@ WORKDIR /rails
 
 # 3. Set environment variables
 ENV BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle" \
-    BUNDLE_WITHOUT="development:test" \
-    RAILS_ENV="production"
+    BUNDLE_PATH="/usr/local/bundle"
+    # BUNDLE_WITHOUT="development:test"
+    # RAILS_ENV="production"
 
 # 4. Update gems and bundler
 RUN gem update --system --no-document && \
@@ -66,4 +66,4 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # 18. Start the server by default
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
