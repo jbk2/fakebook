@@ -49,11 +49,17 @@ FROM base
 # 13. Install packages needed for deployment
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl imagemagick libvips postgresql-client && \
+    apt-get install -y chromium && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # 14. Copy built artifacts: gems, application
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --from=build /rails /rails
+
+
+# 15. Set environment variables for headless Chrome
+ENV CHROME_BIN=/usr/bin/google-chrome \
+    CHROME_DRIVER_PATH=/usr/local/bin/chromedriver
 
 # 16. Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \

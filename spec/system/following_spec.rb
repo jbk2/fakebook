@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Following', type: :system do
+describe 'Following', type: :system, js: true do
   before { driven_by(:selenium_chrome_headless) }
 
   let!(:users) { create_list(:user, 4) }
