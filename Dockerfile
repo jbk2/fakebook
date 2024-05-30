@@ -23,7 +23,8 @@ FROM base as build
 
 # 6. Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential libpq-dev libvips nodejs npm yarn
+    apt-get install --no-install-recommends -y build-essential libpq-dev libvips 
+    # nodejs npm yarn
 
 # 7. Install application gems
 COPY --link Gemfile Gemfile.lock ./
@@ -35,7 +36,7 @@ RUN bundle install && \
 COPY --link . .
 
 # 9. Install TailwindCLI
-RUN npm install -g tailwindcss
+# RUN npm install -g tailwindcss
 
 # 10. Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
