@@ -7,7 +7,9 @@ FROM ruby:$RUBY_VERSION-slim as base
 WORKDIR /rails
 
 ENV BUNDLE_DEPLOYMENT="1" \
-    BUNDLE_PATH="/usr/local/bundle"
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_GEMFILE=/rails/Gemfile.sidekiq \
+    SKIP_BOOTSNAP=true
 
 RUN gem update --system --no-document && \
     gem install -N bundler
@@ -16,8 +18,9 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential libpq-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
-COPY Gemfile.sidekiq Gemfile
-RUN bundle lock
+COPY Gemfile.sidekiq Gemfile.sidekiq
+COPY Gemfile.sidekiq.lock Gemfile.sidekiq.lock
+
 RUN bundle install
     
 
@@ -42,4 +45,4 @@ RUN mkdir -p log storage tmp && \
 
 USER 1000:1000
 
-CMD ["bundle", "exec", "sidekiq"]
+CMD ["sidekiq"]
