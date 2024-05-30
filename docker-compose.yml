@@ -36,7 +36,9 @@ services:
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY_DEVELOPMENT}
 
   sidekiq:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.sidekiq
     command: bundle exec sidekiq
     volumes:
       - .:/rails
