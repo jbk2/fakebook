@@ -31,6 +31,9 @@
 /config/master.key
 /.env
 
+# Ignore amazon creds
+/fakebook_ec2.pem
+
 /app/assets/builds/*
 !/app/assets/builds/.keep
 

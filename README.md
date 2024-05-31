@@ -24,6 +24,11 @@
 - Cronjobs, via Whenever gem, are used to run cleanup tasks.
   - On deployment need to run `bundle exec whenever --update-crontab`
 
+### Docker
+- dev.Dockerfile & prod.Dockerfile files are written for respective environments.
+- To build development or production images adjust docker-compose.yml web and
+  sidekiq services to build from appropriate Dockerfile. (Should adjust to be able
+  to pass in environment argument.)
 
 ---
 
