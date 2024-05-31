@@ -29,6 +29,10 @@
 - To build development or production images adjust docker-compose.yml web and
   sidekiq services to build from appropriate Dockerfile. (Should adjust to be able
   to pass in environment argument.)
+- For running on 1) localhost or 2) separate service redis_url must be set to:
+  - config/cable.yml - 1) 'redis://localhost:6379/1' 2) 'redis://redis:6379/1'
+  - config/initializers/sidekiq.rb - 1) 'redis://localhost:6379/0' 2) 'redis://redis:6379/0'
+
 
 ---
 
