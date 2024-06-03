@@ -15,7 +15,7 @@ include PostsHandler
       flash[:notice] = "Post was successfully created"
       if @post.photos.present?
         @post.photos.each do |photo|
-          ProcessImageJob.perform_later(photo.blob.id)
+          ProcessImageJob.set(wait: 1.minute).perform_later(photo.blob.id)
         end
       end
       
