@@ -12,8 +12,8 @@ amazon:
   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
   region: eu-west-3
-  bucket: fakebook-s3-production #hardcoded using s3 in dev just to trial, instead of <%= Rails.env %>
-  public:
+  bucket: fakebook-s3-<%= Rails.env %> #hardcoded using s3 in dev just to trial, instead of <%= Rails.env %>
+  public: true
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
