@@ -17,8 +17,11 @@ services:
       - 6379:6379
 
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: prod.Dockerfile
     # command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+   
     user: "1000:1000"
     volumes:
       - .:/rails
@@ -33,10 +36,13 @@ services:
       # RAILS_ENV: development
       DATABASE_URL: postgresql://postgres:password@db:5432/fakebook_development
       REDIS_URL: redis://redis:6379/1
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY_DEVELOPMENT}
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY_PRODUCTION}
 
   sidekiq:
-    build: .
+    build:
+      context: .
+      dockerfile: prod.Dockerfile
+
     command: bundle exec sidekiq
     volumes:
       - .:/rails
@@ -46,7 +52,7 @@ services:
     environment:
       DATABASE_URL: postgresql://postgres:password@db:5432/fakebook_development
       REDIS_URL: redis://redis:6379/1
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY_DEVELOPMENT}
+      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY_PRODUCTION}
       RAILS_ENV: development
 
 volumes:

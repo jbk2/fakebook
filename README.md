@@ -32,6 +32,7 @@
 - For running on 1) localhost or 2) separate service redis_url must be set to:
   - config/cable.yml - 1) 'redis://localhost:6379/1' 2) 'redis://redis:6379/1'
   - config/initializers/sidekiq.rb - 1) 'redis://localhost:6379/0' 2) 'redis://redis:6379/0'
+  & comment out `require('daisyui')` from tailwind.config.js
 
 ### AWS S3
 - Uses `'fakebook-s3-<%= Rails.env %>' buckets for both development and productive, under user 'fakebook' (AWS access keys in credentials) with the 'fakebook-s3-policy' permissions.
