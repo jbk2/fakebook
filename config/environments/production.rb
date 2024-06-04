@@ -87,7 +87,6 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "fakebook_production"
 
   config.action_mailer.perform_caching = false
-  # config.action_mailer.default_url_options = { host: 'localhost:3000' }
   
   # Configure Action View to use HTML5 standards-compliant sanitizers.
   config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
@@ -97,7 +96,16 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :postmark
+  config.action_mailer.postmark_settings = { :api_token => "33c9c119-1446-4911-b53f-5e20233b5ad3" }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  # config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
+
+
+  
+  
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -143,7 +151,4 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-
-  config.action_mailer.delivery_method = :postmark
-  config.action_mailer.postmark_settings = { :api_token => "33c9c119-1446-4911-b53f-5e20233b5ad3" }
 end
