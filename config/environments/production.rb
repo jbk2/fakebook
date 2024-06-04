@@ -34,7 +34,7 @@ Rails.application.configure do
   config.assets.compile = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.asset_host = "http://assets.example.com"
+  # config.asset_host = "https://fakebook-s3-production.s3-eu-west-3.amazonaws.com"
 
   # Ensure the asset pipeline is enabled for production
   config.assets.compile = true
@@ -49,6 +49,8 @@ Rails.application.configure do
 
   # Store files on Amazon S3.
   config.active_storage.service = :amazon
+
+  config.active_storage.resolve_model_to_route = :rails_storage_redirect
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil

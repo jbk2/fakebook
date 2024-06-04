@@ -59,12 +59,12 @@ gem "pagy", "~> 7.0"
 gem "sidekiq", "~> 7.2"
 gem "postmark-rails", "~> 0.22.1"
 gem "whenever", "~> 1.0"
+gem "faker", "~> 3.2" # moved out of just test & dev so that in prod we can still seed the prod db.
 
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem "faker", "~> 3.2"
   gem "rspec-rails", "~> 6.1"
 end
 
