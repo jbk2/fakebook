@@ -15,6 +15,8 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
+  
+  # config.action_controller.default_url_options = { host: 'localhost:3000' }
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
@@ -85,6 +87,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "fakebook_production"
 
   config.action_mailer.perform_caching = false
+  # config.action_mailer.default_url_options = { host: 'localhost:3000' }
   
   # Configure Action View to use HTML5 standards-compliant sanitizers.
   config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
