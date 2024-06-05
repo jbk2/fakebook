@@ -1,12 +1,12 @@
 Welcome to Fakebook
 
-Find & follow friends, chat and post.
+Find & follow friends, post & chat.
 
-<%= @username %>, thanks for signing up, good to have you here.
+Hi <%= @username %>, thanks for signing up, it's good to have you here.
 
-Head over to the users index to follow some friends <%= users_url %>
-Posts from those that you're following will show in you homepage (posts index); <%= root_url %>.
+Head over to the users index to make friends and follow <%= link_to "people", users_url %>.
+Posts from those that you're following appear in you <%= link_to "homepage", root_url %>.
 
-Happy socialising!
+Happy social'ing!
 
-View and make any required changes to your profile.
+View and make any required changes to your profile <%= link_to 'here', user_url(@user) %>.
