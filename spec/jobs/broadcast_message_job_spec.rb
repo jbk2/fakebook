@@ -14,15 +14,18 @@ RSpec.describe BroadcastMessageJob, type: :job do
 
   describe '#perform' do
     it 'renders the message partial and broadcasts to the correct channel' do
-      expect(ApplicationController.renderer).to receive(:render).with(partial: 'messages/message', locals: { message: message }).and_call_original
-      expect(ApplicationController.renderer).to receive(:render).with(partial: 'conversations/conversations', locals: { conversations: user_1.conversations, current_user: user_1 }).and_call_original
-      expect(ApplicationController.renderer).to receive(:render).with(partial: 'conversations/conversations', locals: { conversations: user_2.conversations, current_user: user_2 }).and_call_original
+      renderer = double('renderer')
+      allow(ApplicationController.renderer).to receive(:new).and_return(renderer)
+
+      expect(renderer).to receive(:render).with(partial: 'messages/message', locals: { message: message }).and_return('rendered message')
+      expect(renderer).to receive(:render).with(partial: 'conversations/conversations', locals: { conversations: user_2.conversations, current_user: user_2 }).and_return('rendered conversations for user 2')
+      expect(renderer).to receive(:render).with(partial: 'conversations/conversations', locals: { conversations: user_1.conversations, current_user: user_1 }).and_return('rendered conversations for user 1')
 
       expect(ActionCable.server).to receive(:broadcast).with("conversation_#{conversation.id}", {
-        message_html: kind_of(String),
-        senders_conversations_html: kind_of(String),
+        message_html: 'rendered message',
+        senders_conversations_html: 'rendered conversations for user 1',
         sender_id: user_1.id,
-        recipients_conversations_html: kind_of(String),
+        recipients_conversations_html: 'rendered conversations for user 2',
         recipient_id: user_2.id
       })
 
