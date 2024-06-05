@@ -11,13 +11,17 @@
       </div>
     </section>
     <section>
-      <%= turbo_frame_tag "posts", class: "my-10" do %>
-        <%= render 'posts' %>
-      <% end %>
+      <% if @posts.empty? %>
+        <%= render 'no_posts' %>
+      <% elsif @posts.any? %>
+        <%= turbo_frame_tag "posts", class: "my-10" do %>
+          <%= render 'posts' %>
+        <% end %>
 
-      <%= turbo_frame_tag "pagination",
-        loading: :lazy,
-        src: user_posts_path(@user ,format: :turbo_stream, page: (@pagy.next || 1)) %>
+        <%= turbo_frame_tag "pagination",
+          loading: :lazy,
+          src: user_posts_path(@user ,format: :turbo_stream, page: (@pagy.next || 1)) %>
+      <% end %>
     </section>
   </div>
   

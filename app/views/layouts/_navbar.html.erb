@@ -4,7 +4,7 @@
       <%= link_to image_tag('icons/facebook.png', width: "42", height: "42", class:""), root_path %>
     </div>
     <div class="hidden md:block search-field mr-4">
-      <input type="text" placeholder="     Search" class="border-none rounded-full h-[40px] bg-neutral-200">
+      <input type="text" placeholder="     Search" id="navbar-search" class="border-none rounded-full h-[40px] bg-neutral-200">
        <i class="fas fa-search -ml-48 pt-3 absolute" style="color: gray;"></i>
     </div>
     <%= turbo_frame_tag "flash_messages" do %>
@@ -29,7 +29,7 @@
   <div class="pr-6 2xl:pr-16" id="right-section">
     <div class="hidden sm:flex sm:flex-nowrap theme-toggle mx-5">
       <label for="theme-toggle" class="text-sm italic text-nowrap mr-2">Toggle theme</label>
-      <input type="checkbox" value="cupcake" name="theme-toggle"
+      <input type="checkbox" value="cupcake" id="theme-toggle" name="theme-toggle"
         title="Colour theme" class="toggle toggle-sm theme-controller"/>
     </div>
 
