@@ -6,6 +6,9 @@
     <div class="shadow menu dropdown-content flex flex-col flex-nowrap z-[1] bg-base-100 rounded-box mt-2 w-72 max-h-72">
       <h3 class="text-lg font-bold m-2">Chats</h3>
       <div class="conversations-container overflow-auto">
+        <% if conversations.empty? %>
+          <p class="px-3 pb-2">💬 with users via the <i class="fa-brands fa-facebook-messenger text-blue-500"></i> button on their profile page.</p>
+        <% end %>
         <% conversations.order(updated_at: :desc).each do |conversation| %>
           <div id="conversation_<%= conversation.id %>" class="my-1">
             <%= link_to open_conversation_card_path(conversation.id), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation-card" } do %>
