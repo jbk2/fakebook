@@ -40,7 +40,7 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 FROM base
 
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl imagemagick libvips postgresql-client && \
+    apt-get install --no-install-recommends -y curl imagemagick libvips postgresql-client nano && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 COPY --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"

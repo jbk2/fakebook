@@ -1,8 +1,16 @@
 # Note - there are only 10 profile photos in assets currently
 def create_users(no_of_users)
   no_of_users.times do |i|
-    user = User.create(email: "#{i + 1}@test.com", password: "Password12!", username: "user_#{i + 1}")
-    puts "created user no #{i + 1}"
+
+    # Avoiding the Devise controller with #create to stop mailers for seed user creation
+    user = User.new(
+      email: "#{i + 1}@test.com",
+      password: "Password12!",
+      username: "user_#{i + 1}"
+    )
+    user.skip_confirmation! if user.respond_to?(:skip_confirmation!)  # Skip confirmation if you have confirmable module enabled
+    user.save(validate: false)  # Consider whether you want to skip validations
+    puts "saved user no #{i + 1}"
 
     if user.persisted?
       image_path = Rails.root.join('app', 'assets', 'images', 'profile_photos', "profile_#{i + 1}.jpg")
@@ -98,7 +106,13 @@ def create_messages(user)
 end
 
 def create_message(sender_id, conversation_id)
-  message = Message.create(body: Faker::Lorem.sentence(word_count: rand(3..7)), user_id: sender_id, conversation_id: conversation_id)
+  message = Message.create(
+    body: Faker::Lorem.sentence(word_count: rand(3..7)),
+    user_id: sender_id,
+    conversation_id: conversation_id
+  )
+  message.skip_broadcast = true
+  message.save
   puts "created message_id#{message.id} for sender_id##{sender_id} in conversation_id##{conversation_id}"
 end
 

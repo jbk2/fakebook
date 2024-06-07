@@ -10,6 +10,8 @@
 #  conversation_id :bigint           not null
 #
 class Message < ApplicationRecord
+  attr_accessor :skip_broadcast
+
   belongs_to :user
   belongs_to :conversation
 
@@ -17,8 +19,16 @@ class Message < ApplicationRecord
   validates :body, presence: true
   validates :conversation_id, presence: true
 
-  after_create_commit do
-    BroadcastMessageJob.perform_later(self, self.user_id, self.conversation_id)
-  end
+  after_create_commit :broadcast_message, unless: -> { skip_broadcast }
 
+  private
+
+  def broadcast_message
+    if skip_broadcast
+      puts "Skipping broadcast for message_id#{id}"
+    else
+      puts "Broadcasting message_id#{id}"
+      BroadcastMessageJob.perform_later(self, self.user_id, self.conversation_id)
+    end
+  end
 end
