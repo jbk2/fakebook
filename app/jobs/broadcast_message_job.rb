@@ -2,7 +2,7 @@ class BroadcastMessageJob < ApplicationJob
   queue_as :default
 
   def perform(message, sender_id, conversation_id)
-    renderer = ApplicationController.renderer.new(host: '35.180.192.130', port: 3000 )
+    renderer = ApplicationController.renderer.new(http_host: '35.180.192.130', https: false )
     rendered_message_html = renderer.render(partial: "messages/message", locals: { message: message })
     # image_url = Rails.application.routes.url_helpers.rails_blob_url(message.user.profile_photo, host: '13.39.87.140:3000')
     sender = User.find(sender_id)
