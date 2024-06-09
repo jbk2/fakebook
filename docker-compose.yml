@@ -1,5 +1,6 @@
 services:
   db:
+    # image: postgres:latest
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-postgres:1.0
     restart: always
     ports:
@@ -10,13 +11,16 @@ services:
       POSTGRES_PASSWORD: password
 
   redis:
+    # image: redis:latest
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-redis:1.0
     ports: 
       - 6379:6379
 
   web:
-    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.1
-
+    # build:
+    #   context: .
+    #   dockerfile: prod.Dockerfile
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.0
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     user: "1000:1000"
     ports:
@@ -33,7 +37,10 @@ services:
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
 
   sidekiq:
-    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.1
+    # build:
+    #   context: .
+    #   dockerfile: prod.Dockerfile
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.0
     command: bundle exec sidekiq
     depends_on:
       - db
