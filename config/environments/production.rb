@@ -16,7 +16,7 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
   
-  # config.action_controller.default_url_options = { host: 'localhost:3000' }
+  config.action_controller.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
@@ -77,7 +77,7 @@ Rails.application.configure do
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
-  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug")
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -86,26 +86,23 @@ Rails.application.configure do
   # config.active_job.queue_adapter = :resque
   # config.active_job.queue_name_prefix = "fakebook_production"
 
-  config.action_mailer.perform_caching = false
   
   # Configure Action View to use HTML5 standards-compliant sanitizers.
   config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
-
+  
   # Configure Action Text to use an HTML5 standards-compliant sanitizer.
   config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
-
+  
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  config.action_mailer.raise_delivery_errors = true
+  
+  config.action_mailer.perform_caching = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { :api_token => "33c9c119-1446-4911-b53f-5e20233b5ad3" }
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  # config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"
-
-
-  
-  
+  # config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"  
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

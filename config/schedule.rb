@@ -6,13 +6,6 @@
 
 set :output, "#{path}/log/cron_log.log"
 
-every '0 0 1 * *' do
-  rake "cleanup:purge_orphaned_blobs"
-  rake "tmp:clear"
-  rake "tmp:clear_capybara"
-  rake "tmp:clear_storage"
-end
-
 # Purge orphaned blobs on the 1st day of each month at midnight
 every '0 0 1 * *' do
   rake "cleanup:purge_orphaned_blobs"

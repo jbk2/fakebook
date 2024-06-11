@@ -7,7 +7,7 @@
       <h3 class="text-lg font-bold m-2">Chats</h3>
       <div class="conversations-container overflow-auto">
         <% if conversations.empty? %>
-          <p class="px-3 pb-2">💬 with users via the <i class="fa-brands fa-facebook-messenger text-blue-500"></i> button on their profile page.</p>
+          <p class="px-3 pb-2">💬 with <%= link_to "users", users_path %> via the <i class="fa-brands fa-facebook-messenger text-blue-500"></i> button on their profile page.</p>
         <% end %>
         <% conversations.order(updated_at: :desc).each do |conversation| %>
           <div id="conversation_<%= conversation.id %>" class="my-1">

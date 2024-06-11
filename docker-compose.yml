@@ -1,30 +1,28 @@
 services:
   db:
-    image: postgres:latest
+    # image: postgres:latest
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-postgres:1.0
     restart: always
     ports:
       - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: password
-      POSTGRES_USER: postgres
-      # POSTGRES_DB: fakebook_production
     volumes:
       - dbdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
 
   redis:
-    image: redis:latest
+    # image: redis:latest
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-redis:1.0
     ports: 
       - 6379:6379
 
   web:
-    build:
-      context: .
-      dockerfile: prod.Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: prod.Dockerfile
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.0
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
-   
     user: "1000:1000"
-    volumes:
-      - .:/rails
     ports:
       - "3000:3000"
     depends_on:
@@ -39,13 +37,11 @@ services:
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
 
   sidekiq:
-    build:
-      context: .
-      dockerfile: prod.Dockerfile
-
+    # build:
+    #   context: .
+    #   dockerfile: prod.Dockerfile
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.0
     command: bundle exec sidekiq
-    volumes:
-      - .:/rails
     depends_on:
       - db
       - redis

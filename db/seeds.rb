@@ -123,5 +123,6 @@ User.all.each do |user|
   create_posts(rand(3..6), user.id)
   create_follows(user)
   create_conversations(user)
-  create_messages(user)  
+  create_messages(user)
+  # create_comments - need to create some seed comments 
 end
