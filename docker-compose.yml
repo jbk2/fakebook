@@ -23,6 +23,8 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./etc/nginx/ssl/bibble-cloudflare-origin.crt:/etc/nginx/ssl/bibble-cloudflare-origin.crt
+      - ./etc/nginx/ssl/bibble-cloudflare.key:/etc/nginx/ssl/bibble-cloudflare.key
     depends_on:
       - web
 
@@ -36,7 +38,6 @@ services:
     depends_on:
       - db
       - redis
-      # - nginx
     # env_file:
     #   - .env
     environment:

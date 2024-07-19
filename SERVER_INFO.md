@@ -40,12 +40,10 @@
 
 ## Services Running
 - HTTP Server on port 80
-<!-- - SSH server on port 22 -->
+- SSH server on port 22 (15yr origin cert from 19.07.24)
 
 ## Configuration Changes
-<!-- - `/etc/nginx/nginx.conf` modified to include custom settings. -->
-<!-- - `nginx/sites-enabled/default` defines the default server block. -->
-<!-- - Nginx configured to redirect ports 80 to ssl port 443. -->
+- `./nginx.conf` modified to serve via SSL only.
 
 ## Maintenance Notes
 - System updates every ...? - not automated.
