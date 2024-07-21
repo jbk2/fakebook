@@ -27,7 +27,7 @@
 ### Docker
 - dev.Dockerfile & prod.Dockerfile files are written for respective environments.
 - To build development or production images adjust docker-compose.yml web and
-  sidekiq services to build from appropriate Dockerfile. (Should adjust to be able
+  sidekiq services to build from appropriate prod. or dev. Dockerfile. (Should adjust to be able
   to pass in environment argument.)
 - For running on 1) localhost or 2) separate service redis_url must be set to:
   - config/cable.yml - 1) 'redis://localhost:6379/1' 2) 'redis://redis:6379/1'
@@ -36,9 +36,11 @@
   - set instance ip address as default_url_options in production.rb
   - comment out `require('daisyui')` from tailwind.config.js
   - comment out application.html.erb daisyui CDN link for loval development.
+- must define RAILS_MASER_KEY when docker compose up'ing the containers, i.e.:
+  `RAILS_MASTER_KEY=my_prod_key_value docker compose up`.
 
 ### AWS S3
-- Uses `'fakebook-s3-<%= Rails.env %>' buckets for both development and productive, under user 'fakebook' (AWS access keys in credentials) with the 'fakebook-s3-policy' permissions.
+- Uses `'fakebook-s3-<%= Rails.env %>' buckets for both development and production, under user 'fakebook' (AWS access keys in credentials) with the 'fakebook-s3-policy' permissions.
 
 ---
 

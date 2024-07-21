@@ -16,7 +16,9 @@ Rails.application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
   
-  config.action_controller.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
+  # config.action_controller.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
+  config.action_controller.default_url_options = { host: 'fakebook.bibble.com' }
+
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
@@ -64,7 +66,7 @@ Rails.application.configure do
   # config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = false
+  config.force_ssl = true
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
@@ -100,6 +102,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
+  config.action_mailer.default_url_options = { host: 'fakebook.bibble.com' }
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { :api_token => "33c9c119-1446-4911-b53f-5e20233b5ad3" }
   # config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"  
