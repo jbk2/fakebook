@@ -52,8 +52,7 @@ Rails.application.configure do
 
   # Store files on Amazon S3.
   config.active_storage.service = :amazon
-
-  config.active_storage.resolve_model_to_route = :rails_storage_redirect
+  config.active_storage.resolve_model_to_route = :rails_storage_proxy
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -100,7 +99,7 @@ Rails.application.configure do
   
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
+  # config.action_mailer.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
   config.action_mailer.default_url_options = { host: 'fakebook.bibble.com' }
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { :api_token => "33c9c119-1446-4911-b53f-5e20233b5ad3" }

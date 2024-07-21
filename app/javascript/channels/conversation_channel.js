@@ -18,7 +18,7 @@ const ConversationChannel = {
         // Called when there's incoming data on the websocket for this channel
         received(data) {
           let messagesContainer = document.getElementById(`conversation-${conversationId}-card-messages`);
-          console.log(`message data: ${data.message_html}`);
+          console.log(`here's the message data: ${data.message_html}`);
           if (messagesContainer) {
             messagesContainer.innerHTML += data.message_html;
             // ensure scroll height is adjusted to show the latest message
