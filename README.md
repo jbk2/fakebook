@@ -12,12 +12,12 @@
 
 ---
 
-### Use in production from www.fakebook_app.com
+### Use in production from www.fakebook.bibble.com
 
   - Log in to an existing user account (you'll not receive emails):
     email; 1@test.com _(can use 1-10)_
     password; 'Password12!'
-  - Signup to your own account [here](http://localhost:3000/users/sign_up).
+  - Signup to your own account [here](http://fakebook.bibble/users/sign_up).
 
 ---
 ### DevOps
@@ -41,6 +41,9 @@
 
 ### AWS S3
 - Uses `'fakebook-s3-<%= Rails.env %>' buckets for both development and production, under user 'fakebook' (AWS access keys in credentials) with the 'fakebook-s3-policy' permissions.
+
+### AWS ECR
+- admin note, ssh in to EC2 instance with - `ssh fakebook-ec2-ubuntu`
 
 ---
 
