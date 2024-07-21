@@ -3,7 +3,8 @@ class BroadcastMessageJob < ApplicationJob
 
   def perform(message, sender_id, conversation_id)
     renderer = ApplicationController.renderer.new(http_host: Rails.application.credentials[:host], https: true )
-    rendered_message_html = renderer.render(partial: "messages/message", locals: { message: message, default_url_options: { host: Rails.application.credentials[:host], protocol: 'https' } })
+    rendered_message_html = renderer.render(partial: "messages/message", locals: { message: message,
+      image_url = secure_url_for(message.user.profile_photo.blob) }
     Rails.logger.info("Generated message HTML: #{rendered_message_html}")
     # image_url = Rails.application.routes.url_helpers.rails_blob_url(message.user.profile_photo, host: '13.39.87.140:3000')
     # image_url = Rails.application.routes.url_helpers.rails_blob_url(message.user.profile_photo, host: 'fakebook.bibble.com')
@@ -26,4 +27,11 @@ class BroadcastMessageJob < ApplicationJob
       recipient_id: recipient.id
     })
   end
+
+  private
+
+  def secure_url_for(blob)
+    rails_blob_url(blob, host: Rails.application.credentials[:host], protocol: 'https')
+  end
+
 end
