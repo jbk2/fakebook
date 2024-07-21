@@ -23,7 +23,7 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/nginx/ssl/defaul.crt:/etc/nginx/ssl/default.crt
+      - /etc/nginx/ssl/default.crt:/etc/nginx/ssl/default.crt
       - /etc/nginx/ssl/default.key:/etc/nginx/ssl/default.key
     depends_on:
       - web
