@@ -28,8 +28,8 @@
   - **ubuntu-web-1**
     - image built from; prod.dockerfile
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.0
-    - version with fakebook.bibble.com production.rb host values
-      - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.0 - 
+    - version with fakebook.bibble.com host values & /cable route https config:
+      - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.3 - 
   - **ubuntu-nginx-1**
     - image built from; docker hub's 'nginx:latest'
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-nginx:latest

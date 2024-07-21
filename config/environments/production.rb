@@ -17,8 +17,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
   
   # config.action_controller.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
-  config.action_controller.default_url_options = { host: 'fakebook.bibble.com' }
-
+  config.action_controller.default_url_options = { host: 'fakebook.bibble.com', protocol: 'https' }
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
@@ -152,3 +151,5 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end
+
+Rails.application.routes.default_url_options = { protocol: 'https', host: 'fakebook.bibble.com' }
