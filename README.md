@@ -45,6 +45,72 @@
 ### AWS ECR
 - admin note, ssh in to EC2 instance with - `ssh fakebook-ec2-ubuntu`
 
+
+## SERVER DOCUMENTATION
+
+This repo contains scripts for auto set up of and deployment to a Linux Debian Ubuntu distribution,
+to carry out the following:
+
+- on running the ./setup.sh executable script file:
+  - ssh's in as 'ubuntu' into the remote server.
+  - creates a user (recommend naming user as 'deploy') with sudo & no password-all privelidges.
+  - installs Nginx.
+  - creates a systemd unit file to run the update-dns.sh script on each restart.
+
+- on running the ./deploy.sh executable script file:
+  - copies the local ./index.html file to 'deploy' users' home
+  - moves the ~/index.html file to /var/www/html
+  - changes the ownership of the /var/www/html/index.html file to 'ubuntu'
+  - restarts the nginx service
+
+- the index.html file is manually written based upon the copy from this README.md. To ensure content parity both files are programatically timestamped via:
+  - For index.html a script element in deploy.sh lines 30-51.
+  - For README.md via a .git/hooks/pre-commit which instantiates the ./update_readme.sh script.
+
+
+## Variable Configuration
+The following variables configure the setup and deploy steps, edit with correct values:
+
+In `settings.sh`:
+| Variable | Description                              |
+|----------|------------------------------------------|
+| `SERVER` | Virtual machine public IP (default hardcoded) |
+| `SERVER_NAME` | Domain name (with correct DNS settings) (default hardcoded) |
+| `USER` | Name for the user that will replace *ubuntu* for administration (default 'deploy' is hardcoded) |
+| `SSH_KEY` | Path to the private SSH key (default hardcoded) |
+
+In `dns_update.sh`:
+| Variable | Description                              |
+|----------|------------------------------------------|
+| `CF_API_TOKEN` | CloudFlare API token with the assigned domain's DNS editing permissions |
+| `ZONE_ID` | The zone id of the assigned domain name |
+| `RECORD_ID` | The DNS record ID number that needs updating on restart |
+| `RECORD_NAME` | The DNS record name number that needs updating on restart |
+
+## To run the scripts:
+1. clone the repository
+2. cd into the repository
+3. update variable values in settings.sh 
+4. Setup; run `./setup.sh -h` in terminal to view ./setup.sh's help options:
+  - run `./setup.sh` in terminal (without arguments runs all units & steps)
+
+### AUTO UPDATE DNS RECORDS _(via cloudflare)_
+- To assign a domain name to the EC2 instance you must:
+  1. Initially, manually create 2 DNS 'A records' pointing to the EC2 instance's public IP address:
+    - one named; 'www'
+    - one named; 'domain_name.tld'
+  2. Update the DNS variable values in the ./settings.sh, with:
+    - cloudflare api token for domain (via https://dash.cloudflare.com/profile/api-tokens)
+    - domain's cloudflare zone - get value from cloudflare api at below endpoint:
+    `curl -X GET "https://api.cloudflare.com/client/v4/zones" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Content-Type: application/json"`
+    - the dns record(s) name and id - get value from cloudflare api at below endpoint:
+    `curl -X GET "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Content-Type: application/json"`
+  3. Ensure that the setup.sh script unit named 'auto_update_dns' has run, after the settings.sh variables values are updated.
+  4. ssh into the server (update local ~/.ssh/config for easy ssh login with the EC2 instance's public ip, delete old 'known hosts') and run `systemctl status dns_update.service` to check that the systemd service has been created (it should be loaded and enabled, but inactive because it only runs on restart). If systemd service created successfully, then the DNS records will be now be automatically updated via cloudflare's API on each server restart.
+
+  ### Documentation
+  - SERVER_INFO.md file contains server instance info and is saved on server instance at /etc/docs/SERVER_INFO.md
+
 ---
 
 ### Summary
