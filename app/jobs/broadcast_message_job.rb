@@ -4,10 +4,10 @@ class BroadcastMessageJob < ApplicationJob
   def perform(message, sender_id, conversation_id)
     sender = User.find(sender_id)
     renderer = ApplicationController.renderer.new(http_host: Rails.application.credentials[:host], https: true )
-    sender_profile_photo_url = Rails.application.routes.url_helpers.rails_blob_url(sender.profile_photo, host: 'fakebook.bibble.com')
-    Rails.logger.debug("Image URL: #{sender_profile_photo_url}")
-    rendered_message_html = renderer.render(partial: "messages/message", locals: { message: message, sender_profile_photo_url: sender_profile_photo_url })
+    rendered_message_html = renderer.render(partial: "messages/message", locals: { message: message })
     Rails.logger.info("Generated message HTML: #{rendered_message_html}")
+    # sender_profile_photo_url = Rails.application.routes.url_helpers.rails_blob_url(sender.profile_photo, host: 'fakebook.bibble.com')
+    # Rails.logger.debug("Image URL: #{sender_profile_photo_url}")
     # image_url = Rails.application.routes.url_helpers.rails_blob_url(message.user.profile_photo, host: '13.39.87.140:3000')
     senders_conversations = sender.conversations
     conversation = Conversation.find(conversation_id)
