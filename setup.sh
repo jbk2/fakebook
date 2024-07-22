@@ -134,6 +134,25 @@ else
   exit 1
 fi
 
+
+echo -e "${INFO}Transferring settings.sh to server...${NC}"
+
+if scp $SCP_ARGS $DIR/settings.sh ubuntu@$SERVER:~/settings.sh
+then
+  echo -e "${SUCCESS}successfully scp'd settings.sh to ~/settings.sh on $SERVER${NC}"
+else
+  echo -e "${ERROR}failed to scp settings.sh to ~/settings.sh on $SERVER${NC}"
+  exit 1
+fi
+
+if ssh_as_ubuntu "sudo mv ~/settings.sh /usr/local/bin/settings.sh && sudo chmod +x /usr/local/bin/settings.sh"
+then
+  echo -e "${SUCCESS}successfully mv'd ~/settings.sh to /usr/local/bin/settings.sh on $SERVER & chmod'd +x.${NC}"
+else
+  echo -e "${ERROR}failed to mv ~/settings.sh to /usr/local/bin/settings.sh on $SERVER & chmod +x.${NC}"
+  exit 1
+fi
+
 STEP=create_dns_update_service
 ssh_as_ubuntu <<-STDIN || echo -e "${ERROR}Creating systemd unit file for dns-update.sh${NC}"
   echo -e "${INFO}Creating systemd unit file for dns-update.sh...${NC}"

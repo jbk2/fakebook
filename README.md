@@ -106,7 +106,7 @@ In `dns_update.sh`:
     - the dns record(s) name and id - get value from cloudflare api at below endpoint:
     `curl -X GET "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Content-Type: application/json"`
   3. Ensure that the setup.sh script unit named 'auto_update_dns' has run, after the settings.sh variables values are updated.
-  4. ssh into the server (update local ~/.ssh/config for easy ssh login with the EC2 instance's public ip, delete old 'known hosts') and run `systemctl status dns_update.service` to check that the systemd service has been created (it should be loaded and enabled, but inactive because it only runs on restart). If systemd service created successfully, then the DNS records will be now be automatically updated via cloudflare's API on each server restart.
+  4. ssh into the server (update local ~/.ssh/config for easy ssh login with the EC2 instance's public ip, delete old 'known hosts') and run `systemctl status dns-update.service` to check that the systemd service has been created (it should be loaded and enabled, but inactive because it only runs on restart). If systemd service created successfully, then the DNS records will be now be automatically updated via cloudflare's API on each server restart.
 
   ### Documentation
   - SERVER_INFO.md file contains server instance info and is saved on server instance at /etc/docs/SERVER_INFO.md

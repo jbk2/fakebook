@@ -14,7 +14,7 @@ NC="\033[0m"          # No color
 
 # Provisioning, admin & SSH related variables
 USER=${USER:-ubuntu}
-SERVER=${SERVER:-13.37.164.112}
+SERVER=${SERVER:-51.44.24.22}
 SERVER_NAME=${SERVER_NAME:-www.fakebook.bibble.com}
 PORT=${PORT:-22} # the default ssh port
 SSH_KEY=${SSH_KEY:-~/Documents/Code/Credentials/fakebook-ec2-keypair.pem}
