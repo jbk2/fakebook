@@ -3,8 +3,8 @@
 - This file, /etc/docs/SERVER_INFO.md, is where info about this server instance will be stored.
 
 ## General Information
-- **Purpose**: A facebook clone rails app, fully written by James Kemp, to practice and demonstrate ruby, rails, hotwire, html, css skills. Full description can be found in the README.md in [this](https://github.com/jbk2/fakebook) public repo.
-- **Public ipv4**: 13.37.164.112 (changes on every EC2 instance restart)
+- **Purpose**: A facebook clone rails app, fully written by James Kemp, to practice and demonstrate ruby, rails, hotwire, html, css skills. Full description can be found in the README.md of [this](https://github.com/jbk2/fakebook) public repo.
+- **Public ipv4**: 51.44.24.22 (changes on every EC2 instance restart)
 - **Domain Name**: currently DNS linked to www.bibble.com (via CloudFlare)
 - **OS**: Ubuntu 20.04.4 LTS
 - **EC2 Instance Type** t4g.small
@@ -47,11 +47,12 @@
 
 ## Maintenance Notes
 - System updates every ...? - not automated.
+  from local repo, not on server, run `.setup.sh -u update_upgrade`
 - Daily backups at ...? - not authomated.
 
+
 ## Helpful Commands
-- `sudo systemctl status nginx`, `sudo systemctl status dns-update`, ``
-- 
+- `sudo systemctl status nginx`, `sudo systemctl status dns-update`
 
 ## Contact
 - **Admin**: James Kemp, james@bibble.com

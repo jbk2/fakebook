@@ -2,13 +2,11 @@ class BroadcastMessageJob < ApplicationJob
   queue_as :default
 
   def perform(message, sender_id, conversation_id)
-    sender = User.find(sender_id)
-    renderer = ApplicationController.renderer.new#(http_host: Rails.application.credentials[:host], https: true )
+    renderer = ApplicationController.renderer.new
     rendered_message_html = renderer.render(partial: "messages/message", locals: { message: message })
     Rails.logger.info("Generated message HTML: #{rendered_message_html}")
-    # sender_profile_photo_url = Rails.application.routes.url_helpers.rails_blob_url(sender.profile_photo, host: 'fakebook.bibble.com')
-    # Rails.logger.debug("Image URL: #{sender_profile_photo_url}")
-    # image_url = Rails.application.routes.url_helpers.rails_blob_url(message.user.profile_photo, host: '13.39.87.140:3000')
+    
+    sender = User.find(sender_id)
     senders_conversations = sender.conversations
     conversation = Conversation.find(conversation_id)
     recipient = conversation.other_participant(sender)
@@ -27,11 +25,4 @@ class BroadcastMessageJob < ApplicationJob
       recipient_id: recipient.id
     })
   end
-
-  # private
-
-  # def secure_url_for(blob)
-  #   rails_blob_url(blob, host: Rails.application.credentials[:host], protocol: 'https')
-  # end
-
 end
