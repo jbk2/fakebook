@@ -4,35 +4,40 @@
 *A facebook clone app featuring:*
 
 - 🖇️ Complex forms; nesting, custom actions, hotwire.
-- 👫 Advanced associations; m2m, polymorphic, custom validation, callbacks, delegation. 
+- 👫 Advanced associations; many to many, custom validation, callbacks, delegation, _polymorphic_. 
 - 🔐 Authentication with Devise.
 - ⚙️ Helpers & POROs:
-  - Custom logic to process (size & format(Vips)) uploaded images to ActiveStorage.
+  - Custom logic to process uploaded images to ActiveStorage (size, format, purge) using vips.
   - helpers to display #format_time_from in posts, comments & messages.
 - ⚡️ SPA like; Turbo Frames, Streams & Stimulus:
-  🖼️ - Turbo frames & streams:
-     used in various User, Post, Comment, Conversation & Message views.
-  👮🏼 - Stimulus Controllers used:
+  - 🖼️ Turbo frames & streams:
+    - used in various User, Post, Comment, Conversation & Message views.
+  - 👮🏼 Stimulus Controllers used:
     - for managing post image attachments and previewing.
     - for toggling comment form presence on posts.
     - for subscribing to ActionCable ConversationChannel when a conversation is opened.
     - for managing scroll of messages container in conversation-card.
-  🔁 - Turbo 8; using view transitions & turbo morphing.
+  - 🔁 Turbo 8; using view transitions & turbo morphing.
 - 📡 ActionCable; ConversationChannel manages conversation scoped subcriptions and message updates into the DOM.
 - ⏳ ActiveJob; 
-  - ProcessImageJob - size and format processing of uploaded images.
-  - BroadcaseMessageJob - ActionCable broadcasts messages after creation.
-- 🗄️ ActiveStorage; attachments, variants, metadata, [excellent article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
-- 📧 Mailer Functionality; Welcome email on user sign up.
-- 🎨 Styling - All styling done with TailwindCSS & DaisyUI component library.
+  - ProcessImageJob; size and format processing of uploaded images.
+  - BroadcastMessageJob; builds message & conversation partials and ActionCable broadcasts.
+- 🗄️ ActiveStorage; attachments, variants, metadata, excellent [article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
+- 📧 Mailer Functionality; User_mailer sends welcome_email on user sign up.
+- 🎨 Styling - Most styling done with TailwindCSS & DaisyUI component library.
+- 💻 Devops:
+  - containerised microservice architecture on an AWS EC2 Ubuntu instance.
+  - docker composed 5 services; web, sidekiq, nginx, postgres, redis.
+  - Uses Nginx web server.
+  - Bash scripting to automate cloudflare DNS records and server updates.
 
-**Technologies/libraries used:**
-  Frontend
-  - TailwindCSS, DaisyUI, FontAwesome
-  - Hotwire - Turbo; streams & frames, Stimulus JS (new_post_photo_controller)
-  Backend
-  - ActiveStorage
-  - ActiveJob, ImageProcessing gem - handle queued job race conditions for attachment purging
+### Technologies/libraries used:
+#### Frontend**
+- TailwindCSS, DaisyUI, FontAwesome
+- Hotwire - Turbo; streams & frames, Stimulus JS (new_post_photo_controller)
+#### Backend**
+- ActiveStorage, ActiveJob, ActionCable, ActionMailer + many more rails libraries.
+- ImageProcessing gem - handle queued job race conditions for attachment purging
 
 ### Tech implemented
 - Turbo Streams ✅
@@ -82,10 +87,11 @@ System Tests
 
 ### Use live app at https://fakebook.bibble.com
 
-  - Log in to an existing user account (you'll not receive emails):
-    email; 1@test.com _(can use 1-10)_
-    password; 'Password12!'
-  - Signup to your own account [here](http://fakebook.bibble/users/sign_up).
+  - Log in to an pre-populated user account:
+    - email; 1@test.com (accounts for _1-10_@test.com exist)
+    - password; 'Password12!'
+  - Signup to your own account [here](http://fakebook.bibble/users/sign_up),
+  you'll need to create posts, comments and follow others to populate your accounts.
 
 ### Run locally
 
@@ -94,7 +100,7 @@ System Tests
 3. Run db:create
 4. Run db:migrate
 5. Run db:seed
-6. Run rails server 
+6. Run rails server via Foreman procfile with `bin/dev`
 
 ---
 
