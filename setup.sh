@@ -134,7 +134,6 @@ else
   exit 1
 fi
 
-
 echo -e "${INFO}Transferring settings.sh to server...${NC}"
 
 if scp $SCP_ARGS $DIR/settings.sh ubuntu@$SERVER:~/settings.sh
