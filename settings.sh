@@ -26,6 +26,7 @@ APP_SSH_ARGS="$USER@$SERVER -p $PORT $SSH_OPTIONS"
 
 # DNS related variables
 CF_API_TOKEN="68K1XhBdJzlRj9nY0ffB-BFaaHZHihBUqqxLlaBR"
+NC_API_KEY="234e3dedfbd94f70ae031143447fe5d1"
 ZONE_ID="285b023e745e3469b488c1101adfcef8"
 RECORD_ID1="7082251d9ea4d4735341776c1db70cca"  # Record ID for fakebook.bibble.com
 RECORD_NAME1="fakebook.bibble.com"

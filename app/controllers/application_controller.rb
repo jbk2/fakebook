@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   # include CurrentUserExtensions
   include Pagy::Backend
+  helper DeviseHelpers # Include the DeviseHelpers 'controller & action identification' module
 
   before_action :authenticate_user!
   before_action :set_conversations_and_conversation, if: -> { user_signed_in? }

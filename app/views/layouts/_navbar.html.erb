@@ -41,13 +41,12 @@
       <% if user_signed_in? %>
         <%= render 'layouts/profile_dropdown' %>
       <% else %>
-        <% unless current_page?(new_user_session_path)  %>
-          <li><%= link_to "Log in", new_user_session_path, class: "btn btn-sm w-[78px]" %></li>
+        <% if devise_login_page? %>
+          <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
+        <% elsif devise_sign_up_page? %>
+          <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
         <% end %>
-        <% unless current_page?(new_user_registration_path) %> 
-          <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm w-[78px]" %></li>
-        <% end %>  
-      <% end %>
+      <% end %>  
     </ul>
 
     <details class="dropdown dropdown-end sm:hidden">
@@ -56,18 +55,15 @@
       </summary>
       <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
 
-        <% unless user_signed_in? %>
-          <% unless current_page?(new_user_session_path) %>
-            <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
-          <% end %>
-          <% unless current_page?(new_user_registration_path) %> 
-            <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
-          <% end %>  
-        <% end %>
-
         <% if user_signed_in? %>
           <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
           <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
+        <% else %>
+          <% if devise_login_page? %>
+            <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
+          <% elsif devise_sign_up_page? %>
+            <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
+          <% end %>
         <% end %>
 
         <div class="theme-toggle">
