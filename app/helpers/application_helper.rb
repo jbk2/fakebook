@@ -21,6 +21,6 @@ module ApplicationHelper
     else
       "#{months}mths"
     end
-  
   end
+  
 end
