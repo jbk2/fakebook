@@ -27,15 +27,15 @@
 - 🎨 Styling - Most styling done with TailwindCSS & DaisyUI component library.
 - 💻 Devops:
   - containerised microservice architecture on an AWS EC2 Ubuntu instance.
-  - docker composed 5 services; web, sidekiq, nginx, postgres, redis.
-  - Uses Nginx web server.
+  - docker built & composed 5 services via AWS ECR; web, sidekiq, nginx, postgres, redis.
+  - Uses Nginx web server & only via SSL.
   - Bash scripting to automate cloudflare DNS records and server updates.
 
 ### Technologies/libraries used:
-#### Frontend**
+#### Frontend
 - TailwindCSS, DaisyUI, FontAwesome
 - Hotwire - Turbo; streams & frames, Stimulus JS (new_post_photo_controller)
-#### Backend**
+#### Backend
 - ActiveStorage, ActiveJob, ActionCable, ActionMailer + many more rails libraries.
 - ImageProcessing gem - handle queued job race conditions for attachment purging
 
@@ -46,7 +46,7 @@
 - Tailwindcss / DaisyUI ✅, FontAwesome ✅,
 - Devise ✅
 - Omniauth
-- Seeding, Faker gem ✅
+- Seeding; Faker gem ✅
 - Complex forms; fields_for ✅
 - Polmorphic models
 - Custom validation, callbacks ✅
@@ -55,6 +55,7 @@
 - Active Job ✅
 - Action Mailer ✅
 - Rspec; factories, Capybara ✅
+- Docker, AWS S3, ECR, EC2, scripting, systemd ✅
 
 ### Full Test Coverage (Rspec, Shoulda-matchers, FactoryBot, Capybara, Selenium)
 
