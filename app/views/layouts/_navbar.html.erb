@@ -37,15 +37,17 @@
       <%= render 'conversations/conversations', conversations: @conversations %>
     <% end %>
     
-    <ul class="hidden sm:flex flex-row py-0 menu menu-horizontal items-center">
+    <ul class="hidden sm:flex flex-row py-0">
       <% if user_signed_in? %>
         <%= render 'layouts/profile_dropdown' %>
       <% else %>
-        <% if devise_login_page? %>
-          <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
-        <% elsif devise_sign_up_page? %>
-          <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
-        <% end %>
+        <div class="w-24">
+          <% if devise_login_page? %>
+            <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>
+          <% elsif devise_sign_up_page? %>
+            <li><%= link_to "Login", new_user_session_path, class: "btn btn-sm" %></li>
+          <% end %>
+          </div>
       <% end %>  
     </ul>
 
