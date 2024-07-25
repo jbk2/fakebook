@@ -1,5 +1,6 @@
-<div class="flex mt-2 md:mt-6">
-  <div class="form-content p-5 pr-0 xl:pl-20 w-[280px]">
+<div class="flex flex-col sm:flex-row mt-2 md:mt-6 max-w-screen-xl mx-auto">
+  <div class="form-content p-5 pr-0 w-[280px] mx-auto">
+  
     <h2 class="text-lg font-bold mb-4">Sign up</h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "w-[380px]", data: { turbo: false } }) do |f| %>
@@ -40,7 +41,8 @@
 
     <%= render "devise/shared/links" %>
   </div>
-  <div class="welcome-content p-5 pl-0 mx-auto">
+
+  <div class="xs welcome-content p-5 sm:pl-0 mx-auto">
     <%= render 'layouts/welcome' %>
   </div>
 </div>
