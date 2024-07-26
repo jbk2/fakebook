@@ -1,19 +1,138 @@
-<div class="max-w-[650px]">
-  <h1 class="text-4xl font-extrabold font-helvetica mb-6 bg-clip-text text-2xl
-    text-transparent bg-gradient-to-br from-teal-300 from-10% via-purple-500 via-20% to-blue-700 to-50%">
-    Welcome to Fakebook
-  </h1>
-  <div class="text-md font-helvetica">
-    <p>A social media platform, from the creators of other such famous apps as; LinkedOut, InstaKilo & Twotter.</p>
-    <ul class="my-4">
-      <li>✅&nbsp;&nbsp;Find friends and follow</li>
-      <li>✅&nbsp;&nbsp;Make posts and like posts</li>
-      <li>✅&nbsp;&nbsp;Real time messsaging</li>
+<h1 class="text-4xl font-extrabold font-helvetica mb-6 bg-clip-text text-2xl
+  text-transparent bg-gradient-to-br from-teal-300 from-10% via-purple-500 via-20% to-blue-700 to-50%">
+  Welcome to Fakebook
+</h1>
+<div class="text-md font-helvetica">
+  <p class="mb-4">A facebook clone app, github repo <a href="https://github.com/jbk2/fakebook" class="link">here</a>, built by James Kemp demonstrating the following tools & techniques:</p>
+  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2"><span><%= image_tag('icons/rails_logo.svg', width: "70", height: "70", class:"inline") %></span></h4>
+  <ul class="">
+    <li class="leading-7">🖇️&nbsp;&nbsp;Complex forms;<span class="text-[15px] text-gray-600"> nesting, custom actions, hotwire.</span></li>
+    <li class="leading-7">👫&nbsp;&nbsp;Advanced associations;<span class="text-[15px] text-gray-600"> many to many, custom validation, callbacks, delegation.</span></li>
+    <li class="leading-7">🔐&nbsp;&nbsp;Authentication with Devise;<span class="text-[15px] text-gray-600"> devise controller extension.</span></li>
+    <li class="leading-7">⚙️&nbsp;&nbsp;Helpers & POROs:</li>
+      <ul class="pl-4 list-disc list-inside">
+        <li class="leading-5 text-[14px] text-gray-600">Custom image processing logic; size, format, purging. Using ActiveStorage (direct serve) & Vips.</li>
+        <li class="leading-5 text-[14px] text-gray-600">Helper methods, e.g. time formatting in views, devise controller & action helpers.</li>
+      </ul>
+    </li>
+    <li class="mt-1 leading-7">🔌&nbsp;&nbsp;ActionCable;<span class="text-[15px] text-gray-600"> ConversationChannel manages conversation scoped subcriptions and broadcast DOM updates.</span></li>
+    <li class="leading-7">📥&nbsp;&nbsp;ActiveJob;
+      <ul class="pl-4 list-disc list-inside">
+        <li class="leading-5 text-[14px] text-gray-600">ProcessImageJob;<span class="text-[15px] text-gray-600"> size and format processing of uploaded images.</span></li>
+        <li class="leading-5 text-[14px] text-gray-600">BroadcastMessageJob;<span class="text-[15px] text-gray-600"> builds message & conversation partials then ActionCable broadcasts.</span></li>
+      </ul>
+    </li>
+    <li class="mt-1 leading-7">🗄️&nbsp;&nbsp;ActiveStorage;<span class="text-[15px] text-gray-600"> attachments, variants, metadata, direct serve. Excellent <a href="https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289" class="link">article</a></span>.</li>
+    <li class="leading-7">📧&nbsp;&nbsp;ActionMailer;<span class="text-[15px] text-gray-600"> user_mailer sends welcome_email on user sign ups.</span></li>
+    <h4 class="text-lg font-bold font-helvetica mt-4 mb-2"><span><%= image_tag('icons/hotwire.svg', width: "80", height: "80", class:"inline") %></span></h4>
+      <ul>
+        <li class="leading-7"><span><%= image_tag('icons/turbo.svg', width: "50", height: "50", class:"inline") %></span>&nbsp;&nbsp;- frames & streams:</li>
+          <ul class="pl-4 list-disc list-inside">
+            <li class="leading-5 text-[14px] text-gray-600">Used in various User, Post, Comment, Conversation & Message views.</li>
+            <li class="mt-1 leading-7 text-[15px] text-gray-600">Turbo 8; using view transitions &amp; turbo morphing.</li>
+          </ul>
+        </li>
+        <li class="mt-1 leading-7"><span><%= image_tag('icons/stimulus.svg', width: "70", height: "70", class:"inline") %></span>&nbsp;&nbsp;- controllers used:</li>
+          <ul class="pl-4 list-disc list-inside">
+            <li class="leading-5 text-[14px] text-gray-600">For managing post image attachments and previewing.</li>
+            <li class="leading-5 text-[14px] text-gray-600">For subscribing to ActionCable ConversationChannel when a conversation is opened.</li>
+            <li class="leading-5 text-[14px] text-gray-600">For toggling comment form presence on posts.</li>
+            <li class="leading-5 text-[14px] text-gray-600">For managing scroll of messages container in conversation-card.</li>
+          </ul>
+        </li>
+      </ul>  
+    </li>
+    <li class="leading-7">
+      <i class="fa-brands fa-html5"></i>&nbsp;
+      <span><%= image_tag('icons/html5-logo.svg', width: "40", height: "40", class:"inline") %></span>&nbsp;
+      <i class="fa-brands fa-css3-alt"></i>&nbsp;&nbsp;
+      <span><%= image_tag('icons/css3-logo.svg', width: "30", height: "30", class:"inline") %></span>&nbsp;
+      <span><%= image_tag('icons/daisyui-logotype.svg', width: "70", height: "70", class:"inline") %></span>&nbsp;
+      <span><%= image_tag('icons/tailwindcss-logotype.svg', width: "70", height: "70", class:"inline") %></span>&nbsp;
+      Styling;
+      <span class="text-[15px] text-gray-600"> Most styling done with TailwindCSS & DaisyUI component library.</span>
+    </li>
+    <li class="leading-7">💻&nbsp;&nbsp;Devops:
+      <span><%= image_tag('icons/linux-logo.svg', width: "20", height: "20", class:"inline") %></span>&nbsp;
+      <span><%= image_tag('icons/docker-logo.svg', width: "70", height: "70", class:"inline") %></span>&nbsp;
+      <span><%= image_tag('icons/ec2.svg', width: "30", height: "30", class:"inline") %></span>&nbsp;
+    </li>
+    <ul class="pl-4 list-disc list-inside">
+      <li class="leading-5 text-[14px] text-gray-600">Containerised microservice architecture on an AWS EC2 Ubuntu instance.</li>
+      <li class="leading-5 text-[14px] text-gray-600">Docker built &amp; composed 5 services via AWS ECR; web, sidekiq, nginx, postgres, redis.</li>
+      <li class="leading-5 text-[14px] text-gray-600">Uses Nginx web server &amp; only via SSL.</li>
+      <li class="leading-5 text-[14px] text-gray-600">Bash scripting to automate cloudflare DNS records and server updates.</li>
     </ul>
-    <p>Sign up and or login to join the fun.</p>
-    <p class="mt-4 text-sm text-gray-500">
-      <span class="italic">Infringing and brandmark or copyright rules? Tempting passing off claims? – Certainly not sir</span>
-      <span class="text-lg">&nbsp;🎩</span>.
-    </p>
-  </div>
+  </ul>
+
+  <h3 class="text-xl font-bold font-helvetica mt-6 mb-4">Technologies/libraries used:</h3>
+  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Frontend</h4>
+  <ul>
+    <li class="leading-7">TailwindCSS, DaisyUI, FontAwesome</li>
+    <li class="leading-7">Hotwire - Turbo; streams &amp; frames, Stimulus JS (new_post_photo_controller)</li>
+  </ul>
+  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Backend</h4>
+  <ul>
+    <li>ActiveStorage, ActiveJob, ActionCable, ActionMailer + many more rails libraries.</li>
+    <li>ImageProcessing gem - handle queued job race conditions for attachment purging</li>
+  </ul>
+  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Techn-iques | ology used:</h4>
+  <ul>
+    <li>Turbo Streams ✅</li>
+    <li>Turbo Frames ✅</li>
+    <li>Stimulus ✅</li>
+    <li>Tailwindcss / DaisyUI ✅, FontAwesome ✅,</li>
+    <li>Devise ✅</li>
+    <li>Omniauth</li>
+    <li>Seeding; Faker gem ✅</li>
+    <li>Complex forms; fields_for ✅</li>
+    <li>Polmorphic models</li>
+    <li>Custom validation, callbacks ✅</li>
+    <li>POROs ✅</li>
+    <li>Active Storage ✅</li>
+    <li>Active Job ✅</li>
+    <li>Action Mailer ✅</li>
+    <li>Rspec; factories, Capybara ✅</li>
+    <li>Docker, AWS S3, ECR, EC2, scripting, systemd ✅</li>
+  </ul>
+  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Full Test Coverage (Rspec, Shoulda-matchers, FactoryBot, Capybara, Selenium)</h4>
+  <ul>
+    <li>Unit Tests
+      <ul>
+        <li>Models; unit tested:
+          <ul>
+            <li>Associations &amp; validations</li>
+            <li>Custom logic</li>
+          </ul>
+        </li>
+        <li>Unit &amp; integration tests for:
+          <ul>
+            <li>ProcessImageJob &amp; BroadcastMessageJob</li>
+            <li>ActionCable; ConversationChannel</li>
+            <li>ActionMailer; UserMailer</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Request Tests
+      <ul>
+        <li>Authentication tested on all routes</li>
+      </ul>
+    </li>
+    <li>Integration Tests
+      <ul>
+        <li>User.profile_photo integration with ProcessImageJob</li>
+        <li>Post.photos integration with ProcessImageJob</li>
+      </ul>
+    </li>
+    <li>System Tests
+      <ul>
+        <li>Users index page</li>
+          <li>Posts index page</li>
+          <li>Following &amp; Un-Following from Users index</li>
+          <li>Unfollowing from Posts index</li>
+          <li>Post Liking from Posts index</li>
+      </ul>
+    </li>
+  </ul>
 </div>
