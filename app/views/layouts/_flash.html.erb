@@ -1,9 +1,9 @@
 <div class="flash -ml-2">
   <% flash.each do |type, message| %>
     <% if type == 'notice' %>
-      <i class="alert alert-info h-10" style="align-content: center !important;"><%= message %></i>
+      <i class="alert alert-info h-10 animate-fadeOut" style="align-content: center;"><%= message %></i>
     <% elsif type == 'alert' %>
-      <i class="alert alert-warning content-center! h-10" style="align-content: center !important;"><%= message %></i>
+      <i class="alert alert-warning h-10 animate-fadeOut" style="align-content: center;"><%= message %></i>
     <% end %>
   <% end %>
 </div>
