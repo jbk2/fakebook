@@ -5,17 +5,18 @@
   <h3 class="text-lg font-jost italic font-black">DEMO ACCOUNT</h3>
   <p class="text-[14px] text-gray-800 mb-2">Login with the below pre-populated account credentils:</p>
   <ul class="">
-    <li class="leading-7 text-[14px] text-gray-800">
-      <span class="font-jost font-bold text-lg">Username:</span>&nbsp;&nbsp;
-      1@test.com <i class="fa-solid fa-copy ml-1 text-gray-600 text-xs hover:cursor-pointer"></i>
+    <li data-controller="clipboard" class="leading-7 text-[14px] text-gray-800">
+      <span class="font-jost font-bold text-lg">Email:</span>&nbsp;&nbsp;
+      <span data-clipboard-target="source">1@test.com</span>
+      <i data-action="click->clipboard#copy" class="fa-solid fa-copy ml-1 text-gray-600 text-xs hover:cursor-pointer"></i>
     </li>
     <li class="leading-3 text-[14px] text-gray-800 mb-2">
       <span class="italic text-xs"> (accounts for 1-10@test.com exist)</span>
     </li>
-    <li class="leading-7 text-[14px] text-gray-800">
-      <span class="font-jost font-bold text-lg">
-      Password:</span>&nbsp;&nbsp;Password12!
-      <i class="fa-solid fa-copy ml-1 text-gray-600 text-xs hover:cursor-pointer"></i>
+    <li data-controller="clipboard" class="leading-7 text-[14px] text-gray-800">
+      <span class="font-jost font-bold text-lg">Password:</span>&nbsp;&nbsp;
+      <span data-clipboard-target="source">Password12!</span>
+      <i data-action="click->clipboard#copy" class="fa-solid fa-copy ml-1 text-gray-600 text-xs hover:cursor-pointer"></i>
     </li>        
   </ul>
 </div>
