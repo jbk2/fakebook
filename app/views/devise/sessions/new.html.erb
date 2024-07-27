@@ -1,5 +1,5 @@
-<div class="flex flex-col sm:flex-row mt-2 md:mt-6 max-w-screen-xl mx-auto">
-  <div class="form-content p-5 pr-0 w-[280px] mx-auto">
+<div class="flex flex-col md:flex-row justify-between mt-2 md:mt-6 max-w-[1140px] mx-auto">
+  <div class="form-content p-5 w-[280px] mx-auto">
     <h2 class="text-lg font-bold mb-4">Log in</h2>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "w-[380px]", data: { turbo: false } }) do |f| %>
@@ -26,7 +26,8 @@
     <% end %>
     <%= render "devise/shared/links" %>
   </div>
-  <div class="welcome-content p-5 sm:pl-0 mx-auto">
+  
+  <div class="welcome-content flex flex-col justify-items-center p-5 sm:pl-0 max-w-screen-xl mx-auto">
     <%= render 'layouts/welcome' %>
   </div>
 </div>

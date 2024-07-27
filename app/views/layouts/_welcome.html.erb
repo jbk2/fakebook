@@ -1,69 +1,103 @@
-<h1 class="text-4xl font-extrabold font-helvetica mb-6 bg-clip-text text-2xl
-  text-transparent bg-gradient-to-br from-teal-300 from-10% via-purple-500 via-20% to-blue-700 to-50%">
+<h1 class="text-6xl font-extrabold font-jost mb-6 md:mb-8 bg-clip-text text-transparent
+  bg-gradient-to-br from-teal-300 from-10% via-purple-500 via-25% to-blue-700 to-60%">
   Welcome to Fakebook
 </h1>
+
 <div class="text-md font-helvetica">
-  <p class="mb-4">A facebook clone app, github repo <a href="https://github.com/jbk2/fakebook" class="link">here</a>, built by James Kemp demonstrating the following tools & techniques:</p>
-  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2"><span><%= image_tag('icons/rails_logo.svg', width: "70", height: "70", class:"inline") %></span></h4>
+  <p class="mb-4">A facebook clone app built by James Kemp, see github repo <a href="https://github.com/jbk2/fakebook" class="link">here</a>. Built using the<br>following tools & techniques:</p>
+  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2"><span><%= image_tag('icons/rails_logo.svg', width: "80", height: "80", class:"inline") %></span></h4>
   <ul class="">
-    <li class="leading-7">🖇️&nbsp;&nbsp;Complex forms;<span class="text-[15px] text-gray-600"> nesting, custom actions, hotwire.</span></li>
-    <li class="leading-7">👫&nbsp;&nbsp;Advanced associations;<span class="text-[15px] text-gray-600"> many to many, custom validation, callbacks, delegation.</span></li>
-    <li class="leading-7">🔐&nbsp;&nbsp;Authentication with Devise;<span class="text-[15px] text-gray-600"> devise controller extension.</span></li>
-    <li class="leading-7">⚙️&nbsp;&nbsp;Helpers & POROs:</li>
-      <ul class="pl-4 list-disc list-inside">
-        <li class="leading-5 text-[14px] text-gray-600">Custom image processing logic; size, format, purging. Using ActiveStorage (direct serve) & Vips.</li>
-        <li class="leading-5 text-[14px] text-gray-600">Helper methods, e.g. time formatting in views, devise controller & action helpers.</li>
+    <li class="leading-7 pl-2 text-[14px] text-gray-800">🖇️&nbsp;&nbsp;Complex forms; nesting, custom actions, hotwire.</li>
+    <li class="leading-7 pl-2 text-[14px] text-gray-800">👫&nbsp;&nbsp;Advanced associations; many to many, custom validation, callbacks, delegation.</li>
+    <li class="leading-7 pl-2 text-[14px] text-gray-800">🔐&nbsp;&nbsp;Authentication with Devise; devise controller extension.</li>
+    <li class="leading-7 pl-2 text-[14px] text-gray-800">⚙️&nbsp;&nbsp;Helpers & POROs:</li>
+    <ul class="pl-6 list-disc list-inside">
+      <li class="leading-5 text-[14px] text-gray-800">Custom built image processing; size, format, purge, via ActiveStorage (direct serve) & Vips.</li>
+      <li class="leading-5 text-[14px] text-gray-800">Helpers; time formatting in views, devise controller & action helpers.</li>
+    </ul>
+    <li class="mt-1 leading-7 pl-2 text-[14px] text-gray-800">📥&nbsp;&nbsp;ActiveJob;</li>
+    <ul class="pl-6 list-disc list-inside">
+      <li class="leading-5 text-[14px] text-gray-800">ProcessImageJob; size and format processing of uploaded images.</li>
+      <li class="leading-5 text-[14px] text-gray-800">BroadcastMessageJob; builds message & conversation partials then ActionCable broadcasts.</li>
+    </ul>
+    <li class="mt-1 leading-7 pl-2 text-[14px] text-gray-800">🗄️&nbsp;&nbsp;ActiveStorage; attachments, variants, metadata, direct serve. 
+      Great <a href="https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289" class="link">article</a>.
+    </li>
+    <li class="mt-1 leading-7 pl-[6px] text-[14px] text-gray-800">
+      <span class="mr-[3px]"><%= image_tag('icons/postgres-logo.svg', width: "20", height: "20", class:"inline") %></span>
+      ActiveRecord; postgres, seeding, attachments, variants, metadata, direct serve.
+      Great <a href="https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289" class="link">article</a>.
+    </li>
+    <li class="leading-7 pl-2 text-[14px] text-gray-800">🔌&nbsp;&nbsp;ActionCable; managing conversation scoped subcriptions and broadcast DOM updates.</li>
+    <li class="leading-7 pl-2 text-[14px] text-gray-800">📧&nbsp;&nbsp;ActionMailer; user_mailer sends welcome_email on user sign ups.</li>
+    <br>
+    <hr>
+    <br>
+    <h4 class="text-lg font-bold font-helvetica mb-2"><span><%= image_tag('icons/hotwire.svg', width: "80", height: "80", class:"inline") %></span></h4>
+    <li class="leading-7 pl-2"><span><%= image_tag('icons/turbo.svg', width: "55", height: "55", class:"inline") %></li>
+      <ul class="pl-6 list-disc list-inside">
+        <li class="mt-1 leading-5 text-[14px] text-gray-800">Frames & streams; used in User, Post, Comment, Conversation & Message views.</li>
+        <li class="leading-5 text-[14px] text-gray-800">Turbo 8; using view transitions &amp; turbo morphing.</li>
       </ul>
     </li>
-    <li class="mt-1 leading-7">🔌&nbsp;&nbsp;ActionCable;<span class="text-[15px] text-gray-600"> ConversationChannel manages conversation scoped subcriptions and broadcast DOM updates.</span></li>
-    <li class="leading-7">📥&nbsp;&nbsp;ActiveJob;
-      <ul class="pl-4 list-disc list-inside">
-        <li class="leading-5 text-[14px] text-gray-600">ProcessImageJob;<span class="text-[15px] text-gray-600"> size and format processing of uploaded images.</span></li>
-        <li class="leading-5 text-[14px] text-gray-600">BroadcastMessageJob;<span class="text-[15px] text-gray-600"> builds message & conversation partials then ActionCable broadcasts.</span></li>
-      </ul>
+    <li class="mt-2 leading-7 pl-2"><span><%= image_tag('icons/stimulus.svg', width: "75", height: "75", class:"inline") %></span></li>
+    <ul class="pl-6 list-disc list-inside">
+      <li class="mt-1 leading-5 text-[14px] text-gray-800">To manage image attachments on posts and previewing.</li>
+      <li class="leading-5 text-[14px] text-gray-800">To subscribe to correct ActionCable channels.</li>
+      <li class="leading-5 text-[14px] text-gray-800">To toggle comment form presence view on posts.</li>
+      <li class="leading-5 text-[14px] text-gray-800">To manage scroll position of conversation containers.</li>
+    </ul>
+    <br>
+    <hr>
+    <br>
+    <li class="leading-7 mb-2">
+      <h3 class="text-lg font-jost italic font-black">TESTING</h3>
+      <span class="pl-2"><%= image_tag('icons/rspec-logo.svg', width: "25", height: "25", class:"inline") %></span>
+      <span class="ml-3"><%= image_tag('icons/thoughtbot-logo.svg', width: "25", height: "25", class:"inline") %></span>
+      <!-- <span class="ml-3"><%= image_tag('icons/capybara-logo.png', width: "25", height: "25", class:"inline") %></span> -->
+      <span class="ml-3"><%= image_tag('icons/selenium-logo.svg', width: "25", height: "25", class:"inline") %></span>
     </li>
-    <li class="mt-1 leading-7">🗄️&nbsp;&nbsp;ActiveStorage;<span class="text-[15px] text-gray-600"> attachments, variants, metadata, direct serve. Excellent <a href="https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289" class="link">article</a></span>.</li>
-    <li class="leading-7">📧&nbsp;&nbsp;ActionMailer;<span class="text-[15px] text-gray-600"> user_mailer sends welcome_email on user sign ups.</span></li>
-    <h4 class="text-lg font-bold font-helvetica mt-4 mb-2"><span><%= image_tag('icons/hotwire.svg', width: "80", height: "80", class:"inline") %></span></h4>
-      <ul>
-        <li class="leading-7"><span><%= image_tag('icons/turbo.svg', width: "50", height: "50", class:"inline") %></span>&nbsp;&nbsp;- frames & streams:</li>
-          <ul class="pl-4 list-disc list-inside">
-            <li class="leading-5 text-[14px] text-gray-600">Used in various User, Post, Comment, Conversation & Message views.</li>
-            <li class="mt-1 leading-7 text-[15px] text-gray-600">Turbo 8; using view transitions &amp; turbo morphing.</li>
-          </ul>
-        </li>
-        <li class="mt-1 leading-7"><span><%= image_tag('icons/stimulus.svg', width: "70", height: "70", class:"inline") %></span>&nbsp;&nbsp;- controllers used:</li>
-          <ul class="pl-4 list-disc list-inside">
-            <li class="leading-5 text-[14px] text-gray-600">For managing post image attachments and previewing.</li>
-            <li class="leading-5 text-[14px] text-gray-600">For subscribing to ActionCable ConversationChannel when a conversation is opened.</li>
-            <li class="leading-5 text-[14px] text-gray-600">For toggling comment form presence on posts.</li>
-            <li class="leading-5 text-[14px] text-gray-600">For managing scroll of messages container in conversation-card.</li>
-          </ul>
-        </li>
-      </ul>  
+    <ul class="pl-6 list-disc list-inside">
+      <li class="leading-5 text-[14px] text-gray-800">Use of factories, fixtures, selenium.</li>
+      <li class="leading-5 text-[14px] text-gray-800">All models, jobs, channels and mailers unit and where relevant integration tested.</li>
+      <li class="leading-5 text-[14px] text-gray-800">Request and authentication tested on all routes.</li>
+      <li class="leading-5 text-[14px] text-gray-800">System tests for all key features and user actions tested.</li>
+    </ul>
+    <br>
+    <hr>
+    <br>
+    <li class="leading-7 mb-2">
+      <!-- <i class="fa-brands fa-html5"></i>&nbsp; -->
+      <!-- <i class="fa-brands fa-css3-alt"></i>&nbsp;&nbsp; -->
+      <h3 class="text-lg font-jost italic font-black">STYLING</h3>
+      <span><%= image_tag('icons/daisyui-logotype.svg', width: "110", height: "110", class:"inline") %></span>&nbsp;
+      <span class="-ml-2"><%= image_tag('icons/tailwindcss-logotype.svg', width: "110", height: "110", class:"inline") %></span>&nbsp;
+      <!-- <span class="ml-1"><%= image_tag('icons/html5-logo.svg', width: "35", height: "35", class:"inline") %></span>&nbsp; -->
+      <!-- <span class="ml-2"><%= image_tag('icons/css3-logo.svg', width: "25", height: "25", class:"inline") %></span>&nbsp; -->
     </li>
-    <li class="leading-7">
-      <i class="fa-brands fa-html5"></i>&nbsp;
-      <span><%= image_tag('icons/html5-logo.svg', width: "40", height: "40", class:"inline") %></span>&nbsp;
-      <i class="fa-brands fa-css3-alt"></i>&nbsp;&nbsp;
-      <span><%= image_tag('icons/css3-logo.svg', width: "30", height: "30", class:"inline") %></span>&nbsp;
-      <span><%= image_tag('icons/daisyui-logotype.svg', width: "70", height: "70", class:"inline") %></span>&nbsp;
-      <span><%= image_tag('icons/tailwindcss-logotype.svg', width: "70", height: "70", class:"inline") %></span>&nbsp;
-      Styling;
-      <span class="text-[15px] text-gray-600"> Most styling done with TailwindCSS & DaisyUI component library.</span>
+    <ul class="list-disc list-inside">
+      <li class="pl-6 text-[14px] text-gray-800">Most styling done with TailwindCSS & DaisyUI component library.</span></li>
+    </ul>
+    <br>
+    <hr>
+    <br>
+    <li class="leading-7 mb-2">
+      <h3 class="text-lg font-jost italic font-black">DEVOPS</h3>
+      <span class="pl-2"><%= image_tag('icons/linux-logo.svg', width: "25", height: "25", class:"inline") %></span>&nbsp;
+      <span class="ml-2"><%= image_tag('icons/docker-logo.svg', width: "75", height: "75", class:"inline") %></span>&nbsp;
+      <span class="ml-2"><%= image_tag('icons/ec2.svg', width: "25", height: "25", class:"inline") %></span>&nbsp;
     </li>
-    <li class="leading-7">💻&nbsp;&nbsp;Devops:
-      <span><%= image_tag('icons/linux-logo.svg', width: "20", height: "20", class:"inline") %></span>&nbsp;
-      <span><%= image_tag('icons/docker-logo.svg', width: "70", height: "70", class:"inline") %></span>&nbsp;
-      <span><%= image_tag('icons/ec2.svg', width: "30", height: "30", class:"inline") %></span>&nbsp;
-    </li>
-    <ul class="pl-4 list-disc list-inside">
-      <li class="leading-5 text-[14px] text-gray-600">Containerised microservice architecture on an AWS EC2 Ubuntu instance.</li>
-      <li class="leading-5 text-[14px] text-gray-600">Docker built &amp; composed 5 services via AWS ECR; web, sidekiq, nginx, postgres, redis.</li>
-      <li class="leading-5 text-[14px] text-gray-600">Uses Nginx web server &amp; only via SSL.</li>
-      <li class="leading-5 text-[14px] text-gray-600">Bash scripting to automate cloudflare DNS records and server updates.</li>
+    <ul class="pl-6 list-disc list-inside">
+      <li class="leading-5 text-[14px] text-gray-800">Containerised microservice architecture on a manually configured AWS EC2 Ubuntu instance.</li>
+      <li class="leading-5 text-[14px] text-gray-800">Docker built &amp; composed 5 services; web, sidekiq, nginx, postgres, redis.</li>
+      <li class="leading-5 text-[14px] text-gray-800">Nginx web server, SSL only.</li>
+      <li class="leading-5 text-[14px] text-gray-800">Bash scripting & systemd automates DNS records and server updates.</li>
     </ul>
   </ul>
+
+  <br>
+  <br>
+  <br>
 
   <h3 class="text-xl font-bold font-helvetica mt-6 mb-4">Technologies/libraries used:</h3>
   <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Frontend</h4>
