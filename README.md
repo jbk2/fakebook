@@ -1,6 +1,5 @@
 # The Odin Project – RoR Final Project – Facebook clone (_Fakebook_)
 
-## App description
 *A facebook clone app featuring:*
 
 - 🖇️ Complex forms; nesting, custom actions, hotwire.
@@ -222,10 +221,9 @@ In `dns_update.sh`:
   - Posts
     - Photos
   - Comments
-    - Add ability to like comments
-    - Add ability to comment on/reply to comments
-    - Add ability to add photos to comments
-    - Add ability to Like comments (enable existing Likes model to be used for Comment and Post likes)
+    - Built ability to like comments (enable existing Likes model to be used for Comment and Post likes - i.e. make Polymorphic)
+    - Build ability to comment on/reply to comments
+    - Build ability to add photos to comments
 
 - **UI**
   - Posts
