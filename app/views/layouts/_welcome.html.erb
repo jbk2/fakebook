@@ -4,7 +4,9 @@
 </h1>
 
 <div class="text-md font-helvetica">
-  <p class="mb-4">A facebook clone app built by James Kemp, see github repo <a href="https://github.com/jbk2/fakebook" class="link">here</a>. Built using the<br>following tools & techniques:</p>
+  <p class="text-md">A facebook clone app, built by James Kemp, to demonstrate use of the following libraries, technologies &<br>techniques:
+    <a href="https://github.com/jbk2/fakebook/blob/main/README.md" class="inline link link-primary text-md">View the code</a>.
+  </p>
   <h4 class="text-lg font-bold font-helvetica mt-4 mb-2"><span><%= image_tag('icons/rails_logo.svg', width: "80", height: "80", class:"inline") %></span></h4>
   <ul class="">
     <li class="leading-7 pl-2 text-[14px] text-gray-800">🖇️&nbsp;&nbsp;Complex forms; nesting, custom actions, hotwire.</li>
@@ -70,8 +72,8 @@
       <!-- <i class="fa-brands fa-html5"></i>&nbsp; -->
       <!-- <i class="fa-brands fa-css3-alt"></i>&nbsp;&nbsp; -->
       <h3 class="text-lg font-jost italic font-black">STYLING</h3>
+      <span class="ml-2"><%= image_tag('icons/tailwindcss-logotype.svg', width: "110", height: "110", class:"inline") %></span>&nbsp;
       <span><%= image_tag('icons/daisyui-logotype.svg', width: "110", height: "110", class:"inline") %></span>&nbsp;
-      <span class="-ml-2"><%= image_tag('icons/tailwindcss-logotype.svg', width: "110", height: "110", class:"inline") %></span>&nbsp;
       <!-- <span class="ml-1"><%= image_tag('icons/html5-logo.svg', width: "35", height: "35", class:"inline") %></span>&nbsp; -->
       <!-- <span class="ml-2"><%= image_tag('icons/css3-logo.svg', width: "25", height: "25", class:"inline") %></span>&nbsp; -->
     </li>
@@ -93,80 +95,5 @@
       <li class="leading-5 text-[14px] text-gray-800">Nginx web server, SSL only.</li>
       <li class="leading-5 text-[14px] text-gray-800">Bash scripting & systemd automates DNS records and server updates.</li>
     </ul>
-  </ul>
-
-  <br>
-  <br>
-  <br>
-
-  <h3 class="text-xl font-bold font-helvetica mt-6 mb-4">Technologies/libraries used:</h3>
-  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Frontend</h4>
-  <ul>
-    <li class="leading-7">TailwindCSS, DaisyUI, FontAwesome</li>
-    <li class="leading-7">Hotwire - Turbo; streams &amp; frames, Stimulus JS (new_post_photo_controller)</li>
-  </ul>
-  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Backend</h4>
-  <ul>
-    <li>ActiveStorage, ActiveJob, ActionCable, ActionMailer + many more rails libraries.</li>
-    <li>ImageProcessing gem - handle queued job race conditions for attachment purging</li>
-  </ul>
-  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Techn-iques | ology used:</h4>
-  <ul>
-    <li>Turbo Streams ✅</li>
-    <li>Turbo Frames ✅</li>
-    <li>Stimulus ✅</li>
-    <li>Tailwindcss / DaisyUI ✅, FontAwesome ✅,</li>
-    <li>Devise ✅</li>
-    <li>Omniauth</li>
-    <li>Seeding; Faker gem ✅</li>
-    <li>Complex forms; fields_for ✅</li>
-    <li>Polmorphic models</li>
-    <li>Custom validation, callbacks ✅</li>
-    <li>POROs ✅</li>
-    <li>Active Storage ✅</li>
-    <li>Active Job ✅</li>
-    <li>Action Mailer ✅</li>
-    <li>Rspec; factories, Capybara ✅</li>
-    <li>Docker, AWS S3, ECR, EC2, scripting, systemd ✅</li>
-  </ul>
-  <h4 class="text-lg font-bold font-helvetica mt-4 mb-2">Full Test Coverage (Rspec, Shoulda-matchers, FactoryBot, Capybara, Selenium)</h4>
-  <ul>
-    <li>Unit Tests
-      <ul>
-        <li>Models; unit tested:
-          <ul>
-            <li>Associations &amp; validations</li>
-            <li>Custom logic</li>
-          </ul>
-        </li>
-        <li>Unit &amp; integration tests for:
-          <ul>
-            <li>ProcessImageJob &amp; BroadcastMessageJob</li>
-            <li>ActionCable; ConversationChannel</li>
-            <li>ActionMailer; UserMailer</li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-    <li>Request Tests
-      <ul>
-        <li>Authentication tested on all routes</li>
-      </ul>
-    </li>
-    <li>Integration Tests
-      <ul>
-        <li>User.profile_photo integration with ProcessImageJob</li>
-        <li>Post.photos integration with ProcessImageJob</li>
-      </ul>
-    </li>
-    <li>System Tests
-      <ul>
-        <li>Users index page</li>
-          <li>Posts index page</li>
-          <li>Following &amp; Un-Following from Users index</li>
-          <li>Unfollowing from Posts index</li>
-          <li>Post Liking from Posts index</li>
-      </ul>
-    </li>
   </ul>
 </div>
