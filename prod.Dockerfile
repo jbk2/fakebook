@@ -29,11 +29,14 @@ RUN bundle install && \
     bundle exec bootsnap precompile --gemfile && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
+# Will include locally built assets
 COPY --link . .
 
 RUN bundle exec bootsnap precompile app/ lib/
 
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+# Not running `assets:precompile` here as assets are compiled locally
+# (therefore no need for Node & Yarn here).
+# RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 # --------------------------------------------
 
