@@ -38,3 +38,9 @@
 
 # Ignore amazon creds
 /fakebook_ec2.pem
+
+# Ignore Node and Yarn files used in cssbundling-rails gem css build process
+node_modules/
+yarn.lock
+package.json
+package-lock.json
