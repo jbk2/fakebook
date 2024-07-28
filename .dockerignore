@@ -32,9 +32,9 @@
 
 # Ignore assets.
 /node_modules/
-/app/assets/builds/*
-!/app/assets/builds/.keep
-/public/assets
+# /app/assets/builds/*
+# !/app/assets/builds/.keep
+# /public/assets
 
 # Ignore amazon creds
 /fakebook_ec2.pem
