@@ -8,12 +8,14 @@
        <i class="fas fa-search -ml-48 pt-3 absolute" style="color: gray;"></i>
     </div>
     <%= turbo_frame_tag "flash_messages" do %>
+      <div class="">
         <%= render 'layouts/flash' %>
+      </div>
     <% end %>
     <%#= params %>
   </div>
 
-  <div class="w-48 flex justify-around" id="center-section">
+  <div class="w-32 sm:w-48 lg:w-64 flex justify-around" id="center-section">
     <div class="home">
       <%= link_to root_path, title: "Home" do %>
         <i class="fa-solid fa-house text-blue-600 sm:mx-4"></i>

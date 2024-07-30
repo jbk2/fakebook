@@ -111,6 +111,8 @@ System Tests
 
 ### Docker
 - dev.Dockerfile & prod.Dockerfile written for their respective environments.
+- Must manually compile assets locally (by cssbundling-rails gem (uses Node)) before production image
+  build; `bin/rails assets:clobber`, `bin/rails assets:precompile`.
 - To build development or production images adjust docker-compose.yml web and
   sidekiq services to build from appropriate prod. or dev. dockerfile. (Should adjust to be able
   to pass in environment argument.)

@@ -1,4 +1,4 @@
-<div class="flash -ml-2">
+<div class="flash fixed top-2 mt-1 -ml-2 z-100">
   <% flash.each do |type, message| %>
     <% if type == 'notice' %>
       <i class="alert alert-info h-10 animate-fadeOut" style="align-content: center;"><%= message %></i>
