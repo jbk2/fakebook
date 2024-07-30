@@ -7,7 +7,6 @@ export default class extends Controller {
 
   connect() {
     console.log("Connected to clipboard controller")
-    console.log(`Source target is found ${this.sourceTarget.textContent}`);
   }
 
   copy(event) {
