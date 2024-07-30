@@ -7,8 +7,8 @@
       <input type="text" placeholder="     Search" id="navbar-search" class="border-none rounded-full h-[40px] bg-neutral-200">
        <i class="fas fa-search -ml-48 pt-3 absolute" style="color: gray;"></i>
     </div>
-    <%= turbo_frame_tag "flash_messages", data: { controller: 'flash' } do %>
-      <div class="flash fixed top-2 mt-1 -ml-2 z-50">
+    <%= turbo_frame_tag "flash_messages" do %>
+      <div class="flash-container">
         <%= render 'layouts/flash' %>
       </div>
     <% end %>
