@@ -7,8 +7,8 @@
       <input type="text" placeholder="     Search" id="navbar-search" class="border-none rounded-full h-[40px] bg-neutral-200">
        <i class="fas fa-search -ml-48 pt-3 absolute" style="color: gray;"></i>
     </div>
-    <%= turbo_frame_tag "flash_messages" do %>
-      <div class="">
+    <%= turbo_frame_tag "flash_messages", data: { controller: 'flash' } do %>
+      <div class="flash fixed top-2 mt-1 -ml-2 z-50">
         <%= render 'layouts/flash' %>
       </div>
     <% end %>
@@ -57,7 +57,7 @@
       <summary class="btn">
         <i class="fa-solid fa-bars"></i>
       </summary>
-      <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+      <ul class="p-2 shadow menu dropdown-content bg-base-100 rounded-box w-52">
 
         <% if user_signed_in? %>
           <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
