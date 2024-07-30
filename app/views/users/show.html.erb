@@ -33,12 +33,12 @@
     </div>
   </section>
 
-  <div class="mx-8 mt-8 grid grid-cols-2 gap-2">
-    <hr class="border-slate-300 col-span-2 mb-6">
+  <div class="mx-8 mt-8 grid grid-cols-1 lg:grid-cols-2 gap-2">
+    <hr class="border-slate-300 col-span-1 lg:col-span-2 mb-6">
 
-    <section class="left-col col-span-1">
+    <section class="left-col lg:col-span-1">
 
-      <div class="intro card rounded-lg bg-base-100">
+      <div class="rounded-lg bg-base-100 order-1 lg:order-none" id="intro-card">
         <div class="card-body p-6">
           <header class="card-title">
             <h2 class="text-lg font-semibold mb-1">Intro</h2>
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <div class="photos card rounded-lg bg-base-100 mt-4 pb-4 max-h-[800px]">
+      <div class="rounded-lg bg-base-100 mt-4 pb-4 max-h-[800px] hidden lg:block" id="photos-card">
         <div class="card-body p-6">
           <h2 class="card-title text-lg font-semibold mb-2">Recent photos</h2>
           <div class="flex flex-wrap gap-2 rounded max-h-[700px] overflow-auto">
@@ -71,13 +71,13 @@
         </div>
       </div>
 
-      <div class="friends card rounded-lg bg-base-100 mt-4 max-h-[600px]">
+      <div class="rounded-lg bg-base-100 mt-4 max-h-[600px] hidden lg:block order-1 lg:order-none" id="friends-card">
         <div class="card-body p-6">
           <h2 class="card-title text-lg font-semibold mb-2">Friends</h2> <!-- Friends == followers & following -->
           <div class="flex flex-wrap gap-2 rounded max-h-[510px] overflow-auto">
             <% @friends.each do |friend| %>
               <% if friend.profile_photo.attached? %>
-                <%= image_tag friend.profile_photo, class: "size-[175px]", alt: "friends profile photo" %>
+                <%= image_tag friend.profile_photo, class: "size-1/3", alt: "friends profile photo" %>
               <% else %>
                 <i class="fa-regular fa-user size-[175px] text-center text-8xl content-center bg-slate-100"></i>
               <% end %>  
@@ -88,7 +88,7 @@
 
     </section>
 
-    <section class="right-col">
+    <section class="right-col col-span-1 order-3 lg:order-none">
       
       <div class="header flex items-center">
         <h1 class="text-lg font-semibold">Posts</h1>
@@ -101,7 +101,7 @@
         </details>
       </div>
         
-      <%= turbo_frame_tag "posts", class: "my-10 posts" do %>
+      <%= turbo_frame_tag "posts", class: "my-10 min-w-[400px]" do %>
         <% @user.posts.each do |post| %>
           <%= render 'posts/post_card', post: post %>
         <% end %>
