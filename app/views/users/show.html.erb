@@ -1,11 +1,11 @@
 <div class="max-w-[1250px] mx-auto">
   <section class="header">
 
-    <div class="background-image h-[450px] object-fill rounded-b-md object-center overflow-hidden z-0">
+    <div class="background-image sm:h-[450px] object-fill rounded-b-md object-center overflow-hidden z-0">
       <%= image_tag 'backgrounds/bg_1.jpg', alt: "background image", class: "" %>
     </div>
     
-    <div class="header-info mx-8 flex mt-6">
+    <div class="header-info mx-2 sm:mx-6 md:mx-8 flex mt-6">
       <div class="profile-photo -mt-28 relative z-10">
         <% if @user.profile_photo.attached? %>
           <%= image_tag @user.profile_photo, alt: "user profile photo", class: "rounded-full size-48 border-4 border-white"%>
@@ -14,7 +14,7 @@
         <% end %>  
       </div>
 
-      <div class="text ml-4">
+      <div class="text sm:ml-4">
         <h2 class="text font-semibold text-2xl"><%= @user.username %></h2>
         <p class="mt-1 text-sm font-semibold text-slate-500"><%= pluralize(@friends.count, 'friend') %></p>
       </div>
@@ -25,7 +25,7 @@
         <%= button_to message_user_path, method: :post, params: { recipient_id: @user.id },
           class:"m-1 btn btn-primary bg-blue-600 hover:bg-blue-700" do %>
           <i class="fa-brands fa-facebook-messenger"></i>
-          <span>Message</span>
+          <span class="hidden sm:inline">Message</span>
         <% end %>
         
       </div>
@@ -33,7 +33,7 @@
     </div>
   </section>
 
-  <div class="mx-8 mt-8 grid grid-cols-1 lg:grid-cols-2 gap-2">
+  <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-2">
     <hr class="border-slate-300 col-span-1 lg:col-span-2 mb-6">
 
     <section class="left-col lg:col-span-1">
@@ -89,23 +89,25 @@
     </section>
 
     <section class="right-col col-span-1 order-3 lg:order-none">
-      
-      <div class="header flex items-center">
-        <h1 class="text-lg font-semibold">Posts</h1>
-        <details class="dropdown ml-auto">
-          <summary class="m-1 btn">Filters</summary>
-          <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <li><a>Item 1</a></li>
-            <li><a>Item 2</a></li>
-          </ul>
-        </details>
-      </div>
-        
-      <%= turbo_frame_tag "posts", class: "my-10 min-w-[400px]" do %>
-        <% @user.posts.each do |post| %>
-          <%= render 'posts/post_card', post: post %>
+      <div class="p-6" id="posts-card">
+        <div class="header flex items-center">
+          <h1 class="text-lg font-semibold">Posts</h1>
+          <details class="dropdown dropdown-end ml-auto">
+            <summary class="m-1 btn">Filters</summary>
+            <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-30">
+              <li><a>Date</a></li>
+              <li><a>Following</a></li>
+            </ul>
+          </details>
+        </div>
+          
+        <%= turbo_frame_tag "posts", class: "my-10 min-w-[400px]" do %>
+          <% @user.posts.each do |post| %>
+            <%= render 'posts/post_card', post: post %>
+          <% end %>
         <% end %>
-      <% end %>
+      
+      </div>
 
     </section>
   </div>

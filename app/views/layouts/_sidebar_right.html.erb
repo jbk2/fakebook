@@ -3,7 +3,7 @@
     <h3 class="text-left text-lg font-semibold mb-4 text-gray-500">Following</h3>
     <ul>
       <% @followed_users.each do |user| %>
-        <li class="ml-1 mb-2 opacity-70">
+        <li class="ml-1 mb-2 opacity-90">
           <%= link_to user_path(user), class: "flex items-center" do %>
             <% if user.profile_photo.attached? %>
               <%= image_tag user.profile_photo, class: "rounded-full w-11 h-11" %>
@@ -21,7 +21,7 @@
     <h3 class="text-left text-lg font-semibold mb-4 text-gray-500">Followers</h3>
     <ul>
       <% @following_users.each do |user| %>
-        <li class="ml-1 mb-2 opacity-70">
+        <li class="ml-1 mb-2 opacity-90">
           <%= link_to user_path(user), class: "flex items-center" do %>
             <% if user.profile_photo.attached? %>
               <%= image_tag user.profile_photo, class: "rounded-full w-11 h-11" %>

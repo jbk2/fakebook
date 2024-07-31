@@ -63,7 +63,7 @@
 
     <div data-controller="comment">
       <section class="actions">
-        <div class="flex justify-between px-24">
+        <div class="flex justify-around">
           <div class="flex items-center">
             <%= image_tag('icons/like2.png', alt: 'like icon', height: '24', width: '24', class: "mx-1") %>
             <%= render 'likes/count', post: post %>
@@ -78,20 +78,20 @@
             <%= button_to post_likes_path(post), method: :post, remote: true,
               form: { "data-turbo-frame" => "like_action_#{post.id}" }, id: 'like-action',
               class: "mx-1 hover:cursor-pointer" do %>
-              <i class="fa-regular fa-thumbs-up text-xl"></i>
-              <span class="ml-2">Like</span>
+              <i class="fa-regular fa-thumbs-up text-xl text-gray-700"></i>
+              <span class="ml-2 text-gray-700">Like</span>
             <% end %>
           </div>
           <div class="flex flex-row items-center">
             <%= link_to "#", data: { action: "click->comment#toggle" },
-              class: "mx-1 hover:cursor-pointer" do %>
-              <i class="fa-regular fa-comment text-xl"></i>
-              <span class="ml-1">Comment</span>
+              class: "mx-1 hover:cursor-pointer inline-flex" do %>
+              <i class="fa-regular fa-comment text-xl text-gray-700"></i>
+              <span class="ml-1 text-gray-700">Comment</span>
             <% end %>
           </div>
           <div class="flex flex-row items-center">
-            <i class="fa-regular fa-paper-plane text-xl"></i>
-            <span class="ml-2">Share</span>
+            <i class="fa-regular fa-paper-plane text-xl text-gray-700"></i>
+            <span class="ml-2 text-gray-700">Share</span>
           </div>
         </div>
       </section>
