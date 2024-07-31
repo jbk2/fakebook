@@ -1,8 +1,8 @@
 <turbo-frame id="conversation-card" data-controller="conversation" data-conversation-conversation-id-value="<%= @conversation.id %>">
-  <div class="card w-94 bg-base-100 fixed right-2 sm:right-8 bottom-8 z-50">
+  <div class="card w-[350px] bg-base-100 fixed right-2 sm:right-8 bottom-8 z-50">
     
     <div class="card-title p-3 w-full flex border-b items-center">
-      <div class="w-11 h-11 content-center rounded-full overflow-hidden bg-slate-200">
+      <div class="size-11 content-center rounded-full overflow-hidden bg-slate-200">
         <% if @conversation.other_participant(current_user).profile_photo.attached? %>
           <%= image_tag(@conversation.other_participant(current_user).profile_photo.variant(:avatar), class: "object-cover") %>
         <% else %>
