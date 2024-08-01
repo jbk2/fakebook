@@ -1,7 +1,7 @@
-<turbo-frame id="conversations" data-current-user-id="<%= current_user.id %>" >
+<turbo-frame id="conversations" data-controller="notifications" data-notifications-current-user-id-value="<%= current_user.id %>"> <!-- data-current-user-id="<%= current_user.id %> -->
   <details class="conversations-dropdown dropdown dropdown-end w-11 h-11 mr-2 flex justify-center items-center">
-    <summary class="btn bg-slate-100 hover:bg-slate-200 w-11 h-11 rounded-full min-h-11 border-none" title="Conversations">
-      <i class="items-center fa-brands fa-facebook-messenger text-xl"></i>
+    <summary class="btn bg-slate-100 hover:bg-slate-200 size-11 rounded-full ring-offset-2 ring-red-300 min-h-11 border-none" title="Conversations">
+      <i class="items-center fa-brands fa-facebook-messenger text-xl "></i>
     </summary>
     <div class="shadow menu dropdown-content flex flex-col flex-nowrap z-[1] bg-base-100 rounded-box mt-2 w-72 max-h-72">
       <h3 class="text-lg font-bold m-2">Chats</h3>
@@ -9,7 +9,7 @@
         <% if conversations.empty? %>
           <p class="px-3 pb-2">💬 with <%= link_to "users", users_path %> via the <i class="fa-brands fa-facebook-messenger text-blue-500"></i> button on their profile page.</p>
         <% end %>
-        <% conversations.order(updated_at: :desc).each do |conversation| %>
+        <% conversations.order(created_at: :desc).each do |conversation| %>
           <div id="conversation_<%= conversation.id %>" class="my-1">
             <%= link_to open_conversation_card_path(conversation.id), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation-card" } do %>
               <%= image_tag conversation.other_participant(current_user).profile_photo, class: "w-11 h-11 rounded-full object-cover" %>

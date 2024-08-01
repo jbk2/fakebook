@@ -5,45 +5,44 @@ const ConversationChannel = {
     const channel = consumer.subscriptions.create({
       channel: "ConversationChannel", conversationId: conversationId
     }, {
-        connected() {
-          // Called when the subscription is ready for use on the server
-          console.log(`Connected to the conversation channel for conversationId: ${conversationId}`);
-        },
-        
-        // Called when the subscription has been terminated by the server
-        disconnected() {
-          console.log(`Disconnected from the conversation channel for conversationId: ${conversationId}`);
-        },
-  
-        // Called when there's incoming data on the websocket for this channel
-        received(data) {
-          let messagesContainer = document.getElementById(`conversation-${conversationId}-card-messages`);
-          console.log(`here's the message data: ${data.message_html}`);
-          if (messagesContainer) {
-            messagesContainer.innerHTML += data.message_html;
-            // ensure scroll height is adjusted to show the latest message
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-          }
+      connected() {
+        // Called when the subscription is ready for use on the server
+        console.log(`Connected to the conversation channel for conversationId: ${conversationId}`);
+      },
+      
+      // Called when the subscription has been terminated by the server
+      disconnected() {
+        console.log(`Disconnected from the conversation channel for conversationId: ${conversationId}`);
+      },
 
-          // Update the conversations turbo frame
-          let conversationsFrame = document.getElementById('conversations');
-          let currentUser = conversationsFrame.dataset.currentUserId
-          console.log(`currentUser: ${currentUser}`);
+      // Called when there's incoming data on the websocket for this channel
+      received(data) {
+        let messagesContainer = document.getElementById(`conversation-${conversationId}-card-messages`);
+        if (messagesContainer) {
+          console.log(`here's the message data we're gonna update with the broadcast: ${data.message_html}`);
+          messagesContainer.innerHTML += data.message_html;
+          // ensure container scrolled to bottom to show the latest message
+          messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
 
-          if (currentUser == data.sender_id) {
-            conversationsFrame.innerHTML = data.senders_conversations_html;
-          }
-          if (currentUser == data.recipient_id) {
-            conversationsFrame.innerHTML = data.recipients_conversations_html;
-          }
+        // Update the conversations turbo frame
+        let conversationsFrame = document.getElementById('conversations');
+        let currentUser = conversationsFrame.dataset.notificationsCurrentUserIdValue
+        console.log(`currentUser: ${currentUser}`);
 
-        }//,
-  
-        // send_message: function() {
-        //   return this.perform('send_message');
-        // }
+        if (currentUser == data.sender_id) {
+          conversationsFrame.innerHTML = data.senders_conversations_html;
+        }
+        if (currentUser == data.recipient_id) {
+          conversationsFrame.innerHTML = data.recipients_conversations_html;
+        }
+
+        if (data.sender_id !== currentUser && data.conversation_id !== conversationId) {
+          document.querySelector('.conversations-dropdown').classList.add('ring');
+        }
+
       }
-    );
+    });
     return channel;
   }
 }

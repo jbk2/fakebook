@@ -2,12 +2,13 @@
 #
 # Table name: messages
 #
-#  id              :bigint           not null, primary key
-#  body            :string
-#  user_id         :bigint           not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  conversation_id :bigint           not null
+#  id                :bigint           not null, primary key
+#  body              :string
+#  user_id           :bigint           not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  conversation_id   :bigint           not null
+#  read_by_recipient :boolean          default(FALSE)
 #
 class Message < ApplicationRecord
   attr_accessor :skip_broadcast
@@ -19,7 +20,14 @@ class Message < ApplicationRecord
   validates :body, presence: true
   validates :conversation_id, presence: true
 
+  scope :unread_by_recipient, -> { where(read_by_recipient: false) }
+
   after_create_commit :broadcast_message, unless: -> { skip_broadcast }
+
+
+  def mark_as_read_by_recipient
+    update(read_by_recipient: true)
+  end
 
   private
 
@@ -29,6 +37,8 @@ class Message < ApplicationRecord
     else
       puts "Broadcasting message_id#{id}"
       BroadcastMessageJob.perform_later(self, self.user_id, self.conversation_id)
+      puts "Updating message #{id} read notification "
+      UpdateMessageNotificationJob.perform_later(self.id, self.conversation_id)
     end
   end
 end

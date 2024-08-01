@@ -9,6 +9,15 @@ class ConversationsController < ApplicationController
     conversation_id ||= params[:id]
     @conversation = Conversation.find(conversation_id)
     
+    # set active_conversation_id current_user & mark all messages' read_by_recipient as true
+    current_user.update_column(:active_conversation_id, @conversation.id)
+    @conversation.messages.where.not(user_id: current_user.id).each(&:mark_as_read_by_recipient)
+
+    # update notification state for recipient
+    ActionCable.server.broadcast("notification_#{current_user.id}", {
+      action: any_unread_messages? ? 'add_notification' : 'remove_notification'
+    })
+
     # session var used to keep conversation-card rendered & in view on view chnages
     session[:active_conversation_id] = @conversation.id
     Rails.logger.info("Active conversation session variable set to; #{session[:active_conversation_id]}")
@@ -38,6 +47,10 @@ class ConversationsController < ApplicationController
   def close_conversation_card
     session[:active_conversation_id] = nil
 
+    # set active_conversation_id to nil for current_user
+    current_user.update_column(:active_conversation_id, nil)
+
+    # empty the conversation-card turbo-frame
     respond_to do |format|
       format.turbo_stream { render turbo_stream: turbo_stream.replace('conversation-card',
         '<turbo-frame id="conversation-card"></turbo-frame>')}
@@ -50,5 +63,9 @@ class ConversationsController < ApplicationController
     params.require(:conversation).permit(:participant_one_id, :participant_two_id)
   end
 
+  def any_unread_messages?
+
+    current_user.conversations.any? { |conversation| conversation.messages.unread_by_recipient.any? }
+  end
 
 end
