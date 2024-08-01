@@ -11,6 +11,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  username               :string
+#  active_conversation_id :integer
 #
 class User < ApplicationRecord
   # Others devise modules available are; :confirmable, :lockable, :timeoutable,

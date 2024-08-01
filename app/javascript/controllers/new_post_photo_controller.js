@@ -6,9 +6,6 @@ export default class extends Controller {
 
   connect() {
     console.log("new_post_photo_controller Stimulus controller is now connected");
-    console.log("fileInput taget found", this.fileInputTarget)
-    console.log("form taget found", this.formTarget)
-    console.log("previews taget found", this.previewsTarget)
     this.fileInput = null;
   }
 

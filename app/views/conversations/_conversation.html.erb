@@ -23,7 +23,7 @@
     <div class="card-body p-0 max-h-80">
       <div id="conversation-<%= @conversation.id %>-card-messages" class="overflow-auto pl-4"
         data-conversation-target="messages">
-        <% @conversation.messages.each do |message| %>
+        <% @conversation.messages.order(created_at: :asc).each do |message| %>
           <%= render "messages/message", message: message %>
         <% end %>
       </div>

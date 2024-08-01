@@ -9,7 +9,6 @@ export default class extends Controller {
   connect() {
     console.log("Conversation Stimulus Controller is now connected!")
     console.log(`The value of the conversationID from the convo card is ${this.conversationIdValue}`)
-    console.log("messages target found: ", this.messagesTarget)
 
     this.scrollToBottom()
     this.channel = ConversationChannel.subscribe(this.conversationIdValue);
@@ -17,10 +16,10 @@ export default class extends Controller {
 
   disconnect() {
     if (this.channel) {
-      console.log(`unsubscribing this.channel ${this.channel}`);
+      console.log(`unsubscribing from the conversation channel for the convo with id; ${this.conversationIdValue}`);
       this.channel.unsubscribe();
     }
-    console.log("disconnecing Conversation Stimulus Controller");
+    console.log("disconnecting Conversation Stimulus Controller");
   }
 
   scrollToBottom() {
