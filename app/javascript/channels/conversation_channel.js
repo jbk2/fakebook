@@ -7,40 +7,34 @@ const ConversationChannel = {
     }, {
       connected() {
         // Called when the subscription is ready for use on the server
-        console.log(`Connected to the conversation channel for conversationId: ${conversationId}`);
+        console.log(`%cConversationChannel=>%c connected, to conversationId: ${conversationId} scoped stream`, "color: red; font-weight: bold;", "");
       },
       
       // Called when the subscription has been terminated by the server
       disconnected() {
-        console.log(`Disconnected from the conversation channel for conversationId: ${conversationId}`);
+        console.log(`%cConversationChannel=>%c disconnected from conversationId: ${conversationId} scoped stream`, "color: red; font-weight: bold;", "");
       },
 
       // Called when there's incoming data on the websocket for this channel
       received(data) {
+        console.log(`%cConversationChannel=>%c #received method called, with data; ${data}`, "color: red; font-weight: bold;", "");
         let messagesContainer = document.getElementById(`conversation-${conversationId}-card-messages`);
         if (messagesContainer) {
-          console.log(`here's the message data we're gonna update with the broadcast: ${data.message_html}`);
           messagesContainer.innerHTML += data.message_html;
           // ensure container scrolled to bottom to show the latest message
           messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Update the conversations turbo frame
+        // Update each conversation participants turbo frame
         let conversationsFrame = document.getElementById('conversations');
         let currentUser = conversationsFrame.dataset.notificationsCurrentUserIdValue
-        console.log(`currentUser: ${currentUser}`);
 
         if (currentUser == data.sender_id) {
           conversationsFrame.innerHTML = data.senders_conversations_html;
         }
-        if (currentUser == data.recipient_id) {
-          conversationsFrame.innerHTML = data.recipients_conversations_html;
-        }
-
-        if (data.sender_id !== currentUser && data.conversation_id !== conversationId) {
-          document.querySelector('.conversations-dropdown').classList.add('ring');
-        }
-
+        // if (currentUser == data.recipient_id) {
+        //   conversationsFrame.innerHTML = data.recipients_conversations_html;
+        // }
       }
     });
     return channel;

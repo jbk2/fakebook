@@ -1,21 +1,26 @@
 class UpdateMessageNotificationJob < ApplicationJob
   queue_as :default
 
-  def perform(message_id, conversation_id)
-    sender = Message.find(message_id).user
-    recipient = Conversation.find(conversation_id).other_participant(sender)
+  def perform(message_id)
+    message = Message.find(message_id)
+    sender = message.user
+    conversation = message.conversation
+    recipient = conversation.other_participant(sender)
 
-    unless recipient.active_conversation_id == conversation_id
+    # Only recipient gets update & only if they don't have conversation-card open.
+    if recipient.active_conversation_id == conversation.id
+      conversation.messages.where.not(user_id: recipient.id).each(&:mark_as_read_by_recipient)
+    elsif recipient.active_conversation_id.nil?
       update_notification_state(recipient)
     end
   end
 
   private
 
-  def update_notification_state(user)
-    unread_messages = user.messages.where(read_by_recipient: false).any?
-    ActionCable.server.broadcast("notification_#{user.id}", {
-      action: unread_messages ? 'add_notification' : 'remove_notification'
+  def update_notification_state(recipient)
+    ActionCable.server.broadcast("notification_#{recipient.id}", {
+      action: 'new_message_notification',
+      recipient_id: recipient.id
     })
   end
 

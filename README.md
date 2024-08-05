@@ -196,6 +196,8 @@ In `dns_update.sh`:
 
 ### Next ToDos:
 
+- write tests for notifications feature & update factories and model tests with user.active_conversation_id
+  and message.read_by_recipient columns
 - refactor conversations and messages logic:
   - use dom_id helper
   - update conversations turbo_frame when any conversations have new messages, even when user isn't streaming from ConversationChannel.

@@ -7,8 +7,8 @@ export default class extends Controller {
   static values = { conversationId: Number }
   
   connect() {
-    console.log("Conversation Stimulus Controller is now connected!")
-    console.log(`The value of the conversationID from the convo card is ${this.conversationIdValue}`)
+    console.log("ConversationStimulus=> connected!")
+    console.log(`ConversationsStimulus=> conversationIDValue; ${this.conversationIdValue}`)
 
     this.scrollToBottom()
     this.channel = ConversationChannel.subscribe(this.conversationIdValue);
@@ -16,10 +16,10 @@ export default class extends Controller {
 
   disconnect() {
     if (this.channel) {
-      console.log(`unsubscribing from the conversation channel for the convo with id; ${this.conversationIdValue}`);
+      console.log(`ConversationStimulus=> unsubscribing from ConversationChannel for conversationId; ${this.conversationIdValue}`);
       this.channel.unsubscribe();
     }
-    console.log("disconnecting Conversation Stimulus Controller");
+    console.log("ConversationStimulus=> disconnecting");
   }
 
   scrollToBottom() {

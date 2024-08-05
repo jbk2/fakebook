@@ -32,13 +32,14 @@ class Message < ApplicationRecord
   private
 
   def broadcast_message
-    if skip_broadcast
+    if skip_broadcast 
+      # attr added so that seeds & or console can create messages without broadcasting or notification update
       puts "Skipping broadcast for message_id#{id}"
     else
       puts "Broadcasting message_id#{id}"
       BroadcastMessageJob.perform_later(self, self.user_id, self.conversation_id)
-      puts "Updating message #{id} read notification "
-      UpdateMessageNotificationJob.perform_later(self.id, self.conversation_id)
+      puts "Updating message #{id} read notification"
+      UpdateMessageNotificationJob.perform_later(self.id)
     end
   end
 end
