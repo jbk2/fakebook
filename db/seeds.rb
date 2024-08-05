@@ -109,7 +109,8 @@ def create_message(sender_id, conversation_id)
   message = Message.create(
     body: Faker::Lorem.sentence(word_count: rand(3..7)),
     user_id: sender_id,
-    conversation_id: conversation_id
+    conversation_id: conversation_id,
+    read_by_recipient: true
   )
   message.skip_broadcast = true
   message.save

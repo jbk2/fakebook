@@ -4,7 +4,6 @@ class BroadcastMessageJob < ApplicationJob
   def perform(message, sender_id, conversation_id)
     renderer = ApplicationController.renderer.new
     rendered_message_html = renderer.render(partial: "messages/message", locals: { message: message })
-    # Rails.logger.info("Generated message HTML: #{rendered_message_html}")
     
     sender = User.find(sender_id)
     senders_conversations = sender.conversations
@@ -19,11 +18,17 @@ class BroadcastMessageJob < ApplicationJob
 
     ActionCable.server.broadcast("conversation_#{conversation_id}", {
       message_html: rendered_message_html,
-      conversation_id: conversation_id,
-      senders_conversations_html: senders_conversations_html,
-      sender_id: sender.id,
+      conversation_id: conversation_id
+    })
+    
+    ActionCable.server.broadcast("conversations_#{recipient.id}", {
       recipients_conversations_html: recipients_conversations_html,
       recipient_id: recipient.id
+    })
+    
+    ActionCable.server.broadcast("conversations_#{sender.id}", {
+      senders_conversations_html: senders_conversations_html,
+      sender_id: sender.id
     })
 
   end

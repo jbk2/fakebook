@@ -3,19 +3,22 @@ class ConversationChannel < ApplicationCable::Channel
     if params[:conversationId].present? && Conversation.find(params[:conversationId])
       stream_from "conversation_#{params[:conversationId]}"
     else
-      Rails.logger.debug "Client attempted to subscribe to a conversation channel without a valid conversation_id"
+      Rails.logger.debug "\e[31mConversationChannel=>\e[0m client failed to subscribe"
       reject
     end
   end
 
   def receive(data)
     # Called when the client JS channel instance sends data via the channel
-    puts "Broadcasted data received from JS client channel instance: #{data.inspect}"
+    Rails.logger.debug "\e[31mConversationChannel=>\e[0m broadcasted data received from JS ConversationChannel client; #{data.inspect}"
   end
   
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
-    puts "Client has unsubscribed from conversation channel."
+    # When ConversationChannel unsubscribed, ∴ conversation-card closed, set user.active_conversation_id to nil
+    current_user.update_column(:active_conversation_id, nil)
+    Rails.logger.debug("\e[31mConversationChannel=>\e[0m User id no #{current_user.id} has had active_conversation set to #{current_user.active_conversation_id}.")
+    Rails.logger.debug("\e[31mConversationChannel=>\e[0m client has unsubscribed")
   end
 
 end

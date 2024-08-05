@@ -2,3 +2,4 @@
 // import "channels/message_channel"
 import "channels/conversation_channel"
 import "./notifications_channel"
+import "./conversations_channel"
