@@ -3,14 +3,17 @@ import ConversationChannel from "../channels/conversation_channel";
 
 // Connects to data-controller="conversation"
 export default class extends Controller {
-  static targets = ["messages"]
+  static targets = ["messages", "messageInputField"]
   static values = { conversationId: Number }
   
   connect() {
-    console.log("%cConversationStimulus=>%c connected!", "color: blue; font-weight: bold;", "")
-    console.log(`ConversationsStimulus=> conversationIDValue; ${this.conversationIdValue}`)
+    console.log(`%cConversationStimulus=>%c connected!\n
+      conversationIDValue; ${this.conversationIdValue}\n
+      messages target found; ${this.messagesTarget}\n
+      message-input-field target found; ${this.messageInputFieldTarget}`, "color: blue; font-weight: bold;", "")
 
     this.scrollToBottom()
+    this.messageInputFieldTarget.focus();
     this.channel = ConversationChannel.subscribe(this.conversationIdValue);
   }
 
