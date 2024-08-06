@@ -22,7 +22,7 @@
 <!-- if conversation exists already then call conversations#show with convo ID -->
 <!-- otherwise 1) create new conversation and 2) then call conversations#show with convo ID -->
       <div class="header-actions ml-auto">
-        <%= button_to messages_path, method: :post, params: { recipient_id: @user.id },
+        <%= button_to message_user_path, method: :post, params: { recipient_id: @user.id },
           class:"m-1 btn btn-primary bg-blue-600 hover:bg-blue-700" do %>
           <i class="fa-brands fa-facebook-messenger"></i>
           <span class="hidden sm:inline">Message</span>

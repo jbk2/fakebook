@@ -5,13 +5,13 @@ class ConversationsController < ApplicationController
     conversation_id ||= params[:id]
     @conversation = Conversation.find(conversation_id)
     
-    # mark all of current user's messages as read & set active_conversation_id
+    # mark all current_user's messages as read & set their active_conversation_id
     @conversation.messages.where.not(user_id: current_user.id).each(&:mark_as_read_by_recipient)
     current_user.update_column(:active_conversation_id, @conversation.id)
 
     # session var used to keep conversation-card rendered & in view on view chnages
     session[:active_conversation_id] = @conversation.id
-    Rails.logger.info("\e[1;32mActive conversation session variable set to;\e[0m] #{session[:active_conversation_id]}")
+    Rails.logger.debug("\e[1;32mActive conversation session variable set to;\e[0m] #{session[:active_conversation_id]}")
 
     respond_to do |format|
       format.turbo_stream {
@@ -20,7 +20,7 @@ class ConversationsController < ApplicationController
           turbo_stream.replace("conversations",
           partial: 'conversations/conversations', locals: { conversations: current_user.conversations })
         ]
-        }
+      }
       format.html { redirect_to root_path } # because there's no full html view page for a conversation
     end
   end
