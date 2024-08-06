@@ -6,7 +6,7 @@ export default class extends Controller {
   static targets = [ "source" ]
 
   connect() {
-    console.log("Connected to clipboard controller")
+    console.log("%cClipboardStimulus =>%c connected")
   }
 
   copy(event) {
