@@ -5,12 +5,12 @@ export default class extends Controller {
   static targets = [ "fileInput", "form", "previews" ]
 
   connect() {
-    console.log("new_post_photo_controller Stimulus controller is now connected");
+    console.log("%cNewPostPhotoStimulus=>%c connected", "color: blue; font-weight: bold;", "");
     this.fileInput = null;
   }
 
   disconnect() {
-    console.log("I am disconnecing new_post_photo_controller");
+    console.log("%cNewPostPhotoStimulus=>%c disconnecting", "color: blue; font-weight: bold;", "");
   }
 
   // build hidden fileInput element, add to target, clear it, click it to
