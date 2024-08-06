@@ -12,7 +12,6 @@ export default class extends Controller {
       currentUserIdValue: ${this.currentUserIdValue}\n
       'dropdown' target found: ${this.dropdownTarget}`, "color: blue; font-weight: bold;", "");
 
-
     // Subscribe to the NotificationsChannel, notification_current_user.id stream, so that we can receive
     // real time notifications to add or remove a ring on the conversations dropdown icon
     this.channel = NotificationsChannel.subscribe(this.currentUserIdValue);

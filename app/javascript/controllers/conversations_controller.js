@@ -8,6 +8,7 @@ export default class extends Controller {
   connect() {
     console.log(`%cConversationsStimulus=>%c connected!\n
       currentUserIdValue; ${this.currentUserIdValue}`, "color: blue; font-weight: bold;", "")
+    this.channel = ConversationsChannel.subscribe(this.currentUserIdValue);
   }
 
   disconnect() {
