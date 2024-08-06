@@ -8,9 +8,10 @@ export default class extends Controller {
   static targets = [ "dropdown" ]
 
   connect() {
-    console.log("NotificationsStimulus=> connected!")
-    console.log(`NotificationsStimulus=> currentUserIdValue; ${this.currentUserIdValue}`)
-    console.log(`NotificationsStimulus=> 'dropdown' target found; ${this.dropdownTarget}`)
+    console.log(`%cNotificationsStimulus=>%c connected!\n
+      currentUserIdValue: ${this.currentUserIdValue}\n
+      'dropdown' target found: ${this.dropdownTarget}`, "color: blue; font-weight: bold;", "");
+
 
     // Subscribe to the NotificationsChannel, notification_current_user.id stream, so that we can receive
     // real time notifications to add or remove a ring on the conversations dropdown icon
@@ -26,13 +27,13 @@ export default class extends Controller {
   }
 
   handleOpeningConversationsDropdown(event) {
-    console.log("NotificationsStimulus=> dropdown toggled");
+    console.log("%cNotificationsStimulus=>%c dropdown toggled", "color: blue; font-weight: bold;", "");
 
     // If the dropdown is open, remove the ring & all of users' conversations as read in the db
     if (this.dropdownTarget.open) {
       this.dropdownTarget.classList.remove('ring');
 
-      fetch(`/conversations/mark_all_read?user_id=${this.currentUserIdValue}`, {
+      fetch(`/mark_all_read?user_id=${this.currentUserIdValue}`, {
         method: "PATCH",
         headers: {
           "Accept": "application/json",
@@ -48,14 +49,14 @@ export default class extends Controller {
         return response.json();
       })
       .then(data => {
-        console.log("NotificationsStimulus#handleOpeningConversationsDropdown=> response data from fetch conversations/mark_all_read;", data);
+        console.log("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%c response data from fetch conversations/mark_all_read;", "color: blue; font-weight: bold;", "", data);
       })
-      .catch(error => console.error('Error marking all messages read:', error));
+      .catch(error => console.error("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%cError marking all messages read:", "color: blue; font-weight: bold;", "", error));
     }
   }
 
   checkForUnreadMessages() {
-    fetch(`/conversations/check_unread?user_id=${this.currentUserIdValue}`, {
+    fetch(`/check_unread?user_id=${this.currentUserIdValue}`, {
       headers: {
         "Accept": "application/json"
       },
@@ -66,16 +67,16 @@ export default class extends Controller {
       return response.json();
     })
     .then(data => {
-      console.log("NotificationsStimulus#checkForUnreadMessages=> response data from fetch conversations/check_unread;", data);
+      console.log("%cNotificationsStimulus#checkForUnreadMessages=>%c response data from fetch conversations/check_unread;", "color: blue; font-weight: bold;", "", data);
       if (data.unread_messages && !this.isConversationCardOpen()) {
         this.dropdownTarget.classList.add('ring');
-        console.log("NotificationsStimulus=> Added notification ring");
+        console.log("%cNotificationsStimulus=>%c Added notification ring", "color: blue; font-weight: bold;", "");
       } else {
         this.dropdownTarget.classList.remove('ring');
-        console.log("NotificationsStimulus=> Removed notification ring");
+        console.log("%cNotificationsStimulus=>%c Removed notification ring", "color: blue; font-weight: bold;", "");
       }
     })
-    .catch(error => console.error('Error checking for unread messages:', error));
+    .catch(error => console.error("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%c Error checking for unread messages:", "color: blue; font-weight: bold;", "", error));
   }
 
   getCSRFToken() {
@@ -86,7 +87,7 @@ export default class extends Controller {
     const turboFrame = document.querySelector('turbo-frame[id="conversation-card"]');
     // Ensure that the 'conversation' data-controller is defined
     if (turboFrame.getAttribute('data-controller')?.includes("conversation")) {
-      console.log('NotificationsStimulus=> ConversationController is present');
+      console.log("%cNotificationsStimulus#isConversationCardOpen=>%c ConversationController is present", "color: blue; font-weight: bold;", "");
       return true;
     } else {
       return false;
@@ -95,9 +96,9 @@ export default class extends Controller {
 
   disconnect() {
     if (this.channel) {
-      console.log(`NotificationsStimulus=> unsubscribing from NotificationsChannel for currentUserIdValue; ${this.currentUserIdValue}`);
+      console.log(`%cNotificationsStimulus=>%c unsubscribing from NotificationsChannel for currentUserIdValue; ${this.currentUserIdValue}`, "color: blue; font-weight: bold;", "");
       this.channel.unsubscribe();
     }
-    console.log("NotificationsStimulus=> disconnecting");
+    console.log("%cNotificationsStimulus=> disconnecting", "color: blue; font-weight: bold;");
   }
 }

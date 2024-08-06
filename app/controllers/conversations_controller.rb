@@ -1,10 +1,6 @@
 # require 'conversation_service'
 class ConversationsController < ApplicationController
-  
-  # action called from either:
-  # 1) convo index dropdown in navbar, ∴ convo exists, ID is known, ∴ ID sent via params
-  # 2) users#show where convo may not exist, ∴ #find_or_create_conversation called, then
-  # conversations#show called with :conversation_id key/value as an argument to method.
+
   def open_conversation_card(conversation_id = nil)
     conversation_id ||= params[:id]
     @conversation = Conversation.find(conversation_id)
@@ -77,12 +73,9 @@ class ConversationsController < ApplicationController
   end
 
   def any_unread_messages?(user)
-    Rails.logger.info("Checking for unread messages for this user_id: #{user.id}")
-    unread_messages = user.conversations.any? do |conversation|
+    user.conversations.includes(:messages).any? do |conversation|
       conversation.messages.where.not(user_id: user.id).unread_by_recipient.any?
     end
-    Rails.logger.info("\e[31m########Any unread messages? #{unread_messages}\e[0m]")
-    unread_messages
   end
 
 end

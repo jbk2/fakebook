@@ -29,7 +29,7 @@ const NotificationsChannel = {
         if (conversationsDropdown.open) {
           // Although #mark_all_read will have already been called when conversations Stimulus controller was opened
           // we must call it again here since a new message was sent since the dropdown was opened
-          fetch("/conversations/mark_all_read", {
+          fetch("/mark_all_read", {
             method: "PATCH",
             headers: {
               "Accept": "application/json",

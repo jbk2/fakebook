@@ -6,16 +6,15 @@ export default class extends Controller {
   static values = { currentUserId: Number }
 
   connect() {
-    console.log("ConversationsStimulus=> connected")
-    console.log(`ConversationsStimulus=> currentUserIdValue; ${this.currentUserIdValue}`)
-    this.channel = ConversationsChannel.subscribe(this.currentUserIdValue);
+    console.log(`%cConversationsStimulus=>%c connected!\n
+      currentUserIdValue; ${this.currentUserIdValue}`, "color: blue; font-weight: bold;", "")
   }
 
   disconnect() {
     if (this.channel) {
-      console.log(`ConversationsStimulus=> unsubscribing from ConversationsChannel for currentUserId; ${this.currentUserIdValue}`);
+      console.log(`%cConversationsStimulus=>%c unsubscribing from ConversationsChannel for currentUserId; ${this.currentUserIdValue}`, "color: blue; font-weight: bold;", "");
       this.channel.unsubscribe();
     }
-    console.log("ConversationsStimulus=> disconnecting");
+    console.log("%cConversationsStimulus=>%c disconnecting", "color: blue; font-weight: bold;", "");
   }
 }

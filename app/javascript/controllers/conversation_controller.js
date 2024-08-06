@@ -7,7 +7,7 @@ export default class extends Controller {
   static values = { conversationId: Number }
   
   connect() {
-    console.log("ConversationStimulus=> connected!")
+    console.log("%cConversationStimulus=>%c connected!", "color: blue; font-weight: bold;", "")
     console.log(`ConversationsStimulus=> conversationIDValue; ${this.conversationIdValue}`)
 
     this.scrollToBottom()
@@ -16,10 +16,10 @@ export default class extends Controller {
 
   disconnect() {
     if (this.channel) {
-      console.log(`ConversationStimulus=> unsubscribing from ConversationChannel for conversationId; ${this.conversationIdValue}`);
+      console.log(`%cConversationStimulus=>%c unsubscribing from ConversationChannel for conversationId; ${this.conversationIdValue}`, "color: blue; font-weight: bold;", "");
       this.channel.unsubscribe();
     }
-    console.log("ConversationStimulus=> disconnecting");
+    console.log("%cConversationStimulus=>%c disconnecting", "color: blue; font-weight: bold;", "");
   }
 
   scrollToBottom() {
