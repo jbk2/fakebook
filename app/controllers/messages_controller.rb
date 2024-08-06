@@ -28,14 +28,4 @@ class MessagesController < ApplicationController
     @conversation = ConversationService.find_or_create_conversation(current_user.id, params[:message][:recipient_id])
   end
 
-  def find_or_create_conversation(sender_id, recipient_id)
-    conversation = Conversation.between(sender_id, recipient_id).first
-    conversation ||= Conversation.create(participant_one_id: sender_id, participant_two_id: recipient_id)
-    unless conversation.persisted?
-      Rails.logger.error("Conversation creation failed: #{conversation.errors.full_messages.to_sentence}")
-      return nil
-    end
-    conversation
-  end
-
 end
