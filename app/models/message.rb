@@ -35,9 +35,9 @@ class Message < ApplicationRecord
     if skip_broadcast # so that seeds or console can create messages without broadcasting & notification
       puts "Skipping broadcast for message_id#{id}"
     else
-      puts "Broadcasting message_id#{id}"
+      Rails.logger.debug("Broadcasting message_id#{id}")
       BroadcastMessageJob.perform_later(self, self.user_id, self.conversation_id)
-      puts "Updating message #{id} read notification"
+      Rails.logger.debug("Updating message #{id} read notification")
       UpdateMessageNotificationJob.perform_later(self.id)
     end
   end
