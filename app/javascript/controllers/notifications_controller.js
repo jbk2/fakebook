@@ -36,7 +36,8 @@ export default class extends Controller {
         method: "PATCH",
         headers: {
           "Accept": "application/json",
-          "X-CSRF-Token": this.getCSRFToken()
+          "X-CSRF-Token": this.getCSRFToken(),
+          "X-Requested-With": "XMLHttpRequest"
         },
         credentials: 'include'
       })
@@ -50,14 +51,16 @@ export default class extends Controller {
       .then(data => {
         console.log("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%c response data from fetch conversations/mark_all_read;", "color: blue; font-weight: bold;", "", data);
       })
-      .catch(error => console.error("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%cError marking all messages read:", "color: blue; font-weight: bold;", "", error));
+      .catch(error => console.error("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%cError marking all messages read;", "color: blue; font-weight: bold;", "", error));
     }
   }
 
   checkForUnreadMessages() {
     fetch(`/check_unread?user_id=${this.currentUserIdValue}`, {
       headers: {
-        "Accept": "application/json"
+        "Accept": "application/json",
+        "X-CSRF-Token": this.getCSRFToken(),
+        "X-Requested-With": "XMLHttpRequest"
       },
       credentials: 'include'
     })

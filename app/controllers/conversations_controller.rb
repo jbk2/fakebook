@@ -1,5 +1,7 @@
 # require 'conversation_service'
 class ConversationsController < ApplicationController
+  before_action :ensure_ajax_request, only: [:check_unread, :mark_all_read]
+  before_action :ensure_turbo_request, only: [:open_conversation_card]
 
   def open_conversation_card(conversation_id = nil)
     conversation_id ||= params[:id]
@@ -75,5 +77,22 @@ class ConversationsController < ApplicationController
       conversation.messages.where.not(user_id: user.id).unread_by_recipient.any?
     end
   end
+
+  # def ensure_ajax_request
+  #   return if request.xhr?
+  #   redirect_to root_path, alert: "An AJAX only route"
+  # end
+  def ensure_ajax_request
+    unless request.xhr?
+      Rails.logger.debug "\e[31mNon-AJAX request detected, redirecting from:\e[0m] #{request.fullpath}"
+      redirect_to root_path, alert: "Endpoint only accessible via AJAX"
+    end
+  end
+
+  def ensure_turbo_request
+    unless request.headers['Turbo-Frame'] || request.headers['accept'].include?('text/vnd.turbo-stream.html')
+      redirect_to root_path, alert: "Endpoint only accessible via Turbo"
+    end
+  end  
 
 end

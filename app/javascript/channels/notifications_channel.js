@@ -33,7 +33,8 @@ const NotificationsChannel = {
             method: "PATCH",
             headers: {
               "Accept": "application/json",
-              "X-CSRF-Token": getCSRFToken()
+              "X-CSRF-Token": getCSRFToken(),
+              "X-Requested-With": "XMLHttpRequest"
             },
             credentials: 'include'
           }).then(response => {
@@ -44,7 +45,7 @@ const NotificationsChannel = {
             return response.json();
           })
           .then(data => {
-            console.log("%cNotificationsChannel#mark_all_read=>%c response data from fetch conversations/mark_all_readcheck_unread;", "color: red; font-weight: bold;", "", data);
+            console.log("%cNotificationsChannel#mark_all_read=>%c response data from fetch conversations/mark_all_read;", "color: red; font-weight: bold;", "", data);
           })
           .catch(error => console.error('%cNotificationsChannel=>%c Error marking all messages read; ', "color: red; font-weight: bold;", "", error));
 
