@@ -3,13 +3,15 @@ class ConversationsController < ApplicationController
   before_action :ensure_ajax_request, only: [:check_unread, :mark_all_read]
   before_action :ensure_turbo_request, only: [:open_conversation_card]
 
-  def open_conversation_card(conversation_id = nil)
-    conversation_id ||= params[:id]
+  def open_conversation_card
+    conversation_id = params[:id]
     @conversation = Conversation.find(conversation_id)
     
     # mark all current_user's messages as read & set their active_conversation_id
     @conversation.messages.where.not(user_id: current_user.id).each(&:mark_as_read_by_recipient)
     current_user.update_column(:active_conversation_id, @conversation.id)
+    Rails.logger.debug("####### Current user id user is; #{current_user.id}")
+    Rails.logger.debug("####### Current users active_conversation_id is; #{current_user.active_conversation_id}")
 
     # session var used to keep conversation-card rendered & in view on view chnages
     session[:active_conversation_id] = @conversation.id
@@ -34,8 +36,9 @@ class ConversationsController < ApplicationController
       Rails.logger.error("Conversation creation failed: #{@conversation.errors.full_messages.to_sentence}")
       return nil
     end
-
-    open_conversation_card(@conversation.id)
+    
+    params[:id] = @conversation.id
+    open_conversation_card
   end
 
   def close_conversation_card

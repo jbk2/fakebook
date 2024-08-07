@@ -10,7 +10,7 @@ class UpdateMessageNotificationJob < ApplicationJob
     # Only recipient gets update & only if they don't have conversation-card open.
     if recipient.active_conversation_id == conversation.id
       conversation.messages.where.not(user_id: recipient.id).each(&:mark_as_read_by_recipient)
-    elsif recipient.active_conversation_id.nil?
+    else
       update_notification_state(recipient)
     end
   end
