@@ -2,6 +2,7 @@ class ConversationChannel < ApplicationCable::Channel
   def subscribed
     if params[:conversationId].present? && Conversation.find(params[:conversationId])
       stream_from "conversation_#{params[:conversationId]}"
+      current_user.update_column(:active_conversation_id, params[:conversationId])
     else
       Rails.logger.debug "\e[31mConversationChannel=>\e[0m client failed to subscribe"
       reject
