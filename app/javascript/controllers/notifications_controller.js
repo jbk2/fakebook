@@ -72,10 +72,10 @@ export default class extends Controller {
       console.log("%cNotificationsStimulus#checkForUnreadMessages=>%c response data from fetch conversations/check_unread;", "color: blue; font-weight: bold;", "", data);
       if (data.unread_messages && !this.isConversationCardOpen()) {
         this.dropdownTarget.classList.add('ring');
-        console.log("%cNotificationsStimulus=>%c Added notification ring", "color: blue; font-weight: bold;", "");
+        console.log("%cNotificationsStimulus=>%c Added notification ring", "color: blue; font-weight: bold;", "color: green; font-weight: bold;");
       } else {
         this.dropdownTarget.classList.remove('ring');
-        console.log("%cNotificationsStimulus=>%c Removed notification ring", "color: blue; font-weight: bold;", "");
+        console.log("%cNotificationsStimulus=>%c Removed notification ring", "color: blue; font-weight: bold;", "color: red; font-weight: bold;");
       }
     })
     .catch(error => console.error("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%c Error checking for unread messages:", "color: blue; font-weight: bold;", "", error));
@@ -86,12 +86,13 @@ export default class extends Controller {
   }
   
   isConversationCardOpen() {
-    const turboFrame = document.querySelector('turbo-frame[id="conversation-card"]');
-    // Ensure that the 'conversation' data-controller is defined
-    if (turboFrame.getAttribute('data-controller')?.includes("conversation")) {
-      console.log("%cNotificationsStimulus#isConversationCardOpen=>%c ConversationController is present", "color: blue; font-weight: bold;", "");
+    const details = document.getElementById('conversations-dropdown');
+
+    if (details.open) {
+      console.log("%cNotificationsStimulus#isConversationCardOpen=>%c true", "color: blue; font-weight: bold;", "color: green; font-weight: bold;");
       return true;
     } else {
+      console.log("%cNotificationsStimulus#isConversationCardOpen=>%c false", "color: blue; font-weight: bold;", "color: red; font-weight: bold;");
       return false;
     }
   }
