@@ -1,101 +1,66 @@
 # The Odin Project – RoR Final Project – Facebook clone (_Fakebook_)
 
-*A facebook clone app featuring:*
+## App Description
 
+*A facebook clone app, built by James Kemp, to demonstrate use of the following libraries, technologies &
+techniques:*
+
+### Ruby, & Rails
 - 🖇️ Complex forms; nesting, custom actions, hotwire.
-- 👫 Advanced associations; many to many, custom validation, callbacks, delegation, _polymorphic_. 
-- 🔐 Authentication with Devise.
+- 👫 Advanced associations; many to many, custom validation, callbacks, delegation, _polymorphic_.
+- 🔐 Authentication with Devise; controller extension.
 - ⚙️ Helpers & POROs:
-  - Custom logic to process uploaded images to ActiveStorage (size, format, purge) using vips.
-  - helpers to display #format_time_from in posts, comments & messages.
-- ⚡️ SPA like; Turbo Frames, Streams & Stimulus:
-  - 🖼️ Turbo frames & streams:
-    - used in various User, Post, Comment, Conversation & Message views.
-  - 👮🏼 Stimulus Controllers used:
-    - for managing post image attachments and previewing.
-    - for toggling comment form presence on posts.
-    - for subscribing to ActionCable ConversationChannel when a conversation is opened.
-    - for managing scroll of messages container in conversation-card.
-  - 🔁 Turbo 8; using view transitions & turbo morphing.
-- 📡 ActionCable; ConversationChannel manages conversation scoped subcriptions and message updates into the DOM.
+  - Custom built image processing; size, format, purge, via ActiveStorage (direct serve) & Vips.
+  - Helpers; time formatting in views, devise controller & action helpers, conversation service.
+- 🔔 Custom built message UI Notification service.
 - ⏳ ActiveJob; 
   - ProcessImageJob; size and format processing of uploaded images.
-  - BroadcastMessageJob; builds message & conversation partials and ActionCable broadcasts.
-- 🗄️ ActiveStorage; attachments, variants, metadata, excellent [article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
-- 📧 Mailer Functionality; User_mailer sends welcome_email on user sign up.
-- 🎨 Styling - Most styling done with TailwindCSS & DaisyUI component library.
-- 💻 Devops:
+  - BroadcastMessageJob; builds message & conversation partials then ActionCable broadcasts.
+  - MessageNotificationJob; manages UI notifications for unread messages.
+- 🗄️ ActiveStorage; attachments, variants, metadata, direct serve. Great [article](https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289).
+- 📡 ActionCable; managing conversation scoped subcriptions and broadcast DOM updates.
+- 📧 ActionMailer; user_mailer sends welcome_email on user sign ups.
+
+### Hotwire
+#### 🔁 Turbo
+  - 🖼️ Frames & streams; used in User, Post, Comment, Conversation & Message views.
+  - 🔄 Turbo 8; using view transitions & turbo morphing.
+
+#### 👮🏼 Stimulus 
+  - To manage post image attachments & previewing.
+  - To subscribe to correct ActionCable channels.
+  - To toggle UI elements and add to clipboard.
+  - To manage scroll position of conversation containers.
+  - To manage message notifications.
+
+### Testing
+  - Using Rspec, shoulda matchers, factory-bot, fixtures, selenium.
+  - All models, jobs, channels and mailers unit and where relevant integration tested.
+  - Request and authentication tested on all routes.
+  - System tests for all key features and user actions tested.
+
+### 🎨 Styling
+  - Most styling done with TailwindCSS & DaisyUI component library.
+
+### 💻 Devops:
   - containerised microservice architecture on an AWS EC2 Ubuntu instance.
-  - docker built & composed 5 services via AWS ECR; web, sidekiq, nginx, postgres, redis.
-  - Uses Nginx web server & only via SSL.
-  - Bash scripting to automate cloudflare DNS records and server updates.
-
-### Technologies/libraries used:
-#### Frontend
-- TailwindCSS, DaisyUI, FontAwesome
-- Hotwire - Turbo; streams & frames, Stimulus JS (new_post_photo_controller)
-#### Backend
-- ActiveStorage, ActiveJob, ActionCable, ActionMailer + many more rails libraries.
-- ImageProcessing gem - handle queued job race conditions for attachment purging
-
-### Tech implemented
-- Turbo Streams ✅
-- Turbo Frames ✅
-- Stimulus ✅
-- Tailwindcss / DaisyUI ✅, FontAwesome ✅,
-- Devise ✅
-- Omniauth
-- Seeding; Faker gem ✅
-- Complex forms; fields_for ✅
-- Polmorphic models
-- Custom validation, callbacks ✅
-- POROs ✅
-- Active Storage ✅
-- Active Job ✅
-- Action Mailer ✅
-- Rspec; factories, Capybara ✅
-- Docker, AWS S3, ECR, EC2, scripting, systemd ✅
-
-### Full Test Coverage (Rspec, Shoulda-matchers, FactoryBot, Capybara, Selenium)
-
-Unit Tests
-  - Models; unit tested:
-    - associations & validations
-    - custom logic
-  - Unit & integration tests for:
-    - ProcessImageJob & BroadcastMessageJob
-    - ActionCable; ConversationChannel
-    - ActionMailer; UserMailer
-
-Request Tests
-  - Authentication tested on all routes
-
-Integration Tests
-  - User.profile_photo integration with ProcessImageJob
-  - Post.photos integration with ProcessImageJob
-
-System Tests
-  - Users index page
-  - Posts index page
-  - Following & Un-Following from Users index
-  - Unfollowing from Posts index
-  - Post Liking from Posts index 
+  - docker built & composed 5 services (ECR & docker-hub); web, sidekiq, nginx, postgres, redis.
+  - Uses Nginx web, SSL only.
+  - Bash scripting & systemd automates DNS records and server updates.
 
 ---
 
-## Usage Instructions
+## App Usage Instructions
 
 ### Use live app at https://fakebook.bibble.com
-
-  - Log in to an pre-populated user account:
-    - email; 1@test.com (accounts for _1-10_@test.com exist)
-    - password; 'Password12!'
-  - Signup to your own account [here](http://fakebook.bibble/users/sign_up),
+- Log in to an pre-populated user account:
+  - email; 1@test.com (accounts for _1-10_@test.com exist)
+  - password; 'Password12!'
+- Signup to your own account [here](http://fakebook.bibble/users/sign_up),
   you'll need to create posts, comments and follow others to populate your accounts.
 
 ### Run locally
-
-1. Clone into a local repo from [here](https:\\github...)
+1. Clone from [here](https://github.com/jbk2/fakebook.git) into a local repo
 2. Run `bundle` on cmdline
 3. Run db:create
 4. Run db:migrate
@@ -106,13 +71,10 @@ System Tests
 
 ## DevOps Setup Notes
 
-- Cronjobs, via Whenever gem, are used to run cleanup tasks.
-  - On deployment need to run `bundle exec whenever --update-crontab` (see /config/schedule.rb)
-
 ### Docker
 - dev.Dockerfile & prod.Dockerfile written for their respective environments.
 - Must manually compile assets locally (by cssbundling-rails gem (uses Node)) before production image
-  build; `bin/rails assets:clobber`, `bin/rails assets:precompile`.
+  build; `bin/rails assets:clobber`, `bin/rails assets:precompile`, ∴ no Node rqd on server.
 - To build development or production images adjust docker-compose.yml web and
   sidekiq services to build from appropriate prod. or dev. dockerfile. (Should adjust to be able
   to pass in environment argument.)
@@ -120,8 +82,8 @@ System Tests
   - config/cable.yml; 1) 'redis://localhost:6379/1' 2) 'redis://redis:6379/1'
   - config/initializers/sidekiq.rb; 1) 'redis://localhost:6379/0' 2) 'redis://redis:6379/0'
   - set default_url_options in production.rb
-  - comment out `require('daisyui')` from tailwind.config.js
-  - comment out application.html.erb daisyui CDN link for loval development.
+  <!-- - comment out `require('daisyui')` from tailwind.config.js (current build ok with this daisyui require) -->
+  <!-- - comment out application.html.erb daisyui CDN link for loval development. -->
 - must define RAILS_MASER_KEY with `docker compose up` command on the server, i.e.:
   `RAILS_MASTER_KEY=my_prod_key_value docker compose up`.
 
@@ -130,7 +92,12 @@ System Tests
   with the 'fakebook-s3-policy' permissions applied. AWS access key values stored in credentials.
 
 ### AWS ECR
+- See SERVER_INFO.md for ECR image URIs.
+
+### Maintenance
 - ssh into EC2 instance with - `ssh fakebook-ec2:ubuntu`, set via the local ~/.ssh/config file.
+- Cronjobs, via Whenever gem, are used to run cleanup tasks.
+  - On deployment need to run `bundle exec whenever --update-crontab` (see /config/schedule.rb)
 
 ---
 
@@ -138,11 +105,10 @@ System Tests
 
 This repo contains scripts for auto set up of, and deployment to, a Linux Debian Ubuntu distribution,
 to carry out the following:
-
-- on running the ./setup.sh executable script file:
+- on executing ./setup.sh:
   - ssh's in as 'ubuntu' into the remote server.
   - scp's the local ./settings.sh & /dns-update.sh file to the remote server.
-  - creates a systemd unit file to run the update-dns.sh script on each server restart.
+  - creates a systemd unit file, enables then starts service, so to run the update-dns.sh script on each server restart.
 
 ### Variable Configuration
 The following variables configure the setup and deploy steps, edit with correct values:
@@ -196,16 +162,13 @@ In `dns_update.sh`:
 
 ### Next ToDos:
 
-- write tests for notifications feature & update factories and model tests with user.active_conversation_id
+- write tests for notifications feature, update factories and model tests with user.active_conversation_id
   and message.read_by_recipient columns
-- refactor conversations and messages logic:
-  - use dom_id helper
-  - update conversations turbo_frame when any conversations have new messages, even when user isn't streaming from ConversationChannel.
-- introduce notifications to indicate in UI when messages (unread) are waiting
+- utilise dom_id helper
 - mailer functionality - notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)
 - Build in omniauth Githuib Signin (not done)
-- Jest test ConversationChannel JS
+- Js testing on Channels
 - Set RSpec up with Guard
 - Deploy App
 - Add action text
@@ -214,25 +177,19 @@ In `dns_update.sh`:
 ### Future ToDos:
 
 - **General**
-  - Test everywhere everything
-  - Allow User profile_photo to be null and if null render daisy placeholder avatar
-  - ProcessImageJob - implement job chaining or tracking to ensure all jobs are completed before
-    deletion
+  - ProcessImageJob - implement job chaining or tracking to ensure completion and no race issues
   - Integrate more partials, use strict locals where you can.
   - Extend validations
   
 - **Features**
-  - Posts
-    - Photos
   - Comments
     - Built ability to like comments (enable existing Likes model to be used for Comment and Post likes - i.e. make Polymorphic)
     - Build ability to comment on/reply to comments
     - Build ability to add photos to comments
+  - Notifications
+    - Extend notifications to include likes, comments, follows.
 
 - **UI**
   - Posts
-    - scroll post.body
     - allow new post attachment files to preview pdfs as well as images
     - limit new post file attachment UI (& backend) to 6 files
-  - Users
-    - Index; populate data in users cards.
