@@ -32,7 +32,7 @@
         <%= form_with model: @message, url: messages_path, scope: :message,
           class:"flex items-center w-full pl-2 pb-2", id: "message-form" do |f| %>
           <div class="control flex-grow">
-            <%= f.text_field :body, id: 'message-input', class: 'bg-slate-100 rounded-full border-none text-xs w-full',
+            <%= f.text_field :body, id: 'message-input', class: 'bg-slate-100 rounded-full h-8 pl-4 border-none text-xs w-full',
               data: { conversation_target: "messageInputField" } %>
           </div>
           <div>
