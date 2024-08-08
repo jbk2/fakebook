@@ -7,7 +7,7 @@
     <%= form_with model: [post, comment], url: post_comments_path(post), data: { turbo: true } do |f| %>
       <div class="flex flex-row items-center">
         <%= f.text_field :body, placeholder: "Add a comment...",
-          class: "border-none rounded-full h-11 w-full bg-gray-100 pr-10", value: "" %>
+          class: "border-none rounded-full h-11 pl-4 w-full bg-gray-100 pr-10", value: "" %>
         <%= button_tag(type: 'submit', class: "submit-button-class") do %>
           <i class="-ml-14 px-4 fa-regular fa-paper-plane"></i>
         <% end %>
