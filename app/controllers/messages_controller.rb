@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
       respond_to do |format|
         format.turbo_stream {
           render turbo_stream: turbo_stream.replace("message-input",
-            '<input id="message-input" class="bg-slate-100 rounded-full border-none text-xs w-full" type="text" name="message[body]">')
+            '<input id="message-input" class="bg-slate-100 rounded-full h-8 pl-4 border-none text-xs w-full" type="text" name="message[body]">')
         }
         format.html { redirect_to root_path }
       end

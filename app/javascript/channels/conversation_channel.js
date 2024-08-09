@@ -5,8 +5,8 @@ const ConversationChannel = {
     const channel = consumer.subscriptions.create({
       channel: "ConversationChannel", conversationId: conversationId
     }, {
+      // Called when the subscription is ready for use on the server
       connected() {
-        // Called when the subscription is ready for use on the server
         console.log(`%cConversationChannel=>%c connected, to conversationId: ${conversationId} scoped stream`, "color: red; font-weight: bold;", "");
       },
       
@@ -17,7 +17,7 @@ const ConversationChannel = {
 
       // Called when there's incoming data on the websocket for this channel
       received(data) {
-        console.log(`%cConversationChannel=>%c #received method called, with data; ${data}`, "color: red; font-weight: bold;", "");
+        console.log(`%cConversationChannel=>%c #received method called, with data;`, "color: red; font-weight: bold;", "", Object.keys(data));
         let messagesContainer = document.getElementById(`conversation-${conversationId}-card-messages`);
         if (messagesContainer) {
           messagesContainer.innerHTML += data.message_html;
@@ -25,15 +25,12 @@ const ConversationChannel = {
           messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Update each conversation participants turbo frame
-        let conversationsFrame = document.getElementById('conversations');
-        let currentUser = conversationsFrame.dataset.notificationsCurrentUserIdValue
+        // Update each conversation participant's conversations turbo frame
+        // let conversationsFrame = document.getElementById('conversations');
+        // let currentUser = conversationsFrame.dataset.notificationsCurrentUserIdValue
 
-        if (currentUser == data.sender_id) {
-          conversationsFrame.innerHTML = data.senders_conversations_html;
-        }
-        // if (currentUser == data.recipient_id) {
-        //   conversationsFrame.innerHTML = data.recipients_conversations_html;
+        // if (currentUser == data.sender_id) {
+        //   conversationsFrame.innerHTML = data.senders_conversations_html;
         // }
       }
     });

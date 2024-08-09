@@ -24,7 +24,7 @@ const NotificationsChannel = {
         // Is it open, if so do nothing (or remove ring, but should be done already by stimulus controller)
         // If not open, add ring
         let conversationsDropdown = document.getElementById('conversations-dropdown');
-        console.log(`%cNotificaationsChannel=>%c; #received called with action; ${data.action} for recipient_id; ${data.recipient_id}`, "color: red; font-weight: bold;", "");
+        console.log(`%cNotificationsChannel=>%c; #received called with action; ${data.action} for recipient_id; ${data.recipient_id}`, "color: red; font-weight: bold;", "");
 
         if (conversationsDropdown.open) {
           // Although #mark_all_read will have already been called when conversations Stimulus controller was opened
@@ -32,10 +32,12 @@ const NotificationsChannel = {
           fetch("/mark_all_read", {
             method: "PATCH",
             headers: {
+              "Content-Type": "application/json",
               "Accept": "application/json",
               "X-CSRF-Token": getCSRFToken(),
               "X-Requested-With": "XMLHttpRequest"
             },
+            body: JSON.stringify({ user_id: data.recipient_id }),
             credentials: 'include'
           }).then(response => {
             if (!response.ok) {
@@ -48,10 +50,6 @@ const NotificationsChannel = {
             console.log("%cNotificationsChannel#mark_all_read=>%c response data from fetch conversations/mark_all_read;", "color: red; font-weight: bold;", "", data);
           })
           .catch(error => console.error('%cNotificationsChannel=>%c Error marking all messages read; ', "color: red; font-weight: bold;", "", error));
-
-        } else {
-          conversationsDropdown.classList.add('ring');
-          console.log(`%cNotificationsChannel=>%c Added notification ring to user_id; ${userId}'s conversations dropdown`, "color: red; font-weight: bold;", "");
         }
       }
 
