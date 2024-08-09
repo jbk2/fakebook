@@ -1,5 +1,6 @@
 class NotificationsChannel < ApplicationCable::Channel
   def subscribed
+    stop_all_streams
     stream_from "notification_#{current_user.id}"
     Rails.logger.debug("\e[31mNotificationsChannel\e[0m subscribed to user; #{params[:currentUserId]} scoped stream")
   end
@@ -11,6 +12,7 @@ class NotificationsChannel < ApplicationCable::Channel
 
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
+    stop_all_streams
     Rails.logger.debug("\e[31mNotificationsChannel=>\e[0m client has unsubscribed")
   end
 end

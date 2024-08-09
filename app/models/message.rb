@@ -14,7 +14,7 @@ class Message < ApplicationRecord
   attr_accessor :skip_broadcast
 
   belongs_to :user
-  belongs_to :conversation
+  belongs_to :conversation, touch: true
 
   validates :user_id, presence: true
   validates :body, presence: true

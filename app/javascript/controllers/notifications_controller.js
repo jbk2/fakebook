@@ -32,13 +32,15 @@ export default class extends Controller {
     if (this.dropdownTarget.open) {
       this.dropdownTarget.classList.remove('ring');
 
-      fetch(`/mark_all_read?user_id=${this.currentUserIdValue}`, {
+      fetch(`/mark_all_read`, {
         method: "PATCH",
         headers: {
+          "Content-Type": "application/json",
           "Accept": "application/json",
           "X-CSRF-Token": this.getCSRFToken(),
           "X-Requested-With": "XMLHttpRequest"
         },
+        body: JSON.stringify({ user_id: this.currentUserIdValue }),
         credentials: 'include'
       })
       .then(response => {
@@ -102,6 +104,6 @@ export default class extends Controller {
       console.log(`%cNotificationsStimulus=>%c unsubscribing from NotificationsChannel for currentUserIdValue; ${this.currentUserIdValue}`, "color: blue; font-weight: bold;", "");
       this.channel.unsubscribe();
     }
-    console.log("%cNotificationsStimulus=> disconnecting", "color: blue; font-weight: bold;");
+    console.log("%cNotificationsStimulus=>%c disconnecting", "color: blue; font-weight: bold;", "");
   }
 }

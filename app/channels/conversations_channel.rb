@@ -2,6 +2,7 @@ class ConversationsChannel < ApplicationCable::Channel
 
   def subscribed
     if params[:currentUserId].present? && User.find(params[:currentUserId])
+      stop_all_streams
       stream_from "conversations_#{params[:currentUserId]}"
       Rails.logger.debug("\e[31mConversationsChannel\e[0m subscribed to user; #{params[:currentUserId]} scoped stream")
     else
@@ -17,6 +18,7 @@ class ConversationsChannel < ApplicationCable::Channel
   
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
+    stop_all_streams
     Rails.logger.debug("\e[31mConversationChannel=>\e[0m client has unsubscribed")
   end
 

@@ -17,12 +17,17 @@ class ConversationsController < ApplicationController
     session[:active_conversation_id] = @conversation.id
     Rails.logger.debug("\e[1;32mActive conversation session variable set to;\e[0m] #{session[:active_conversation_id]}")
 
+    # if conversations frame is open close it
+    ActionCable.server.broadcast("conversations_#{current_user.id}", {
+      close_conversations_frame: true
+    })
+
     respond_to do |format|
       format.turbo_stream {
         render turbo_stream: [
-          turbo_stream.replace('conversation-card', partial: 'conversations/conversation'),
-          turbo_stream.replace("conversations",
-          partial: 'conversations/conversations', locals: { conversations: current_user.conversations })
+          turbo_stream.replace('conversation-card', partial: 'conversations/conversation')#,
+          # turbo_stream.replace("conversations",
+          # partial: 'conversations/conversations', locals: { conversations: current_user.conversations })
         ]
       }
       format.html { redirect_to root_path } # because there's no full html view page for a conversation
@@ -81,10 +86,6 @@ class ConversationsController < ApplicationController
     end
   end
 
-  # def ensure_ajax_request
-  #   return if request.xhr?
-  #   redirect_to root_path, alert: "An AJAX only route"
-  # end
   def ensure_ajax_request
     unless request.xhr?
       Rails.logger.debug "\e[31mNon-AJAX request detected, redirecting from:\e[0m] #{request.fullpath}"

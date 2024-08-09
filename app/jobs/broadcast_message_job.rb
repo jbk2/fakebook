@@ -22,13 +22,11 @@ class BroadcastMessageJob < ApplicationJob
     })
     
     ActionCable.server.broadcast("conversations_#{recipient.id}", {
-      recipients_conversations_html: recipients_conversations_html,
-      recipient_id: recipient.id
+      conversations_html: recipients_conversations_html
     })
     
     ActionCable.server.broadcast("conversations_#{sender.id}", {
-      senders_conversations_html: senders_conversations_html,
-      sender_id: sender.id
+      conversations_html: senders_conversations_html
     })
 
   end
