@@ -17,8 +17,8 @@ class BroadcastMessageJob < ApplicationJob
       locals: { conversations: recipients_conversations, current_user: recipient })
 
     ActionCable.server.broadcast("conversation_#{conversation_id}", {
-      message_html: rendered_message_html,
-      conversation_id: conversation_id
+      conversation_id: conversation_id,
+      message_html: rendered_message_html
     })
     
     ActionCable.server.broadcast("conversations_#{recipient.id}", {
