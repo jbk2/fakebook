@@ -27,13 +27,13 @@ describe 'Liking', type: :system do
     find("[data-turbo-frame='like_action_#{followed_user_posts[0].id}'] button").click
     expect(page).to have_css("#post-#{followed_user_posts[0].id}-like-count", text: /1 like/)
     find("[data-turbo-frame='like_action_#{followed_user_posts[0].id}'] button").click
-    expect(page).to have_content("you've already liked this post")
+    expect(page).to have_content("You've already liked this post")
   end
 
   it 'does not allow a user to like their own post' do
     visit user_posts_path(signed_in_user)
     find("[data-turbo-frame='like_action_#{signed_in_user_posts[0].id}'] button").click
-    expect(page).to have_content("you can't like your own post")
+    expect(page).to have_content("You can't like your own post")
   end
 
   private
