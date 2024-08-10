@@ -35,15 +35,15 @@ RSpec.describe Like, type: :model do
   describe 'validations' do
     it "should not allow a user to like their own post" do
       expect(invalid_like_1).to_not be_valid
-      expect(invalid_like_1.errors[:post_id]).to include("you can't like your own post")
+      expect(invalid_like_1.errors[:post_id]).to include("You can't like your own post")
       expect(invalid_like_2).to_not be_valid
-      expect(invalid_like_2.errors[:post_id]).to include("you can't like your own post")
+      expect(invalid_like_2.errors[:post_id]).to include("You can't like your own post")
     end
 
     it "should validate that a user can't like the same post more than once" do
       dup_like = FactoryBot.build(:like, user: user_1, post: user_2_post)
       expect(dup_like).to_not be_valid
-      expect(dup_like.errors[:user_id]).to include("you've already liked this post")
+      expect(dup_like.errors[:user_id]).to include("You've already liked this post")
     end
   end
 end

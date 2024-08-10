@@ -48,6 +48,9 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
+  # Define the default URL options for the Devise mailer in test environment.
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   # Configure Action View to use HTML5 standards-compliant sanitizers.
   config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
 
