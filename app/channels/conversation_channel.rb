@@ -1,6 +1,6 @@
 class ConversationChannel < ApplicationCable::Channel
   def subscribed
-    if params[:conversationId].present? && Conversation.find(params[:conversationId])
+    if params[:conversationId].present? && Conversation.find_by(id: params[:conversationId])
       stream_from "conversation_#{params[:conversationId]}"
       current_user.update_column(:active_conversation_id, params[:conversationId])
     else
