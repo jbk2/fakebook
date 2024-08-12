@@ -2,6 +2,9 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
+
+  rate_limit to: 10, within: 3.minutes, only: :create,
+    with: -> { redirect_to new_user_registration_path, alert: "Sign up rate limit exceeded - Try again later." }
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up

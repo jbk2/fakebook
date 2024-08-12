@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  rate_limit to: 10, within: 3.minutes, only: :create,
+    with: -> { redirect_to new_user_session_path, alert: "Login rate limit exceeded - Try again later." }
+      
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
