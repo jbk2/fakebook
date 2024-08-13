@@ -1,9 +1,16 @@
 class NotificationsChannel < ApplicationCable::Channel
+  
   def subscribed
-    stop_all_streams
-    stream_from "notification_#{current_user.id}"
-    Rails.logger.debug("\e[31mNotificationsChannel\e[0m subscribed to user; #{params[:currentUserId]} scoped stream")
+    if params[:currentUserId].present? && User.find_by(id: params[:currentUserId])
+      stop_all_streams
+      stream_from "notifications_#{params[:currentUserId]}"
+      Rails.logger.debug("\e[31mNotificationsChannel\e[0m subscribed to user; #{params[:currentUserId]} scoped stream")
+    else
+      Rails.logger.debug("\e[31mNotificationsChannel\e[0m client failed to subscribe, with params[:currentUserId]; #{params[:currentUserId]} scoped stream")
+      reject
+    end
   end
+
 
   def receive(data)
     # Called when the client JS channel instance sends data via the channel

@@ -18,7 +18,7 @@ class UpdateMessageNotificationJob < ApplicationJob
   private
 
   def update_notification_state(recipient)
-    ActionCable.server.broadcast("notification_#{recipient.id}", {
+    ActionCable.server.broadcast("notifications_#{recipient.id}", {
       action: 'new_message_notification',
       recipient_id: recipient.id
     })

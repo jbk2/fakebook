@@ -7,11 +7,9 @@ export default class extends Controller {
 
   connect() {
     console.log(`%cConversationsStimulus=>%c connected!`, "color: blue; font-weight: bold;", "");
-    console.log(`currentUserIdValue; ${this.currentUserIdValue}`)
+    console.log(`currentUserIdValue; ${this.currentUserIdValue}`);
     this.channel = ConversationsChannel.subscribe(this.currentUserIdValue);
   }
-
-  console.log(`Message input field target ${this.messagesTarget === true ? '' : 'NOT '}found`);
 
   disconnect() {
     if (this.channel) {

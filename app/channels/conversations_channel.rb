@@ -1,8 +1,7 @@
 class ConversationsChannel < ApplicationCable::Channel
 
   def subscribed
-    if params[:currentUserId].present? && User.find_by(id: 
-      params[:currentUserId])
+    if params[:currentUserId].present? && User.find_by(id: params[:currentUserId])
       stop_all_streams
       stream_from "conversations_#{params[:currentUserId]}"
       Rails.logger.debug("\e[31mConversationsChannel\e[0m subscribed to user; #{params[:currentUserId]} scoped stream")
