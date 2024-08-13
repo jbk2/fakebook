@@ -7,16 +7,12 @@ RSpec.describe UpdateMessageNotificationJob, type: :job do
   let(:conversation) { FactoryBot.create(:conversation, participant_one: user_1, participant_two: user_2) }
   let(:message) { FactoryBot.create(:message, user: user_1, conversation: conversation) }
 
-  before do
-    ActiveJob::Base.queue_adapter = :test
-  end
-
   describe '#perform' do
 
     context 'when recipient does not have conversation card open' do
       it 'updates the notification state for the recipient' do
         expect(user_2.active_conversation_id).to be_nil
-        expect(ActionCable.server).to receive(:broadcast).with("notification_#{user_2.id}", {
+        expect(ActionCable.server).to receive(:broadcast).with("notifications_#{user_2.id}", {
           action: 'new_message_notification',
           recipient_id: user_2.id
         })

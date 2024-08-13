@@ -12,6 +12,7 @@ require 'rails_helper'
 
 describe ProcessImageJob, type: :job do
   include ActiveJob::TestHelper
+
   let(:user) { FactoryBot.create(:user) }
   let(:post_with_one_jpg) { FactoryBot.create(:post_with_photos, user: user, photos_count: 1) }
   let(:post_with_one_jpgs_blob) { post_with_one_jpg.photos.first.blob }

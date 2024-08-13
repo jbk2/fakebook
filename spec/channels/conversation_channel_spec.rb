@@ -29,7 +29,7 @@ RSpec.describe ConversationChannel, type: :channel do
       end
 
       it 'rejects subscription if the conversation does not exist' do
-        non_existent_conversation_id = Conversation.last.id + 1 # Assuming no gaps in IDs
+        non_existent_conversation_id = 99999
         subscribe(conversationId: non_existent_conversation_id)
 
         expect(subscription).to be_rejected

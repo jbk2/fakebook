@@ -8,10 +8,6 @@ RSpec.describe BroadcastMessageJob, type: :job do
   let(:conversation) { FactoryBot.create(:conversation, participant_one: user_1, participant_two: user_2) }
   let(:message) { FactoryBot.create(:message, user: user_1, conversation: conversation) }
 
-  before do
-    ActiveJob::Base.queue_adapter = :test
-  end
-
   describe '#perform' do
     it 'renders the message partial and broadcasts to the correct channel' do
       renderer = double('renderer')
