@@ -14,13 +14,15 @@
     <li class="leading-7 pl-2 text-[14px] text-gray-800">🔐&nbsp;&nbsp;Authentication with Devise; devise controller extension.</li>
     <li class="leading-7 pl-2 text-[14px] text-gray-800">⚙️&nbsp;&nbsp;Helpers & POROs:</li>
     <ul class="pl-6 list-disc list-inside">
-      <li class="leading-5 text-[14px] text-gray-800">Custom built image processing; size, format, purge, via ActiveStorage (direct serve) & Vips.</li>
+      <li class="leading-5 text-[14px] text-gray-800">Hand built image processing; size, format, purge, via ActiveStorage (direct serve) & Vips.</li>
       <li class="leading-5 text-[14px] text-gray-800">Helpers; time formatting in views, devise controller & action helpers, conversation service.</li>
     </ul>
+    <li class="mt-1 leading-7 pl-2 text-[14px] text-gray-800">🔔&nbsp;&nbsp;Notifications; hand built message UI Notification service.</li>
     <li class="mt-1 leading-7 pl-2 text-[14px] text-gray-800">📥&nbsp;&nbsp;ActiveJob;</li>
     <ul class="pl-6 list-disc list-inside">
       <li class="leading-5 text-[14px] text-gray-800">ProcessImageJob; size and format processing of uploaded images.</li>
-      <li class="leading-5 text-[14px] text-gray-800">BroadcastMessageJob; builds message & conversation partials then ActionCable broadcasts.</li>
+      <li class="leading-5 text-[14px] text-gray-800">BroadcastMessageJob; building and broadcasting user scoped messages & conversations.</li>
+      <li class="leading-5 text-[14px] text-gray-800">MessageNotificationJob; managing UI notifications for message read state.</li>
     </ul>
     <li class="mt-1 leading-7 pl-2 text-[14px] text-gray-800">🗄️&nbsp;&nbsp;ActiveStorage; attachments, variants, metadata, direct serve. 
       Great <a href="https://discuss.rubyonrails.org/t/active-storage-in-production-lessons-learned-and-in-depth-look-at-how-it-works/83289" class="link">article</a>.

@@ -8,27 +8,26 @@ export default class extends Controller {
   static targets = [ "dropdown" ]
 
   connect() {
-    console.log(`%cNotificationsStimulus=>%c connected!\n
-      currentUserIdValue: ${this.currentUserIdValue}\n
-      'dropdown' target found: ${this.dropdownTarget}`, "color: blue; font-weight: bold;", "");
+    console.log(`%cNotificationsStimulus=>%c connected!`, "color: blue; font-weight: bold;", "");
+    console.log(`Message input field target ${this.messagesTarget === true ? '' : 'NOT '}found`);
+    console.log(`currentUserIdValue: ${this.currentUserIdValue}`);
 
-    // Subscribe to the NotificationsChannel, notification_current_user.id stream, so that we can receive
-    // real time notifications to add or remove a ring on the conversations dropdown icon
     this.channel = NotificationsChannel.subscribe(this.currentUserIdValue);
 
     // Add a listener to detect when the dropdown icon is opened, and if so 1) remove the notification ring
     // 2) update all messages to read
     this.dropdownTarget.addEventListener('toggle', this.handleOpeningConversationsDropdown.bind(this));
 
-    // Each time ths controller instantiates, check whether this user has any unread messages, if so
-    // add a ring to the conversations dropdown icon, if not remove any ring present
+    // Each time ths controller instantiates, check whether this user has any unread messages;
+    // if so add a ring to the conversations dropdown icon, if not remove ring
     this.checkForUnreadMessages();
   }
 
   handleOpeningConversationsDropdown(event) {
     console.log("%cNotificationsStimulus=>%c dropdown toggled", "color: blue; font-weight: bold;", "");
 
-    // If the dropdown is open, remove the ring & all of users' conversations as read in the db
+    // If the dropdown is open, remove the ring & mark all of users' messages from all conversations
+    // as read in the db
     if (this.dropdownTarget.open) {
       this.dropdownTarget.classList.remove('ring');
 

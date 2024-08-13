@@ -6,10 +6,12 @@ export default class extends Controller {
   static values = { currentUserId: Number }
 
   connect() {
-    console.log(`%cConversationsStimulus=>%c connected!\n
-      currentUserIdValue; ${this.currentUserIdValue}`, "color: blue; font-weight: bold;", "")
+    console.log(`%cConversationsStimulus=>%c connected!`, "color: blue; font-weight: bold;", "");
+    console.log(`currentUserIdValue; ${this.currentUserIdValue}`)
     this.channel = ConversationsChannel.subscribe(this.currentUserIdValue);
   }
+
+  console.log(`Message input field target ${this.messagesTarget === true ? '' : 'NOT '}found`);
 
   disconnect() {
     if (this.channel) {

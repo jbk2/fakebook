@@ -7,10 +7,10 @@ export default class extends Controller {
   static values = { conversationId: Number }
   
   connect() {
-    console.log(`%cConversationStimulus=>%c connected!\n
-      conversationIDValue; ${this.conversationIdValue}\n
-      messages target found; ${this.messagesTarget}\n
-      message-input-field target found; ${this.messageInputFieldTarget}`, "color: blue; font-weight: bold;", "")
+    console.log(`%cConversationStimulus=>%c connected!`, "color: blue; font-weight: bold;", "");
+    console.log(`conversationIDValue; ${this.conversationIdValue}\n`);
+    console.log(`Message input field target ${this.messagesTarget === true ? '' : 'NOT '}found`);
+    console.log(`Message input field target ${this.messageInputFieldTarget === true ? '' : 'NOT '}found`);
 
     this.scrollToBottom()
     this.messageInputFieldTarget.focus();

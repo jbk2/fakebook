@@ -10,9 +10,9 @@ techniques:*
 - 👫 Advanced associations; many to many, custom validation, callbacks, delegation, _polymorphic_.
 - 🔐 Authentication with Devise; controller extension.
 - ⚙️ Helpers & POROs:
-  - Custom built image processing; size, format, purge, via ActiveStorage (direct serve) & Vips.
+  - Hand built image processing; size, format, purge, via ActiveStorage (direct serve) & Vips.
   - Helpers; time formatting in views, devise controller & action helpers, conversation service.
-- 🔔 Custom built message UI Notification service.
+- 🔔 Hand built message UI Notification service.
 - ⏳ ActiveJob; 
   - ProcessImageJob; size and format processing of uploaded images.
   - BroadcastMessageJob; builds message & conversation partials then ActionCable broadcasts.
@@ -162,8 +162,8 @@ In `dns_update.sh`:
 
 ### Next ToDos:
 
-- write tests for notifications feature, update factories and model tests with user.active_conversation_id
-  and message.read_by_recipient columns
+- write tests for notifications feature, update factories and model tests with user.active_conversation_id and message.read_by_recipient columns
+- fix duplicate Notifications and Conversations Stimulus controller connections and disconnections.
 - utilise dom_id helper
 - mailer functionality - notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)
