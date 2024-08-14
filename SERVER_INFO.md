@@ -4,7 +4,7 @@
 
 ## General Information
 - **Purpose**: A facebook clone rails app, fully written by James Kemp, to practice and demonstrate ruby, rails, hotwire, html, css skills. Full description can be found in the README.md of [this](https://github.com/jbk2/fakebook) public repo.
-- **Public ipv4**: 35.181.44.219 (changes on every EC2 instance restart)
+- **Public ipv4**: 13.39.107.78 (changes on every EC2 instance restart)
 - **Domain Name**: currently DNS linked to www.bibble.com (via CloudFlare)
 - **OS**: Ubuntu 20.04.4 LTS
 - **EC2 Instance Type** t4g.small
