@@ -83,9 +83,7 @@ export default class extends Controller {
   }
 
   getCSRFToken() {
-    let token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-    console.log(`here's my scrf token; ${token}`);
-    return token;
+    return(document.querySelector("meta[name='csrf-token']").getAttribute("content"));
   }
   
   isConversationCardOpen() {
