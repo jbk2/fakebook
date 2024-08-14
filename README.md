@@ -162,7 +162,7 @@ In `dns_update.sh`:
 
 ### Next ToDos:
 
-- write tests for notifications feature, update factories and model tests with user.active_conversation_id and message.read_by_recipient columns
+- update factories and model tests with user.active_conversation_id and message.read_by_recipient columns
 - fix duplicate Notifications and Conversations Stimulus controller connections and disconnections.
 - utilise dom_id helper
 - mailer functionality - notification emails if messages not read for period of time
