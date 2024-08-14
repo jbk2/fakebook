@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import ConversationChannel from "../channels/conversation_channel";
 
-// Connects to data-controller="conversation"
 export default class extends Controller {
   static targets = ["messages", "messageInputField"]
   static values = { conversationId: Number }
@@ -9,8 +8,8 @@ export default class extends Controller {
   connect() {
     console.log(`%cConversationStimulus=>%c connected!`, "color: blue; font-weight: bold;", "");
     console.log(`conversationIDValue; ${this.conversationIdValue}\n`);
-    console.log(`Message input field target ${this.messagesTarget === true ? '' : 'NOT '}found`);
-    console.log(`Message input field target ${this.messageInputFieldTarget === true ? '' : 'NOT '}found`);
+    console.log(`Message input field target ${this.messagesTarget ? '' : 'NOT '}found`);
+    console.log(`Message input field target ${this.messageInputFieldTarget ? '' : 'NOT '}found`);
 
     this.scrollToBottom()
     this.messageInputFieldTarget.focus();

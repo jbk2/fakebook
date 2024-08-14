@@ -9,7 +9,7 @@ export default class extends Controller {
 
   connect() {
     console.log(`%cNotificationsStimulus=>%c connected!`, "color: blue; font-weight: bold;", "");
-    console.log(`Message input field target ${this.messagesTarget === true ? '' : 'NOT '}found`);
+    console.log(`Dropdown target ${this.dropdownTarget ? '' : 'NOT '}found`);
     console.log(`currentUserIdValue: ${this.currentUserIdValue}`);
 
     this.channel = NotificationsChannel.subscribe(this.currentUserIdValue);
@@ -83,7 +83,9 @@ export default class extends Controller {
   }
 
   getCSRFToken() {
-    return document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    let token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    console.log(`here's my scrf token; ${token}`);
+    return token;
   }
   
   isConversationCardOpen() {
