@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Following', type: :system do
-  before { driven_by(:selenium_chrome_headless) }
+  before { driven_by(:selenium_chrome) }
   
   let(:users) { create_list(:user, 3) }
   let(:user_1) { users[0] }
