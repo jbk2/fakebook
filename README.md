@@ -162,8 +162,9 @@ In `dns_update.sh`:
 
 ### Next ToDos:
 
+- Style for dark mode
 - update factories and model tests with user.active_conversation_id and message.read_by_recipient columns
-- fix duplicate Notifications and Conversations Stimulus controller connections and disconnections.
+- fix duplicate Notifications and Conversations Stimulus controller connections and disconnections
 - utilise dom_id helper
 - mailer functionality - notification emails if messages not read for period of time
 - Optimise for N+1 in views other than post#index (partially done)
