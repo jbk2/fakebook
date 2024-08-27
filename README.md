@@ -103,11 +103,11 @@ techniques:*
 
 ## Server Scripting Documentation
 
-This repo contains scripts for auto set up of, and deployment to, a Linux Debian Ubuntu distribution,
+This repo contains scripts for auto set up of, and deployment to, a Linux Debian Ubuntu distribution, in order
 to carry out the following:
 - on executing ./setup.sh:
   - ssh's in as 'ubuntu' into the remote server.
-  - scp's the local ./settings.sh & /dns-update.sh file to the remote server.
+  - scp's the local ./.env, ./settings.sh & /dns-update.sh file to the remote server.
   - creates a systemd unit file, enables then starts service, so to run the update-dns.sh script on each server restart.
 
 ### Variable Configuration

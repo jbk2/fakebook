@@ -116,6 +116,7 @@ UNIT=dns_auto_update
 STEP=upload_dns_script
 
 if should_run; then
+
 echo -e "${INFO}Transferring dns-update.sh to server...${NC}"
 
 if scp $SCP_ARGS $DIR/dns-update.sh ubuntu@$SERVER:~/dns-update.sh
@@ -152,6 +153,24 @@ else
   exit 1
 fi
 
+echo -e "${INFO}Transferring .env to server...${NC}"
+
+if scp $SCP_ARGS $DIR/.env ubuntu@$SERVER:~/.env
+then
+  echo -e "${SUCCESS}successfully scp'd .env to ~/.env on $SERVER${NC}"
+else
+  echo -e "${ERROR}failed to scp settings.sh to ~/.env on $SERVER${NC}"
+  exit 1
+fi
+
+if ssh_as_ubuntu "sudo mv ~/.env /usr/local/bin/.env && sudo"
+then
+  echo -e "${SUCCESS}successfully mv'd ~/.env to /usr/local/bin/.env on $SERVER.${NC}"
+else
+  echo -e "${ERROR}failed to mv ~/.env to /usr/local/bin/.env on $SERVER.${NC}"
+  exit 1
+fi
+
 STEP=create_dns_update_service
 ssh_as_ubuntu <<-STDIN || echo -e "${ERROR}Creating systemd unit file for dns-update.sh${NC}"
   echo -e "${INFO}Creating systemd unit file for dns-update.sh...${NC}"
@@ -179,6 +198,7 @@ EOF
   
   echo -e "${SUCCESS}Systemd service created and started successfully.${NC}"
 STDIN
+
 fi
 
 # ----------------------------------------
