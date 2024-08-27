@@ -49,7 +49,9 @@
 - System updates every ...? - not automated.
   from local repo, not on server, run `.setup.sh -u update_upgrade`
 - Daily backups at ...? - not authomated.
-
+- DNS records updated via systemd service `dns-update.service`:
+  - the service runs the executable `/dns-update.sh` script, all created by:
+    - the executable `setup.sh` script, all located in /usr/local/bin.
 
 ## Helpful Commands
 - `sudo systemctl status nginx`, `sudo systemctl status dns-update`

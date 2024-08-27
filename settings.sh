@@ -2,8 +2,13 @@
 set -euo pipefail
 
 # Load environment variables
-if [ -f .env ]; then
-    export $(cat .env | sed 's/#.*//g' | xargs)
+ENV_PATH="/usr/local/bin/.env"
+
+echo "Attempting to load .env from $(ENV_PATH)"
+if [ -f "$ENV_PATH" ]; then
+    export $(cat "$ENV_PATH" | sed 's/#.*//g' | xargs)
+else
+    echo ".env file not found in $(ENV_PATH)"
 fi
 
 # ----------------------------------------

@@ -103,26 +103,20 @@ techniques:*
 
 ## Server Scripting Documentation
 
-This repo contains scripts for auto set up of, and deployment to, a Linux Debian Ubuntu distribution, in order
-to carry out the following:
-- on executing ./setup.sh:
-  - ssh's in as 'ubuntu' into the remote server.
+This repo contains scripts to create an auto DNS update systemd service. Executing ./setup.sh locally will:
   - scp's the local ./.env, ./settings.sh & /dns-update.sh file to the remote server.
   - creates a systemd unit file, enables then starts service, so to run the update-dns.sh script on each server restart.
 
 ### Variable Configuration
 The following variables configure the setup and deploy steps, edit with correct values:
 
-In `settings.sh`:
+In `.env`:
 | Variable | Description                              |
 |----------|------------------------------------------|
 | `SERVER` | Virtual machine public IP (default hardcoded) |
 | `SERVER_NAME` | Domain name (with correct DNS settings) (default hardcoded) |
 | `USER` | Name for the user that will replace *ubuntu* for administration (default 'deploy' is hardcoded) |
 | `SSH_KEY` | Path to the private SSH key (default hardcoded) |
-
-In `dns_update.sh`:
-| Variable | Description                              |
 |----------|------------------------------------------|
 | `CF_API_TOKEN` | CloudFlare API token with the assigned domain's DNS editing permissions |
 | `ZONE_ID` | The zone id of the assigned domain name |
@@ -130,17 +124,17 @@ In `dns_update.sh`:
 | `RECORD_NAME` | The DNS record name number that needs updating on restart |
 
 ### DNS Record Setup _(via cloudflare)_
-- To assign a domain name to the EC2 instance you must:
-  1. Initially, manually create 2 DNS 'A records' pointing to the EC2 instance's public IP address:
+- To point a domain name to the EC2 instance you must:
+  1. Manually create 2 DNS 'A records' pointing to the EC2 instance's public IP address:
     - one named; 'www'
     - one named; 'domain_name.tld'
-  2. Update the DNS variable values in the ./settings.sh, with:
+  2. Update the DNS variable values in ./.env with:
     - cloudflare api token for domain (via https://dash.cloudflare.com/profile/api-tokens)
     - domain's cloudflare zone - get value from cloudflare api at below endpoint:
     `curl -X GET "https://api.cloudflare.com/client/v4/zones" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Content-Type: application/json"`
     - the dns record(s) name and id - get value from cloudflare api at below endpoint:
     `curl -X GET "https://api.cloudflare.com/client/v4/zones/YOUR_ZONE_ID/dns_records" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Content-Type: application/json"`
-  3. Ensure that the setup.sh script unit named 'dns_auto_update' has run, after the settings.sh variables values are updated.
+  3. Ensure that the setup.sh script unit named 'dns_auto_update' has run (after the settings.sh variables values are updated).
   4. manually ssh into the server (update local ~/.ssh/config for easy ssh login with the EC2 instance's public ip, delete old 'known hosts') and run
     `systemctl status dns-update.service` to check that the systemd service has been created (it should be loaded and enabled, but inactive because it
     only runs on restart). If systemd service has been created successfully, then the DNS records will be now be automatically updated via cloudflare's
