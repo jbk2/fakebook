@@ -20,8 +20,8 @@ NC="\033[0m"          # No color
 # SSH related variables
 
 SSH_OPTIONS=${SSH_OPTIONS:-"-i $SSH_KEY -o StrictHostKeyChecking=no"}
-UBUNTU_SSH_ARGS="ubuntu@$SERVER -p $PORT $SSH_OPTIONS"
-APP_SSH_ARGS="$USER@$SERVER -p $PORT $SSH_OPTIONS"
+UBUNTU_SSH_ARGS="ubuntu@$SERVER -p $SSH_PORT $SSH_OPTIONS"
+APP_SSH_ARGS="$USER@$SERVER -p $SSH_PORT $SSH_OPTIONS"
 
 # ----------------------------------------
 
