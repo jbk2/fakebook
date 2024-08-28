@@ -1,6 +1,6 @@
 # Server Documentation for Fakebook app
-
-- This file, /etc/docs/SERVER_INFO.md, is where info about this server instance will be stored.
+- This file's intention is as documentation for the server instance which this application is deployed to.
+  Update this file and save on the host server at /etc/docs/SERVER_INFO.md.
 
 ## General Information
 - **Purpose**: A facebook clone rails app, fully written by James Kemp, to practice and demonstrate ruby, rails, hotwire, html, css skills. Full description can be found in the README.md of [this](https://github.com/jbk2/fakebook) public repo.
