@@ -5,8 +5,9 @@ source $DIR/settings.sh
 
 log() {
   local MESSAGE="$1"
-  logger -t update-dns "$MESSAGE"
-  echo "$MESSAGE" 
+  local TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
+  logger -t update-dns "[$TIMESTAMP] $MESSAGE"
+  echo "[$TIMESTAMP] $MESSAGE" 
 }
 
 log "Starting DNS update"
