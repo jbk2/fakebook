@@ -36,7 +36,7 @@ describe 'Authentication', type: :request do
     it 'root path successfully renders the user_posts_path' do
       get root_path
       expect(response).to have_http_status(:success)
-      expect(response.body).to include("Whats on your mind #{user.username}?")
+      expect(response.body).to include("Add a post #{user.username}...")
 
     end
   end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Following', type: :system do
-  before { driven_by(:selenium_chrome) }
+describe 'Notifications', type: :system do
+  before { driven_by(:selenium_chrome_headless) }
   
   let(:users) { create_list(:user, 3) }
   let(:user_1) { users[0] }
@@ -37,7 +37,8 @@ describe 'Following', type: :system do
   # 4) U1 send message to u2, u2 does not have conversations open but does have a different conversation open - u1 does not get a notification and u2 does get a notification
 
   # 1) U1 send message to u2, u2 does not have either conversations or conversation open - u1 does not get a notification and u2 gets a notification
-  context 'when recipient has neither conversations nor the conversation open' do
+  # some race problem here, sometimes passes, sometimes fails, investigate and fix later (manual testing shows that the feature works fine).
+  context 'when recipient has neither conversations nor the conversation open' do 
     it 'a newly received message shows a notification ring around conversations' do
       sign_in(user_1)
       visit user_path(user_2)
