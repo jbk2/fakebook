@@ -27,11 +27,14 @@ if [ -z "$PUBLIC_IP" ]; then
 fi
 log "Retrieved public IP: $PUBLIC_IP"
 
-# Create JSON payload for Cloudflare
-CHANGE_BATCH1=$(cat <<EOF
+
+# Parse DNS_RECORD_NAMESANDIDS and loop through it
+echo "$DNS_RECORD_NAMESANDIDS" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r RECORD_NAME RECORD_ID; do
+  # Create JSON payload for Cloudflare
+  CHANGE_BATCH=$(cat <<EOF
 {
   "type": "A",
-  "name": "$RECORD_NAME1",
+  "name": "$RECORD_NAME",
   "content": "$PUBLIC_IP",
   "ttl": 300,
   "proxied": true
@@ -39,52 +42,25 @@ CHANGE_BATCH1=$(cat <<EOF
 EOF
 )
 
-CHANGE_BATCH2=$(cat <<EOF
-{
-  "type": "A",
-  "name": "$RECORD_NAME2",
-  "content": "$PUBLIC_IP",
-  "ttl": 300,
-  "proxied": true
-}
-EOF
-)
+log "Updating DNS record for $RECORD_NAME"
 
-log "Updating DNS records for $RECORD_NAME1 and $RECORD_NAME2"
+ # Update Cloudflare DNS record
+  RESPONSE=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID" \
+       -H "Authorization: Bearer $CF_API_TOKEN" \
+       -H "Content-Type: application/json" \
+       --data "$CHANGE_BATCH")
 
-# Update Cloudflare DNS records
-RESPONSE1=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID1" \
-     -H "Authorization: Bearer $CF_API_TOKEN" \
-     -H "Content-Type: application/json" \
-     --data "$CHANGE_BATCH1")
-
-HTTP_CODE1=$(echo "$RESPONSE1" | jq -r '.success')
-ERROR_MESSAGE1=$(echo "$RESPONSE1" | jq -r '.errors[0].message')
-if [ "$HTTP_CODE1" != "true" ]; then
-    if [ "$ERROR_MESSAGE1" == "A record with the same settings already exists." ]; then
-        log "DNS record for $RECORD_NAME1 is already up-to-date."
-    else
-        log "Failed to update DNS record for $RECORD_NAME1. Response: $RESPONSE1"
-    fi
-else
-    log "Successfully updated DNS record for $RECORD_NAME1."
-fi
-
-RESPONSE2=$(curl -s -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$RECORD_ID2" \
-     -H "Authorization: Bearer $CF_API_TOKEN" \
-     -H "Content-Type: application/json" \
-     --data "$CHANGE_BATCH2")
-
-HTTP_CODE2=$(echo "$RESPONSE2" | jq -r '.success')
-ERROR_MESSAGE2=$(echo "$RESPONSE2" | jq -r '.errors[0].message')
-if [ "$HTTP_CODE2" != "true" ]; then
-    if [ "$ERROR_MESSAGE2" == "A record with the same settings already exists." ]; then
-        log "DNS record for $RECORD_NAME2 is already up-to-date."
-    else
-        log "Failed to update DNS record for $RECORD_NAME2. Response: $RESPONSE2"
-    fi
-else
-    log "Successfully updated DNS record for $RECORD_NAME2."
-fi
+  HTTP_CODE=$(echo "$RESPONSE" | jq -r '.success')
+  ERROR_MESSAGE=$(echo "$RESPONSE" | jq -r '.errors[0].message')
+  if [ "$HTTP_CODE" != "true" ]; then
+      if [ "$ERROR_MESSAGE" == "A record with the same settings already exists." ]; then
+          log "DNS record for $RECORD_NAME is already up-to-date."
+      else
+          log "Failed to update DNS record for $RECORD_NAME. Response: $RESPONSE"
+      fi
+  else
+      log "Successfully updated DNS record for $RECORD_NAME."
+  fi
+done
 
 log "DNS update script completed."

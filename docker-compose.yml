@@ -1,3 +1,5 @@
+# This docker compose not only composes fakebook app's services but also composes the flight-booker app's services
+# which shares the db and redis services with fakebook app.
 services:
   db:
     # image: postgres:latest
@@ -42,9 +44,11 @@ services:
     #   - .env
     environment:
       RAILS_ENV: production
-      DATABASE_URL: postgresql://postgres:password@db:5432/fakebook_production
+      DATABASE_URL: postgresql://${FAKEBOOK_DATABASE_USER}:${FAKEBOOK_DATABASE_PASSWORD}@db:5432/fakebook_production
       REDIS_URL: redis://redis:6379/1
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_MASTER_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
+    env_file:
+      - .env
 
   sidekiq:
     # build:
@@ -57,9 +61,26 @@ services:
       - redis
     environment:
       RAILS_ENV: production
-      DATABASE_URL: postgresql://postgres:password@db:5432/fakebook_production
+      DATABASE_URL: postgresql://${FAKEBOOK_DATABASE_USER}:${FAKEBOOK_DATABASE_PASSWORD}@db:5432/fakebook_production
       REDIS_URL: redis://redis:6379/1
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_MASTER_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
+    env_file:
+      - .env
+  
+  flight-booker:
+    image: ECR image url
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    user: "1000:1000"
+    depends_on:
+      - db
+      - redis
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgresql://${FLIGHT_BOOKER_DATABASE_USER}:${FLIGHT_BOOKER_DATABASE_PASSWORD}@db:5432/flight_booker_production
+      REDIS_URL: redis://redis:6379/2
+      RAILS_MASTER_KEY: ${FLIGHT_BOOKER_RAILS_MASTER_KEY}
+    env_file:
+      - .env
 
 volumes:
   dbdata:
