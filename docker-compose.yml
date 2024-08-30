@@ -27,6 +27,7 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf
       - /etc/nginx/ssl/default.crt:/etc/nginx/ssl/default.crt
       - /etc/nginx/ssl/default.key:/etc/nginx/ssl/default.key
+      - ./index.html:/var/www/ubuntu-deploy-site/index.html
     depends_on:
       - web
 
@@ -34,7 +35,7 @@ services:
     # build:
     #   context: .
     #   dockerfile: prod.Dockerfile
-    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.0
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.1
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     user: "1000:1000"
     depends_on:
@@ -46,7 +47,7 @@ services:
       RAILS_ENV: production
       DATABASE_URL: postgresql://${FAKEBOOK_DATABASE_USER}:${FAKEBOOK_DATABASE_PASSWORD}@db:5432/fakebook_production
       REDIS_URL: redis://redis:6379/1
-      RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_MASTER_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
+      RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_PRODUCTION_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
     env_file:
       - .env
 
@@ -54,7 +55,7 @@ services:
     # build:
     #   context: .
     #   dockerfile: prod.Dockerfile
-    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.0
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.1
     command: bundle exec sidekiq
     depends_on:
       - db
@@ -63,7 +64,7 @@ services:
       RAILS_ENV: production
       DATABASE_URL: postgresql://${FAKEBOOK_DATABASE_USER}:${FAKEBOOK_DATABASE_PASSWORD}@db:5432/fakebook_production
       REDIS_URL: redis://redis:6379/1
-      RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_MASTER_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
+      RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_PRODUCTION_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
     env_file:
       - .env
   
@@ -78,7 +79,7 @@ services:
       RAILS_ENV: production
       DATABASE_URL: postgresql://${FLIGHT_BOOKER_DATABASE_USER}:${FLIGHT_BOOKER_DATABASE_PASSWORD}@db:5432/flight_booker_production
       REDIS_URL: redis://redis:6379/2
-      RAILS_MASTER_KEY: ${FLIGHT_BOOKER_RAILS_MASTER_KEY}
+      RAILS_MASTER_KEY: ${FLIGHT_BOOKER_RAILS_PRODUCTION_KEY}
     env_file:
       - .env
 
