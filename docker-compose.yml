@@ -30,31 +30,24 @@ services:
       - ./index.html:/var/www/ubuntu-deploy-site/index.html
     depends_on:
       - web
+      - flight-booker
 
   web:
-    # build:
-    #   context: .
-    #   dockerfile: prod.Dockerfile
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.1
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     user: "1000:1000"
     depends_on:
       - db
       - redis
-    # env_file:
-    #   - .env
     environment:
       RAILS_ENV: production
       DATABASE_URL: postgresql://${FAKEBOOK_DATABASE_USER}:${FAKEBOOK_DATABASE_PASSWORD}@db:5432/fakebook_production
-      REDIS_URL: redis://redis:6379/1
+      REDIS_URL: redis://redis:6379/0
       RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_PRODUCTION_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
     env_file:
       - .env
 
   sidekiq:
-    # build:
-    #   context: .
-    #   dockerfile: prod.Dockerfile
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.1
     command: bundle exec sidekiq
     depends_on:
@@ -63,14 +56,14 @@ services:
     environment:
       RAILS_ENV: production
       DATABASE_URL: postgresql://${FAKEBOOK_DATABASE_USER}:${FAKEBOOK_DATABASE_PASSWORD}@db:5432/fakebook_production
-      REDIS_URL: redis://redis:6379/1
+      REDIS_URL: redis://redis:6379/0
       RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_PRODUCTION_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
     env_file:
       - .env
   
   flight-booker:
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/flight-booker:1.0
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0' & bundle exec sidekiq"
     user: "1000:1000"
     depends_on:
       - db
@@ -78,7 +71,7 @@ services:
     environment:
       RAILS_ENV: production
       DATABASE_URL: postgresql://${FLIGHT_BOOKER_DATABASE_USER}:${FLIGHT_BOOKER_DATABASE_PASSWORD}@db:5432/flight_booker_production
-      REDIS_URL: redis://redis:6379/2
+      REDIS_URL: redis://redis:6379/1
       RAILS_MASTER_KEY: ${FLIGHT_BOOKER_RAILS_PRODUCTION_KEY}
     env_file:
       - .env
