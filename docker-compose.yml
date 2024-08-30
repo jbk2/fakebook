@@ -68,7 +68,7 @@ services:
       - .env
   
   flight-booker:
-    image: ECR image url
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/flight-booker:1.0
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     user: "1000:1000"
     depends_on:
