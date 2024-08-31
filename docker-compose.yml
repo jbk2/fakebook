@@ -2,7 +2,6 @@
 # which shares the db and redis services with fakebook app.
 services:
   db:
-    # image: postgres:latest
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-postgres:1.0
     restart: always
     ports:
@@ -13,7 +12,6 @@ services:
       POSTGRES_PASSWORD: password
 
   redis:
-    # image: redis:latest
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-redis:1.0
     ports: 
       - 6379:6379
