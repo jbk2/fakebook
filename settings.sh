@@ -2,15 +2,15 @@
 set -euo pipefail
 
 # Load environment variables
-ENV_PATH="/usr/local/bin/.env"
+ENV_PATH="/home/ubuntu/.env"
 
-echo "Attempting to load .env from $(ENV_PATH)"
+echo "Attempting to load .env from $ENV_PATH"
 if [ -f "$ENV_PATH" ]; then
   set -o allexport
   source "$ENV_PATH"
   set +o allexport
 else
-    echo ".env file not found in $(ENV_PATH)"
+    echo ".env file not found in $ENV_PATH"
 fi
 
 # ----------------------------------------
