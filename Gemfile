@@ -80,9 +80,9 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   
-  gem "annotate", "~> 3.2"
   # gem "bullet", "~> 7.1"
   gem "letter_opener", "~> 1.10"
+  gem 'annotaterb', '~> 4.11'
 end
 
 group :test do
