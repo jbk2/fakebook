@@ -23,7 +23,7 @@ class User < ApplicationRecord
   # :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :posts
+  has_many :posts, dependent: :destroy
   # Those the user is following by:
   has_many :following, foreign_key: :follower_id, class_name: "Follow" # those u r following (returns the join table records)
   has_many :followed_users, through: :following, source: :followed # those u r following (returns user records)
