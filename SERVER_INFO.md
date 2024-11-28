@@ -1,6 +1,11 @@
 # Server Documentation for Fakebook app
-- This file's intention is as documentation for the server instance which this application is deployed to.
-  Update this file, keep it synched with the github repo version, and save on the host server at /etc/docs/SERVER_INFO.md.
+- This file's intention is as documentation for the server instance which these applications are deployed to:
+  - fakebook.bibble.com
+  - flight-booker@bibble.com
+  - ubuntu@bibble.com (simple html page(s) hosted in docker nginx container)
+  - portfolio.bibble.com (simple html page(s) hosted on docker nginx container)
+  
+Update this file, keep it synched with the github repo version, and save on the host server at /etc/docs/SERVER_INFO.md.
 
 ## General Information
 - **Purpose**: An AWS EC2 instance to host multiple demo/portfolio apps, most dockerised and composed in separate contianers.
