@@ -9,7 +9,7 @@ Update this file, keep it synched with the github repo version, and save on the 
 
 ## General Information
 - **Purpose**: An AWS EC2 instance to host multiple demo/portfolio apps, most dockerised and composed in separate contianers.
-- **Public ipv4**: 13.39.107.78 (changes on every EC2 instance restart)
+- **Public ipv4**: 13.38.128.29 (changes on every EC2 instance restart)
 - **Domain Name**: currently DNS linked to www.bibble.com (via CloudFlare)
 - **OS**: Ubuntu 20.04.4 LTS
 - **EC2 Instance Type** t4g.small
@@ -24,6 +24,12 @@ Update this file, keep it synched with the github repo version, and save on the 
 - nano 7.2
 - curl 8.5.0
 - at 3.2.5
+
+## Security
+- AWS security group incoming rules
+  - all on http 80 and https 443
+  - ssh 22 from James Kemp's CIPR range only
+- Fail2Ban installed running, run ` sudo fail2ban-client status` to check status of jails.
 
 ## Docker Containers
 - x5 dockerised containers, via ~/docker-compose.yml, built from AWS ECR images:
@@ -48,7 +54,7 @@ Update this file, keep it synched with the github repo version, and save on the 
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.1
   - **ubuntu-web-1**
     - image built from; prod.dockerfile
-    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.1
+    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.2 <!-- the 1.2 tagged image was created from the built container which had manual updates ahead of the original built AWS ECR 1.1 image-->
   - **ubuntu-flight-booker-1**
     - image built from; dockerfile
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-flight-booker:1.0
@@ -101,7 +107,7 @@ In `.env`:
     - the executable `setup.sh` script, all located in /usr/local/bin.
 
 ## Helpful Commands
-- `sudo systemctl status nginx`, `sudo systemctl status dns-update`
+- `sudo systemctl status nginx`, `sudo systemctl status dns-update`, `sudo fail2ban-client status`
 
 ## Contact
 - **Admin**: James Kemp, james@bibble.com
