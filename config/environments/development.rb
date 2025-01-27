@@ -87,11 +87,6 @@ Rails.application.configure do
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
   
-  # Enable the Active Job `BigDecimal` argument serializer, which guarantees
-  # roundtripping. Without this serializer, some queue adapters may serialize
-  # `BigDecimal` arguments as simple (non-roundtrippable) strings.
-  config.active_job.use_big_decimal_serializer = true
-  
   # For more information, see
   # https://guides.rubyonrails.org/v7.1/configuring.html#config-active-support-message-serializer
   config.active_support.message_serializer = :json_allow_marshal

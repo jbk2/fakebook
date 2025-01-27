@@ -57,11 +57,6 @@ Rails.application.configure do
   # Configure Action Text to use an HTML5 standards-compliant sanitizer.
   config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
 
-  # Enable the Active Job `BigDecimal` argument serializer, which guarantees
-  # roundtripping. Without this serializer, some queue adapters may serialize
-  # `BigDecimal` arguments as simple (non-roundtrippable) strings.
-  config.active_job.use_big_decimal_serializer = true
-
   # To try to get tests to run Analyze jobs by forcing the queue adapter to be synchronous
   config.active_job.queue_adapter = :test
 

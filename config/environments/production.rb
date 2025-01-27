@@ -108,11 +108,6 @@ Rails.application.configure do
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
-  # Enable the Active Job `BigDecimal` argument serializer, which guarantees
-  # roundtripping. Without this serializer, some queue adapters may serialize
-  # `BigDecimal` arguments as simple (non-roundtrippable) strings.
-  config.active_job.use_big_decimal_serializer = true
-
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
