@@ -94,6 +94,4 @@ group :test do
   gem "launchy", "~> 3.0"
 end
 
-
-
-
+gem "bugsnag", "~> 6.27"
