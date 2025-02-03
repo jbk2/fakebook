@@ -65,9 +65,8 @@ Update this file, keep it synched with the github repo version, and save on the 
 - all server services are using same Cloudflare sourced SSL certificate.
 
 ## Variable Configuration
-- The following variables must be defined in a .env file on both:
-  - the host server ubuntu user's ~/ directory, and
-  - the /usr/local/bin/ directory (for the use of the dns-settings.sh script)
+- The following variables must be defined in a .env file on the host server
+  ubuntu user's ~/ directory.
 
 In `.env`:
 | Variable                              | Description                                                                |
