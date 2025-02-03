@@ -101,7 +101,7 @@ Rails.application.configure do
   # config.action_mailer.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
   config.action_mailer.default_url_options = { host: Rails.application.credentials[:host] }
   config.action_mailer.delivery_method = :postmark
-  config.action_mailer.postmark_settings = { :api_token => "33c9c119-1446-4911-b53f-5e20233b5ad3" }
+  config.action_mailer.postmark_settings = { api_token: Rails.application.credentials[:postmark_api_token] }
   # config.action_mailer.preview_path = "#{Rails.root}/spec/mailers/previews"  
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
