@@ -2,6 +2,7 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
 
   rate_limit to: 10, within: 3.minutes, only: :create,
     with: -> { redirect_to new_user_registration_path, alert: "Sign up rate limit exceeded - Try again later." }
@@ -30,6 +31,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def update
   #   super
   # end
+  
+  def update_resource(resource, params)
+    if params[:password].present?
+      resource.update_with_password(params)
+    else
+      params.delete(:current_password)
+      resource.update_without_password(params)
+    end
+  end
+
 
   # DELETE /resource
   # def destroy
@@ -45,7 +56,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
@@ -53,9 +64,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(
+      :account_update,
+      keys: [
+        :username,
+        :profile_photo,
+        :current_password,
+        :password,
+        :password_confirmation
+      ]
+    )
+  end
 
   # The path used after sign up.
   # def after_sign_up_path_for(resource)
@@ -66,4 +86,5 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+  # 
 end

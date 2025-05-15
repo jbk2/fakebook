@@ -51,7 +51,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true
+  validates :password, presence: true, if: :password_required?
   validates :email, format: { with: Devise.email_regexp }
   validates :username, length: { in: 3..20 }
 
@@ -69,6 +69,10 @@ class User < ApplicationRecord
   def enqueue_profile_photo_processing
     Rails.logger.info("Enqueuing profile photo processing job for user: #{profile_photo.blob_id}")
     ProcessImageJob.perform_later(profile_photo.blob.id, width: 500, height: 500)
+  end
+
+  def password_required?
+    new_record? || password.present? || password_confirmation.present?
   end
 
 end
