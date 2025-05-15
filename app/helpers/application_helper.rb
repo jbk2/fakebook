@@ -22,5 +22,14 @@ module ApplicationHelper
       "#{months}mths"
     end
   end
+
+  def profile_photo_tag(user, variant = nil, **options)
+    if user.profile_photo.attached?
+      image = variant ? user.profile_photo.variant(variant) : user.profile_photo
+      image_tag(image, **options)
+    else
+      image_tag("profile_photos/default_profile.png", **options)
+    end
+  end
   
 end

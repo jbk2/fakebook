@@ -1,7 +1,7 @@
 <article class="pl-12 pr-4 pt-4">
   <div class="flex flex-row">
     <div class="user-avatar flex-shrink-0">
-      <%= image_tag(comment.owner.profile_photo.variant(:avatar),
+      <%= profile_photo_tag(comment.owner, variant: :avatar,
         class: "w-12 h-12 rounded-full overflow-hidden mr-4") %>
     </div>
     <div class="comment-text text-left max-w-full">

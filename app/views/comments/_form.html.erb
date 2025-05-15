@@ -1,6 +1,6 @@
 <div class="flex px-4 pt-2 items-center", id="new-post-<%= post.id %>-comment">
   <div class="user-avatar">
-    <%= image_tag(current_user.profile_photo.variant(:avatar),
+    <%= profile_photo_tag(current_user, variant: :avatar,
       class: "w-12 h-12 rounded-full overflow-hidden mr-2") %>
   </div>
   <div class="comment-text flex-grow">

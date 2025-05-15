@@ -16,7 +16,7 @@
         <% conversations.order(updated_at: :desc).each do |conversation| %>
           <div id="conversation_<%= conversation.id %>" class="my-1">
             <%= link_to open_conversation_card_path(conversation.id), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation-card" } do %>
-              <%= image_tag conversation.other_participant(current_user).profile_photo, class: "w-11 h-11 rounded-full object-cover" %>
+              <%= profile_photo_tag(conversation.other_participant(current_user), variant: :avatar, class: "w-11 h-11 rounded-full object-cover")%>
               <div class="ml-2 w-full">
                 <h4 class="font-bold text-left"><%= conversation.other_participant(current_user).username %></h4>
                 <% if conversation.messages.any? %>

@@ -6,8 +6,8 @@
       <% end %>
     <% else %>
       <%= link_to user_path(user), class: "object-cover h-48 w-full" do %>
-        <i class="fa-regular fa-user h-48 text-center text-8xl content-center"></i>
-      <% end %>  
+        <%= profile_photo_tag(user)%>
+      <% end %> 
     <% end %>  
   </figure>
   <div class="card-body h-40 px-3 py-1">

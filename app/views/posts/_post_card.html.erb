@@ -4,13 +4,8 @@
     <section class="header">
       <section class="flex flex-row">
         <div class="w-14 h-14 content-center rounded-full overflow-hidden mr-2 bg-slate-200">
-          <% if post.owner.profile_photo.attached? %>
-            <%= link_to image_tag(post.owner.profile_photo.variant(:avatar), class: "object-cover"),
-              user_path(post.owner), data: { turbo: false } %>
-            <%#= image_tag(post.owner.profile_photo.variant(:avatar), class: "object-cover") %>
-          <% else %>
-            <i class="fa-regular fa-user text-center text-xl"></i>
-          <% end %>  
+          <%= link_to profile_photo_tag(post.owner, variant: :avatar, class: "object-cover"),
+            user_path(post.owner), data: { turbo: false } %>
         </div>
         <div class="flex flex-row">
           <div class="flex flex-col items-start mr-2">

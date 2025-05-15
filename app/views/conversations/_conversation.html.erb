@@ -3,11 +3,7 @@
     
     <div class="card-title p-3 w-full flex border-b items-center">
       <div class="size-11 content-center rounded-full overflow-hidden bg-slate-200">
-        <% if @conversation.other_participant(current_user).profile_photo.attached? %>
-          <%= image_tag(@conversation.other_participant(current_user).profile_photo.variant(:avatar), class: "object-cover") %>
-        <% else %>
-          <i class="fa-regular fa-user text-center text-xl"></i>
-        <% end %>  
+        <%= profile_photo_tag(@conversation.other_participant(current_user), variant: :avatar, class: "object-cover")%>
       </div>
       <div class="">
         <h3 class="text-md font-bold"><%= @conversation.other_participant(current_user).username %></h3>

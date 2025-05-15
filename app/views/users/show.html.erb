@@ -7,11 +7,7 @@
     
     <div class="header-info mx-2 sm:mx-6 md:mx-8 flex mt-6">
       <div class="profile-photo -mt-28 relative z-10">
-        <% if @user.profile_photo.attached? %>
-          <%= image_tag @user.profile_photo, alt: "user profile photo", class: "rounded-full size-48 border-4 border-white"%>
-        <% else %>
-          <i class="fa-regular fa-user text-center content-center text-6xl rounded-full size-48 border-4 border-white bg-gray-300"></i>
-        <% end %>  
+        <%= profile_photo_tag(@user, class: "rounded-full size-48 border-4 border-white") %>
       </div>
 
       <div class="text sm:ml-4">
@@ -76,11 +72,7 @@
           <h2 class="card-title text-lg font-semibold mb-2">Friends</h2> <!-- Friends == followers & following -->
           <div class="flex flex-wrap gap-2 rounded max-h-[510px] overflow-auto">
             <% @friends.each do |friend| %>
-              <% if friend.profile_photo.attached? %>
-                <%= image_tag friend.profile_photo, class: "size-1/3", alt: "friends profile photo" %>
-              <% else %>
-                <i class="fa-regular fa-user size-[175px] text-center text-8xl content-center bg-slate-100"></i>
-              <% end %>  
+              <%= profile_photo_tag(friend, class: "size-1/3", alt: "friends profile photo") %>
             <% end %>  
           </div>
         </div>

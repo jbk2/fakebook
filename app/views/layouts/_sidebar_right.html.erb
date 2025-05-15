@@ -5,11 +5,7 @@
       <% @followed_users.each do |user| %>
         <li class="ml-1 mb-2 opacity-90">
           <%= link_to user_path(user), class: "flex items-center" do %>
-            <% if user.profile_photo.attached? %>
-              <%= image_tag user.profile_photo, class: "rounded-full w-11 h-11" %>
-            <% else %>
-              <i class="fa-regular fa-user text-center text-xl rounded-full w- h-11"></i>
-            <% end %>
+            <%= profile_photo_tag(user, variant: :avatar, class: "rounded-full w-11 h-11")%>
             <span class="ml-3 text-md font-medium"><%= user.username %></span>
           <% end %>
         </li>

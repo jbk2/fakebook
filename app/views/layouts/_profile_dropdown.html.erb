@@ -2,11 +2,7 @@
   <details class="dropdown dropdown-end">
     <summary class="m-1 flex items-center justify-center w-11 h-11 rounded-full overflow-hidden
     bg-slate-200 hover:brightness-90 hover:cursor-pointer">
-      <% if current_user.profile_photo.attached? %>
-        <%= image_tag current_user.profile_photo, class: "object-cover w-full" %>
-      <% else %>
-        <i class="fa-regular fa-user text-center text-xl"></i>
-      <% end %>  
+      <%= profile_photo_tag(current_user, variant: :avatar, class: "object-cover w-full")%>
     </summary>
     <ul class="shadow menu dropdown-content z-[1] bg-base-100 rounded-md w-32">
       <% if user_signed_in? %>
