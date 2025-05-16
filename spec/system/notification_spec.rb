@@ -82,7 +82,6 @@ describe 'Notifications', type: :system do
       using_session :user_1 do
         sign_in(user_1)
         visit user_path(user_2)
-        page.save_screenshot
         expect(page).to have_button('Message', disabled: false, wait: 5)
         click_button 'Message'
         expect(page).to have_selector('#message-input', visible: true, wait: 5)

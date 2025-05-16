@@ -14,15 +14,14 @@ describe 'Following', type: :system do
   
   context 'from users#index' do
     it 'a logged in user can follow another user' do
-      expect(page).to have_current_path(root_path, wait: 5)
       visit users_path
+      expect(page).to have_current_path(users_path, wait: 5)
       find("#follow_action_button_#{followed_user.id}").click
-      expect(page).to have_content("You are now following #{followed_user.username}")
-      expect(page).to have_css("#follow_action_button_#{followed_user.id}", text: "Un-Follow")
+      expect(page).to have_content("You are now following #{followed_user.username}", wait: 5)
+      expect(page).to have_css("#follow_action_button_#{followed_user.id}", text: "Un-Follow", wait: 5)
     end
     
     it 'a logged in user can un-follow a another user' do
-      expect(page).to have_current_path(root_path, wait: 5)
       visit users_path
       find("#follow_action_button_#{followed_user.id}").click
       expect(page).to have_content("You are now following #{followed_user.username}")
@@ -50,5 +49,6 @@ describe 'Following', type: :system do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Log in'
+    expect(page).to have_current_path(root_path, wait: 5)
   end
 end

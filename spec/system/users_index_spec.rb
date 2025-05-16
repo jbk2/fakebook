@@ -35,7 +35,6 @@ describe 'Users Index', type: :system do
   it "shows an un-follow button in the user's card if current_user is following the user" do
     create(:follow, follower: signed_in_user, followed: users[0])
     visit current_path
-    page.save_screenshot('screenshot.png')
     expect(page).to have_css("#follow_action_button_#{users[0].id}", text: "Un-Follow")
   end
 

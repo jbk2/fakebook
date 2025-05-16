@@ -22,6 +22,8 @@ class ConversationsController < ApplicationController
       close_conversations_frame: true
     })
 
+    @message = @conversation.messages.build(user: current_user)
+
     respond_to do |format|
       format.turbo_stream {
         render turbo_stream: [

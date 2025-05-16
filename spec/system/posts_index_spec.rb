@@ -72,7 +72,6 @@ describe 'Posts Index', type: :system do
     visit current_path
 
     expect(page).to have_css(".post-card", count: 5)
-    # page.save_screenshot('screenshot3.png')
   end
   
 
