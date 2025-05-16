@@ -43,10 +43,10 @@ describe 'Notifications', type: :system do
       sign_in(user_1)
       visit user_path(user_2)
       click_button 'Message'
-      expect(page).to have_selector('#message-input', visible: true)
-      expect(page).to have_field('message[body]', disabled: false)
+      expect(page).to have_selector('#message-input', visible: true, wait: 5)
+      expect(page).to have_field('message[body]', disabled: false, wait: 5)
       page.execute_script("document.getElementById('message-input').value = 'message from u1 to u2';")
-      # fill_in 'message_input', with: 'message from u1 to u2' # this does not work - reason unknown
+      # fill_in 'message_input', with: 'message from u1 to u2' # this does not work - reason unknown, likely capybara race conditions
       find('button i.fa-paper-plane').click
       expect(page).not_to have_css('#conversations-dropdown.ring')
       
@@ -82,8 +82,10 @@ describe 'Notifications', type: :system do
       using_session :user_1 do
         sign_in(user_1)
         visit user_path(user_2)
+        page.save_screenshot
+        expect(page).to have_button('Message', disabled: false, wait: 5)
         click_button 'Message'
-        expect(page).to have_selector('#message-input', visible: true)
+        expect(page).to have_selector('#message-input', visible: true, wait: 5)
         page.execute_script("document.getElementById('message-input').value = 'message from u1 to u2';")
         find('button i.fa-paper-plane').click
         sign_out(user_1)
@@ -129,4 +131,13 @@ describe 'Notifications', type: :system do
   #     expect(user2_session).to have_selector('#conversation-card', visible: true, text: 'another from u1 to u2')
   #     expect(user2_session).not_to have_css('#conversations-dropdown.ring')
   #   end
+  #   
+  # private
+    def sign_in(user)
+      visit new_user_session_path
+      fill_in 'Email', with: user.email
+      fill_in 'Password', with: user.password
+      click_button 'Log in'
+      expect(page).to have_current_path(root_path, wait: 5)
+    end
   end

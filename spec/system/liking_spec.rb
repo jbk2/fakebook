@@ -35,12 +35,13 @@ describe 'Liking', type: :system do
     find("[data-turbo-frame='like_action_#{signed_in_user_posts[0].id}'] button").click
     expect(page).to have_content("You can't like your own post")
   end
-
+  
   private
   def sign_in(user)
     visit new_user_session_path
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Log in'
+    expect(page).to have_current_path(root_path, wait: 5)
   end
 end

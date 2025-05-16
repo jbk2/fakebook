@@ -82,5 +82,6 @@ describe 'Posts Index', type: :system do
     fill_in 'Email', with: user.email
     fill_in 'Password', with: user.password
     click_button 'Log in'
+    expect(page).to have_current_path(root_path, wait: 5)
   end
 end

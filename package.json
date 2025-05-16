@@ -11,6 +11,7 @@
     "tailwindcss": "^3.4.7"
   },
   "scripts": {
-    "build:css": "tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify --watch"
+    "build:css": "tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
+    "watch:css": "tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify --watch"
   }
 }

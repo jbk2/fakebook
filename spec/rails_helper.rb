@@ -83,4 +83,8 @@ RSpec.configure do |config|
   #     Bullet.end_request
   #   end
   # end
+  # config.after(:each, type: :system) do
+  #   Capybara.reset_sessions!
+  #   Capybara.session_pool.each { |_, s| s.reset! }
+  # end
 end
