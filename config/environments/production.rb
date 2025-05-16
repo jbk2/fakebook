@@ -15,9 +15,8 @@ Rails.application.configure do
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
-  
-  # config.action_controller.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
-  config.action_controller.default_url_options = { host: Rails.application.credentials[:host], protocol: 'https' }
+
+   config.action_controller.default_url_options = { host: Rails.application.credentials[:host], protocol: 'https' }
 
   # Ensures that a master key has been made available in ENV["RAILS_MASTER_KEY"], config/master.key, or an environment
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
@@ -29,22 +28,18 @@ Rails.application.configure do
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 
-  if Rails.env.local?
-    config.log_file_size = 100 * 1024 * 1024
-  end
-
   # Do not fall back to assets pipeline if a precompiled asset is missed.
+  # config.assets.compile = false
+  # this was set to true and working in 7.2.0
   config.assets.compile = true
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "https://fakebook-s3-production.s3-eu-west-3.amazonaws.com"
-
-  # Ensure the asset pipeline is enabled for production
-  config.assets.compile = true
-  config.assets.css_compressor = nil # Disable CSS compression if it interferes with Tailwind CSS
-
-  # Add additional precompile assets
+  
+  ## Add additional precompile assets
   config.assets.precompile += %w(tailwind.css)  
+   
+  config.assets.css_compressor = nil # Disable CSS compression if it interferes with Tailwind CSS
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
@@ -66,6 +61,9 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
+  # Skip http-to-https redirect for the default health check endpoint.
+  # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
+
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new(STDOUT)
     .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
@@ -77,7 +75,7 @@ Rails.application.configure do
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
-  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug")
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -85,20 +83,16 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque
   # config.active_job.queue_name_prefix = "fakebook_production"
-  
-  # Configure Action View to use HTML5 standards-compliant sanitizers.
-  config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
-  
-  # Configure Action Text to use an HTML5 standards-compliant sanitizer.
-  config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
-  
-  # Ignore bad email addresses and do not raise email delivery errors.
+
+  # Disable caching for Action Mailer templates even if Action Controller
+  # caching is enabled.
+  config.action_mailer.perform_caching = false
+
+  # Do not ignore bad email addresses and do raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
-  
-  config.action_mailer.perform_caching = false
+
   config.action_mailer.perform_deliveries = true
-  # config.action_mailer.default_url_options = { host: Rails.application.credentials[:host], port: 3000 }
   config.action_mailer.default_url_options = { host: Rails.application.credentials[:host] }
   config.action_mailer.delivery_method = :postmark
   config.action_mailer.postmark_settings = { api_token: Rails.application.credentials[:postmark_api_token] }
@@ -111,30 +105,11 @@ Rails.application.configure do
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
 
-  # For more information, see
-  # https://guides.rubyonrails.org/v7.1/configuring.html#config-active-support-message-serializer
-  config.active_support.message_serializer = :json_allow_marshal
-
-  # See https://www.sqlite.org/quirks.html#double_quoted_string_literals_are_accepted for more details.
-  config.active_record.sqlite3_adapter_strict_strings_by_default = true
-
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.active_record.encryption.support_sha1_for_non_deterministic_encryption = false
-  config.active_record.run_commit_callbacks_on_first_saved_instances_in_transaction = false
-
-  # Enable raising on assignment to attr_readonly attributes. The previous
-  # behavior would allow assignment but silently not persist changes to the
-  # database.
-  config.active_record.raise_on_assign_to_attr_readonly = true
-
-  # Enable a performance optimization that serializes Active Record models
-  # in a faster and more compact way.
-  config.active_record.marshalling_format_version = 7.1
-
-  # Run `after_commit` and `after_*_commit` callbacks in the order they are defined in a model.
-  config.active_record.run_after_transaction_callbacks_in_order_defined = true
+  # Only use :id for inspections in production.
+  config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [

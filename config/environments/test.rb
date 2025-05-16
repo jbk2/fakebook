@@ -18,19 +18,12 @@ Rails.application.configure do
   config.eager_load = ENV["CI"].present?
 
   # Configure public file server for tests with Cache-Control for performance.
-  config.public_file_server.enabled = true
-  config.public_file_server.headers = {
-    "Cache-Control" => "public, max-age=#{1.hour.to_i}"
-  }
+  config.public_file_server.headers = { "Cache-Control" => "public, max-age=#{1.hour.to_i}" }
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local = true
   config.action_controller.perform_caching = false
   config.cache_store = :null_store
-
-  if Rails.env.local?
-    config.log_file_size = 100 * 1024 * 1024
-  end
 
   # Render exception templates for rescuable exceptions and raise for other exceptions.
   config.action_dispatch.show_exceptions = :rescuable
@@ -41,6 +34,8 @@ Rails.application.configure do
   # Store uploaded files on the local file system in a temporary directory.
   config.active_storage.service = :test
 
+  # Disable caching for Action Mailer templates even if Action Controller
+  # caching is enabled.
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.
@@ -48,33 +43,9 @@ Rails.application.configure do
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :test
 
-  # Define the default URL options for the Devise mailer in test environment.
+  # Unlike controllers, the mailer instance doesn't have any context about the
+  # incoming request so you'll need to provide the :host parameter yourself.
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
-  # Configure Action View to use HTML5 standards-compliant sanitizers.
-  config.action_view.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
-
-  # Configure Action Text to use an HTML5 standards-compliant sanitizer.
-  config.action_text.sanitizer_vendor = Rails::HTML::Sanitizer.best_supported_vendor
-
-  # To try to get tests to run Analyze jobs by forcing the queue adapter to be synchronous
-  config.active_job.queue_adapter = :test
-
-
-  # See https://www.sqlite.org/quirks.html#double_quoted_string_literals_are_accepted for more details.
-  config.active_record.sqlite3_adapter_strict_strings_by_default = true
-
-  # Enable raising on assignment to attr_readonly attributes. The previous
-  # behavior would allow assignment but silently not persist changes to the
-  # database.
-  config.active_record.raise_on_assign_to_attr_readonly = true
-
-  # Enable a performance optimization that serializes Active Record models
-  # in a faster and more compact way.
-  config.active_record.marshalling_format_version = 7.1
-
-  # Run `after_commit` and `after_*_commit` callbacks in the order they are defined in a model.
-  config.active_record.run_after_transaction_callbacks_in_order_defined = true
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
@@ -85,23 +56,12 @@ Rails.application.configure do
   # Tell Active Support which deprecation messages to disallow.
   config.active_support.disallowed_deprecation_warnings = []
 
-  # For more information, see
-  # https://guides.rubyonrails.org/v7.1/configuring.html#config-active-support-message-serializer
-  config.active_support.message_serializer = :json_allow_marshal
-
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
 
-  # Raise error when a before_action's only/except options reference missing actions
+  # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
-
-  # Enable Bullet N+1 query identification from tests
-  # config.after_initialize do
-  #   Bullet.enable = true
-  #   Bullet.bullet_logger = true
-  #   # Bullet.raise = true
-  # end
 end
