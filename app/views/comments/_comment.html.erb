@@ -4,7 +4,7 @@
       <%= profile_photo_tag(comment.owner, variant: :avatar,
         class: "w-12 h-12 rounded-full overflow-hidden mr-4") %>
     </div>
-    <div class="comment-text text-left max-w-full">
+    <div class="comment-text text-left w-full">
       <div class="comment-body border-none bg-gray-100 rounded-2xl px-4 py-1 inline-block max-w-2/3">
         <p class="text-xs font-bold px-[2px]"><%= comment.owner.username %></p>
         <p class="px-[2px] pb-1"><%= comment.body %></p>
