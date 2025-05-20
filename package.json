@@ -3,14 +3,12 @@
   "private": "true",
   "type": "module",
   "dependencies": {
-    "tailwindcss": "^4.1.7",
-    "daisyui": "^5.0.35",
-    "@tailwindcss/typography": "^0.5.13",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tailwindcss/container-queries": "^0.1.1"
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/typography": "^0.5.16",
+    "daisyui": "^5.0.35",
+    "tailwindcss": "^4.1.7"
   },
   "scripts": {
-    "build:css": "npx tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
-    "watch:css": "npx tailwindcss -c ./config/tailwind.config.js -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify --watch"
   }
 }

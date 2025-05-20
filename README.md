@@ -170,6 +170,7 @@ In `.env`:
 
 ### Next ToDos:
 
+- Fix empty post submit error
 - Style for dark mode
 - update factories and model tests with user.active_conversation_id and message.read_by_recipient columns
 - fix duplicate Notifications and Conversations Stimulus controller connections and disconnections

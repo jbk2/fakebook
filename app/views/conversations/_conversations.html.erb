@@ -14,7 +14,7 @@
           <p class="px-3 pb-2">💬 with <%= link_to "users", users_path %> via the <i class="fa-brands fa-facebook-messenger text-blue-500"></i> button on their profile page.</p>
         <% end %>
         <% conversations.order(updated_at: :desc).each do |conversation| %>
-          <div id="conversation_<%= conversation.id %>" class="my-1">
+          <div id="conversation_<%= conversation.id %>" class="my-2">
             <%= link_to open_conversation_card_path(conversation.id), class: "flex w-full items-center", data: { turbo_stream: true, turbo_frame: "conversation-card" } do %>
               <%= profile_photo_tag(conversation.other_participant(current_user), variant: :avatar, class: "w-11 h-11 rounded-full object-cover")%>
               <div class="ml-2 w-full">

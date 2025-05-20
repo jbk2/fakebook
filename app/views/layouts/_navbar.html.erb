@@ -1,4 +1,4 @@
-<div class="navbar fixed h-6 py-0 z-50 bg-base-200 drop-shadow flex justify-between">
+<div class="navbar fixed h-6 py-0 z-50 bg-base-300 drop-shadow flex justify-between">
   <div class="flex pl-6 2xl:pl-16" id="left-section">
     <div class="brand-logo mr-3 flex-shrink-0">
       <%= link_to image_tag('icons/facebook.png', width: "42", height: "42", class:""), root_path %>
@@ -29,8 +29,9 @@
     </div>
   </div>
   
-  <div class="flex flex-row items-center pr-6 2xl:pr-16 gap-4" id="right-section" id="right-section">
+  <div class="flex items-center pr-6 2xl:pr-16" id="right-section">
     <div class="hidden sm:flex sm:flex-nowrap theme-toggle mx-5">
+      <label for="theme-toggle" class="text-sm italic text-nowrap mr-2">Toggle theme</label>
       <input 
         type="checkbox"
         id="theme-toggle"
@@ -39,7 +40,6 @@
         data-toggle-theme="light,cupcake"
         data-act-class="ACTIVE"
       />
-      <label for="theme-toggle" class="text-sm italic text-nowrap mr-2">Toggle theme</label>
     </div>
 
     <% if user_signed_in? && @conversations %>
