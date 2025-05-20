@@ -26,7 +26,7 @@ module ApplicationHelper
   def profile_photo_tag(user, variant = nil, **options)
     if user.profile_photo.attached?
       image = variant ? user.profile_photo.variant(variant) : user.profile_photo
-      image_tag(image, **options)
+      image_tag(Rails.application.routes.url_helpers.rails_blob_path(image, only_path: true), **options)
     else
       image_tag("profile_photos/default_profile.png", **options)
     end

@@ -1,6 +1,6 @@
 <div id="message_<%= message.id %>" class="flex my-2">
   <div id="sender-profile-photo" class="mr-2 size-10 flex-shrink-0">
-    <%= image_tag message.user.profile_photo, class: "size-full rounded-full object-cover" %>
+    <%= profile_photo_tag(message.user, variant: :avatar, class: "size-full rounded-full object-cover") %>
   </div>
   <div id="body" class="text-xs flex-grow">
     <p class="break-words"><%= message.body %></p>
