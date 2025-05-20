@@ -2,6 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "channels"
+import "./theme-toggle";
 import { showModal } from "./photo_modal"
 
 function initModalListenersOnPosts() {

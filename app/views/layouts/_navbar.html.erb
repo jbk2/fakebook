@@ -1,5 +1,5 @@
 <div class="navbar fixed h-6 py-0 z-50 bg-base-200 drop-shadow flex justify-between">
-  <div class="pl-6 2xl:pl-16" id="left-section">
+  <div class="flex pl-6 2xl:pl-16" id="left-section">
     <div class="brand-logo mr-3 flex-shrink-0">
       <%= link_to image_tag('icons/facebook.png', width: "42", height: "42", class:""), root_path %>
     </div>
@@ -29,11 +29,17 @@
     </div>
   </div>
   
-  <div class="pr-6 2xl:pr-16" id="right-section">
+  <div class="flex flex-row items-center pr-6 2xl:pr-16 gap-4" id="right-section" id="right-section">
     <div class="hidden sm:flex sm:flex-nowrap theme-toggle mx-5">
+      <input 
+        type="checkbox"
+        id="theme-toggle"
+        name="theme-toggle"
+        class="toggle toggle-sm theme-controller"
+        data-toggle-theme="light,cupcake"
+        data-act-class="ACTIVE"
+      />
       <label for="theme-toggle" class="text-sm italic text-nowrap mr-2">Toggle theme</label>
-      <input type="checkbox" value="cupcake" id="theme-toggle" name="theme-toggle"
-        title="Colour theme" class="toggle toggle-sm theme-controller"/>
     </div>
 
     <% if user_signed_in? && @conversations %>
@@ -71,12 +77,15 @@
           <% end %>
         <% end %>
 
-        <div class="theme-toggle">
-          <li class="flex flex-row flex-nowrap items-center px-4">
-            <input type="checkbox" value="cupcake" name="theme-toggle" class="toggle toggle-sm theme-controller"/>
-            <label for="theme-toggle" class="text-sm italic text-nowrap pl-2">Toggle theme</label>
-          </li>
-        </div>
+        <li class="flex flex-row flex-nowrap items-center px-4 theme-toggle">
+          <input
+            type="checkbox"
+            id="monile-theme-toggle"
+            class="toggle toggle-sm theme-controller"
+            data-toggle-theme="light,cupcake"
+            data-act-class="ACTIVE" />
+          <label for="theme-toggle" class="text-sm italic text-nowrap pl-2">Toggle theme</label>
+        </li>
       </ul>
     </details>
 

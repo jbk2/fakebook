@@ -12,19 +12,16 @@
           <div data-new-post-photo-target="previews">
           </div>
       <% end %>
-      <hr class="my-2">
+      <hr class="my-3">
       <div class="card-actions justify-between px-24">
-        <%#= link_to image_tag('icons/video.png', alt: 'video icon', height: '24', width: '24'), root_path, id: 'video-action' %>
         <%= link_to root_path, id: 'photo-action' do %>
           <i class="fa-solid fa-video text-xl text-red-500"></i>
         <% end %>
         
-        <%#= link_to image_tag('icons/gallery.png', alt: 'photo icon', height: '24', width: '24'), root_path, data: { action: "click->new-post-photo#loadFileInput" }, id: 'gallery-action' %>  
         <%= link_to root_path, data: { action: "click->new-post-photo#loadFileInput" }, id: 'gallery-action' do %>
           <i class="fa-regular fa-image text-xl text-green-500"></i>
         <% end %>
         
-        <%#= link_to image_tag('icons/smiling-face.png', alt: 'feeling icon', height: '24', width: '24'), root_path, id: 'feeling-action' %>
         <%= link_to root_path, id: 'feeling-action' do %>
           <i class="fa-regular fa-face-smile text-xl text-yellow-500"></i>
         <% end %>

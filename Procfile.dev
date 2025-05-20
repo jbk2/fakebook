@@ -1,4 +1,4 @@
 web: bin/rails server
 worker: bundle exec sidekiq
 redis: redis-server
-css: yarn watch:css --watch
+css: bin/rails tailwindcss:watch
