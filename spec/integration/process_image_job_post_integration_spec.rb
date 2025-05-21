@@ -24,7 +24,6 @@ describe ProcessImageJob, type: :job do
   end
 
   describe '#perform' do
-
     it 'adds new processed blobs to, and purges original blobs from, a post' do
       original_blob_id = post_with_one_jpg.photos[0].blob.id
 
@@ -38,7 +37,6 @@ describe ProcessImageJob, type: :job do
       end
 
       post_with_one_jpg.reload
-
       new_blob_id = post_with_one_jpg.photos.last.blob.id
 
       expect { ActiveStorage::Blob.find(original_blob_id) }.to raise_error(ActiveRecord::RecordNotFound)
@@ -48,7 +46,5 @@ describe ProcessImageJob, type: :job do
       expect(post_with_one_jpg.photos[0].blob.metadata['width']).to eq 500
       expect(post_with_one_jpg.photos[0].blob.metadata['height']).to eq 500
     end
-
   end
-  
 end

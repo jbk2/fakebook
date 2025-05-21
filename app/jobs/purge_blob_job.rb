@@ -3,8 +3,9 @@ class PurgeBlobJob < ApplicationJob
 
   def perform(blob_id)
     blob = ActiveStorage::Blob.find_by(id: blob_id)
-    blob.attachments.each do |attachment|
-      attachment.purge
+    if blob
+      blob.attachments.each(&:destroy) # Detach all attachments
+      blob.purge if blob.attachments.empty?
     end
   end
 end
