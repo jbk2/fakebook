@@ -31,5 +31,4 @@ module ApplicationHelper
       image_tag("profile_photos/default_profile.png", **options)
     end
   end
-  
 end

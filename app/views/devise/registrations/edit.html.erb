@@ -34,7 +34,7 @@
 
     <div class="field my-3">
       <%= f.label :password, "New password" %> <i class="text-sm italic">(leave blank if you don't want to change it)</i><br />
-      <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered" %>
+      <%= f.password_field :password, autocomplete: "new-password", id: "new-password", class: "input input-bordered" %>
       <% if @minimum_password_length %>
         <br />
         <em class="text-sm italic"><%= @minimum_password_length %> characters minimum</em>
@@ -43,12 +43,26 @@
 
     <div class="field my-3">
       <%= f.label :password_confirmation, "New password confirmation"%><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", id: "new-password-confirmation", class: "input input-bordered" %>
     </div>
 
-    <div class="field mt-3">
+    <div class="field mt-3" data-controller="input-visibility">
       <%= f.label :current_password %> <i class="text-sm italic">(we need your current password to confirm your changes)</i><br />
-      <%= f.password_field :current_password, autocomplete: "current-password", class: "input input-bordered" %>
+      <div class="relative inline-block">
+        <%= f.password_field :current_password,
+          autocomplete: "current-password",
+          id: "current-password",
+          class: "input input-bordered pr-10",
+          "data-input-visibility-target" => "input"
+        %>
+        <i class="fa-solid fa-eye absolute top-1/2 -translate-y-1/2 right-3 cursor-pointer text-gray-700"
+          data-input-visibility-target="toggleIcon"
+          data-action="input-visibility#toggle click->input-visibility#toggle"
+          tabindex="0"
+          role="button"
+          aria-label="Toggle password visibility"
+        ></i>
+      </div>
     </div>
 
 

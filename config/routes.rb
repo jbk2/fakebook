@@ -29,6 +29,4 @@ Rails.application.routes.draw do
 
   get 'check_unread', to: 'conversations#check_unread'
   patch 'mark_all_read', to: 'conversations#mark_all_read'
-
-
 end
