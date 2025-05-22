@@ -11,32 +11,58 @@
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "w-[380px]", data: { turbo: false } }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
-      <div class="field my-2">
+      <div class="field my-2 w-72">
         <%= f.label :username %><br />
         <%= f.text_field :username, autofocus: true, required: true, autocomplete: "username", class: "input input-bordered" %>
       </div>
       
-      <div class="field my-2">
+      <div class="field my-2 w-72">
         <%= f.label :profile_photo %><br/>
         <%= f.file_field :profile_photo, class: "w-100" %>
       </div>
 
-      <div class="field my-2">
+      <div class="field my-2 w-72">
         <%= f.label :email %><br />
         <%= f.email_field :email, autocomplete: "email", class: "input input-bordered" %>
       </div>
 
-      <div class="field my-2">
+      <div class="field my-2 w-72 " data-controller="input-visibility">
         <%= f.label :password %>
         <% if @minimum_password_length %>
         <em>(<%= @minimum_password_length %> chars minimum)</em>
         <% end %><br />
-        <%= f.password_field :password, autocomplete: "new-password", class: "input input-bordered" %>
+        <div class="relative w-full">
+          <%= f.password_field :password, {
+            autocomplete: "new-password",
+            class: "input input-bordered",
+            data: { input_visibility_target: "input" }
+          }%>
+          <i class="fa-solid fa-eye absolute top-1/2 -translate-y-1/2 right-1 cursor-pointer text-gray-600 text-sm p-2"
+            data-input-visibility-target="toggleIcon"
+            data-action="input-visibility#toggle click->input-visibility#toggle"
+            tabindex="0"
+            role="button"
+            aria-label="Toggle password visibility"
+          ></i>
+        </div>
       </div>
 
-      <div class="field my-2">
+      <div class="field my-2 w-72" data-controller="input-visibility">
         <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input input-bordered" %>
+        <div class="relative w-full">
+          <%= f.password_field :password_confirmation, {
+            autocomplete: "new-password",
+            class: "input input-bordered",
+            data: { input_visibility_target: "input" }
+          }%>
+          <i class="fa-solid fa-eye absolute top-1/2 -translate-y-1/2 right-1 cursor-pointer text-gray-600 text-sm p-2"
+            data-input-visibility-target="toggleIcon"
+            data-action="input-visibility#toggle click->input-visibility#toggle"
+            tabindex="0"
+            role="button"
+            aria-label="Toggle password visibility"
+          ></i>
+        </div>
       </div>
 
       <div class="actions">
