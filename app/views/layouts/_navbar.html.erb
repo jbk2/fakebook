@@ -68,7 +68,7 @@
 
         <% if user_signed_in? %>
           <li><a href="<%= edit_user_registration_path %>">Edit profile</a></li>
-          <li><%= button_to "Logout", destroy_user_session_path, method: :delete %></li>
+          <li><%= button_to "Logout", destroy_user_session_path, method: :delete, date: { turbo: false } %></li>
         <% else %>
           <% if devise_login_page? %>
             <li><%= link_to "Sign up", new_user_registration_path, class: "btn btn-sm" %></li>

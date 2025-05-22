@@ -1,50 +1,52 @@
-<turbo-frame id="conversation-card" data-controller="conversation" data-conversation-conversation-id-value="<%= @conversation.id %>">
-  <div class="card w-[350px] bg-base-100 drop-shadow fixed right-2 sm:right-8 bottom-8 z-50">
-    
-    <div class="card-title p-3 w-full flex border-b items-center">
-      <div class="size-11 content-center rounded-full overflow-hidden bg-slate-200">
-        <%= profile_photo_tag(@conversation.other_participant(current_user), variant: :avatar, class: "object-cover")%>
+<% if @conversation && @message %>
+  <turbo-frame id="conversation-card" data-controller="conversation" data-conversation-conversation-id-value="<%= @conversation.id %>">
+    <div class="card w-[350px] bg-base-100 drop-shadow fixed right-2 sm:right-8 bottom-8 z-50">
+      
+      <div class="card-title p-3 w-full flex border-b items-center">
+        <div class="size-11 content-center rounded-full overflow-hidden bg-slate-200">
+          <%= profile_photo_tag(@conversation.other_participant(current_user), variant: :avatar, class: "object-cover")%>
+        </div>
+        <div class="">
+          <h3 class="text-md font-bold"><%= @conversation.other_participant(current_user).username %></h3>
+        </div>
+        <div class="ml-auto" id="close-button">
+          <%= link_to close_conversation_card_path, method: :delete, data: { turbo_method: :delete } do %>
+            <i class="fa-solid fa-xmark text-blue-600 text-2xl"></i>
+          <% end %> 
+        </div>
+        <hr class="border-gray-200">
       </div>
-      <div class="">
-        <h3 class="text-md font-bold"><%= @conversation.other_participant(current_user).username %></h3>
+
+      <div class="card-body p-0 max-h-80">
+        <div id="conversation-<%= @conversation.id %>-card-messages" class="overflow-auto ml-4 rounded-b-lg"
+          data-conversation-target="messages">
+          <% @conversation.messages.order(created_at: :asc).each do |message| %>
+            <%= render "messages/message", message: message %>
+          <% end %>
+        </div>
+
+        <div class="card-actions w-full">
+          <%= form_with model: @message, url: messages_path, scope: :message,
+            class:"flex items-center w-full pl-2 pb-2", id: "message-form" do |f| %>
+            <div class="control flex-grow">
+              <%= f.text_field :body, id: 'message-input', class: 'bg-slate-100 rounded-full h-8 pl-4 border-none text-xs w-full',
+                data: { conversation_target: "messageInputField" } %>
+            </div>
+            <div>
+              <%= f.hidden_field :recipient_id, value: @conversation.other_participant(current_user).id %>
+            </div>
+            <div>
+              <%= f.hidden_field :conversation_id, value: @conversation.id %>
+            </div>
+            <div class="control">
+              <%= button_tag(type: 'submit', class:"ml-2 mr-4") do %>
+                <i class="fa-solid fa-paper-plane text-xl text-blue-600"></i>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       </div>
-      <div class="ml-auto" id="close-button">
-        <%= link_to close_conversation_card_path, method: :delete, data: { turbo_method: :delete } do %>
-          <i class="fa-solid fa-xmark text-blue-600 text-2xl"></i>
-        <% end %> 
-      </div>
-      <hr class="border-gray-200">
+
     </div>
-
-    <div class="card-body p-0 max-h-80">
-      <div id="conversation-<%= @conversation.id %>-card-messages" class="overflow-auto ml-4 rounded-b-lg"
-        data-conversation-target="messages">
-        <% @conversation.messages.order(created_at: :asc).each do |message| %>
-          <%= render "messages/message", message: message %>
-        <% end %>
-      </div>
-
-      <div class="card-actions w-full">
-        <%= form_with model: @message, url: messages_path, scope: :message,
-          class:"flex items-center w-full pl-2 pb-2", id: "message-form" do |f| %>
-          <div class="control flex-grow">
-            <%= f.text_field :body, id: 'message-input', class: 'bg-slate-100 rounded-full h-8 pl-4 border-none text-xs w-full',
-              data: { conversation_target: "messageInputField" } %>
-          </div>
-          <div>
-            <%= f.hidden_field :recipient_id, value: @conversation.other_participant(current_user).id %>
-          </div>
-          <div>
-            <%= f.hidden_field :conversation_id, value: @conversation.id %>
-          </div>
-          <div class="control">
-            <%= button_tag(type: 'submit', class:"ml-2 mr-4") do %>
-              <i class="fa-solid fa-paper-plane text-xl text-blue-600"></i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-  </div>
-</turbo-frame>
+  </turbo-frame>
+<% end %>
