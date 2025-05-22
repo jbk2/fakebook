@@ -90,3 +90,9 @@ production:
   password: <%= ENV.fetch("DATABASE_PASSWORD") { "password" } %>
   host: <%= ENV.fetch("DATABASE_HOST") { "db" } %>
   port: 5432
+
+staging:
+  <<: *default
+  database: fakebook_development
+  password: <%= ENV.fetch("DATABASE_PASSWORD") { "password" } %>
+  host: <%= ENV.fetch("DATABASE_HOST") { "localhost" } %>

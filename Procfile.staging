@@ -1,0 +1,3 @@
+web: RAILS_ENV=staging bin/rails s
+worker: RAILS_ENV=staging bundle exec sidekiq
+redis: redis-server
