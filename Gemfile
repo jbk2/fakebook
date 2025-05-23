@@ -59,7 +59,6 @@ gem "postmark-rails", "~> 0.22.1"
 gem "whenever", "~> 1.0"
 gem "faker", "~> 3.2" # moved out of just test & dev so that in prod we can still seed the prod db.
 gem "bugsnag", "~> 6.27"
-gem "tailwindcss-rails", "~> 4.2"
 
 
 group :test do
@@ -81,6 +80,10 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
   
+  # In deevelopment - but assets must be generated and compiled locally in
+  # dev for production environment to work.
+  gem "tailwindcss-rails", "~> 4.2"
+
   # gem "bullet", "~> 7.1"
   gem "letter_opener", "~> 1.10"
   gem 'annotaterb', '~> 4.11'

@@ -34,6 +34,7 @@
 # Ignore dev & prod key for decrypting credentials and more.
 /config/credentials/development.key
 /config/credentials/production.key
+/config/credentials/staging.key
 
 # Ignore amazon creds
 /fakebook_ec2.pem
@@ -45,3 +46,4 @@
 !/app/assets/builds/.keep
 
 /node_modules
+
