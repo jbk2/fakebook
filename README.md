@@ -73,8 +73,9 @@ techniques:*
 
 ### Docker
 - dev.Dockerfile & prod.Dockerfile written for their respective environments.
-- Must manually compile assets locally (by cssbundling-rails gem (uses Node)) before production image
-  build; `bin/rails assets:clobber`, `bin/rails assets:precompile`, ∴ no Node rqd on server.
+- Must manually compile assets locally:
+  - css via tailwindcss-rails gem with `bin/rails tailwindcss:build`, then
+  - `bin/rails assets:clobber`, `bin/rails assets:precompile`, ∴ no Node rqd on server.
 - To build development or production images adjust docker-compose.yml web and
   sidekiq services to build from appropriate prod. or dev. dockerfile. (Should adjust to be able
   to pass in environment argument.)
@@ -82,9 +83,10 @@ techniques:*
   - config/cable.yml; 1) 'redis://localhost:6379/0' 2) 'redis://redis:6379/0'
   - config/initializers/sidekiq.rb; 1) 'redis://localhost:6379/0' 2) 'redis://redis:6379/0'
   - set default_url_options in production.rb
-  - The redis container service is by both this fakebook and the flight-booker rails app:
+  - The redis container service is used by both this fakebook and the flight-booker rails app:
     - fakebook uses redis db 0, flight-booker uses redis db 1.
-- RAILS_PRODUCTION_KEY & other credentials are stored within ubuntu user's ~/.env file, loaded by settings.sh
+- RAILS_MASTER_KEY & other credentials are stored within ubuntu user's ~/.env file, loaded by settings.sh
+- This app uses environment based rails credentials
 
 ### AWS S3
 - Uses `'fakebook-s3-<%= Rails.env %>' buckets for both development and production, under user 'fakebook',
@@ -94,7 +96,7 @@ techniques:*
 - See SERVER_INFO.md for ECR image URIs.
 
 ### Maintenance
-- ssh into EC2 instance with - `ssh fakebook-ec2:ubuntu`, set via the local ~/.ssh/config file.
+- ssh into EC2 instance with - `ssh fakebook-ec2-ubuntu`, set via the local ~/.ssh/config file.
 - Cronjobs, via Whenever gem, are used to run cleanup tasks.
   - On deployment need to run `bundle exec whenever --update-crontab` (see /config/schedule.rb)
 - /sidekiq route only set for admin users.
@@ -103,9 +105,10 @@ techniques:*
 
 ## Server Scripting Documentation
 
-This repo contains scripts to create an auto DNS update systemd service. Executing ./setup.sh locally will:
-  - scp's the local ./.env, ./settings.sh & /dns-update.sh file to the remote server.
-  - creates a systemd unit file, enables then starts service, so to run the update-dns.sh script on each server restart.
+This repo also contains scripts to create an auto DNS update systemd service. Executing ./setup.sh locally will:
+  - scp the local ./.env, ./settings.sh & /dns-update.sh file to the remote server.
+  - creates a systemd unit file, enables then starts service, so to run the update-dns.sh script on each server restart. Manually run the script with `sudo systemctl start dns-update`, check status of the script with
+  `systemctl status dns-update.service`. systemd user services created in /etc/systemd/system/.
 
 ### Variable Configuration
 The following variables, to be stored in a .env file in ubunutu user's ~/ dir on this app's host EC2 instance, are used by both:
@@ -120,11 +123,11 @@ In `.env`:
 | Variable                         | Description                                                                |
 |----------------------------------|----------------------------------------------------------------------------|
 | Fakebook Rails app related variables:                                                                         |
-| `FAKEBOOK_RAILS_PRODUCTION_KEY`  | Fakebook app production env master key                                     |
+| `RAILS_MASTER_KEY`               | Fakebook app production env master key                                     |
 | `FAKEBOOK_DATABASE_USER`         | Fakebook's username to access fakebook-db-1 postgres db cluster container  |
 | `FAKEBOOK_DATABASE_PASSWORD`     | Fakebook user's fakebook-db-1 postgres cluster password                    |
 |----------------------------------|----------------------------------------------------------------------------|
-| EC2 instance setup.sh & settings.sh script related variables:                                                                  |
+| EC2 instance setup.sh & settings.sh script related variables:                                                 |
 | `SERVER`                         | Virtual machine public IP                                                  |
 | `USER`                           | Name for the user that will replace *ubuntu* for administration            |
 |                                  | (default 'deploy' is hardcoded)                                            |

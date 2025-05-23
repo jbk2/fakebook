@@ -28,8 +28,11 @@ Update this file, keep it synched with the github repo version, and save on the 
 ## Security
 - AWS security group incoming rules
   - all on http 80 and https 443
-  - ssh 22 from James Kemp's CIPR range only
-- Fail2Ban installed running, run ` sudo fail2ban-client status` to check status of jails.
+  - ssh 22 from James Kemp's CIPR range only, must update inbound rules in AWS console when ssh'ing into server from new IP address.
+- Fail2Ban installed & running, run `sudo fail2ban-client status` to check status of jails.
+  - it logs to /var/log/fail2ban.log.
+  - common commands; `sudo fail2ban-client status`, `sudo fail2ban-client stop`, `sudo fail2ban-client start`,
+    `sudo fail2ban-client reload`, `sudo fail2ban-client unban <ip address>`, `sudo fail2ban-client set <jail> unbanip <ip address>`
 
 ## Docker Containers
 - x5 dockerised containers, via ~/docker-compose.yml, built from AWS ECR images:
@@ -71,8 +74,8 @@ Update this file, keep it synched with the github repo version, and save on the 
 In `.env`:
 | Variable                              | Description                                                                |
 |---------------------------------------|----------------------------------------------------------------------------|
-| Fakebook Rails app related variables:                                                                              |
-| `FAKEBOOK_RAILS_PRODUCTION_KEY`       | Fakebook app production env master key                                     |
+| Fakebook Rails app related variables:                                                                         |
+| `RAILS_MASTER_KEY`                    | Fakebook app production env master key                                     |
 | `FAKEBOOK_DATABASE_USER`              | Fakebook's username to access fakebook-db-1 postgres db cluster container  |
 | `FAKEBOOK_DATABASE_PASSWORD`          | Fakebook user's fakebook-db-1 postgres cluster password                    |
 |---------------------------------------|----------------------------------------------------------------------------|
@@ -98,12 +101,20 @@ In `.env`:
 - `./nginx.conf` modified to serve all via SSL only.
 
 ## Maintenance Notes
-- System updates every ...? - not automated.
-  from local repo, not on server, run `.setup.sh -u update_upgrade`
+- To update and upgrade Ubuntu instance's packages, from this local repo (not from server) run;
+  `.setup.sh -u update_upgrade`.
+- System updates every ...? - not automated, currently only manual.
 - Daily backups at ...? - not authomated.
-- DNS records updated via systemd service `dns-update.service`:
-  - the service runs the executable `/dns-update.sh` script, all created by:
-    - the executable `setup.sh` script, all located in /usr/local/bin.
+- DNS records updated via systemd service dns-update.service:
+  - the service runs the executable '/usr/local/bin/dns-update.sh' script. This script is created and
+    placed on the server when running the executable `setup.sh` script from this local repo.
+  - Manually run the systemd service which runs the 'dns-update.sh' script by running
+    `sudo systemctl start dns-update` from the server.
+  - Check status of the script by running `systemctl status dns-update.service` from the server.
+    (All systemd user services are located in /etc/systemd/system/)
+  - The 'dns-update.service' is not automated, it must be run manually when instance public IP address
+    is known to have changed.
+  - The 'dns-update.service' logs to /var/log/dns-update.log.
 
 ## Helpful Commands
 - `sudo systemctl status nginx`, `sudo systemctl status dns-update`, `sudo fail2ban-client status`
