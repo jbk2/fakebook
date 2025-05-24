@@ -93,7 +93,7 @@ techniques:*
   with the 'fakebook-s3-policy' permissions applied. AWS access key values stored in credentials.
 
 ### AWS ECR
-- See SERVER_INFO.md for ECR image URIs.
+- See SERVER_INFO.md for ECR image URIs (located in this repo, and on EC2 instance at /etc/docs/SERVER_INFO.md).
 
 ### Maintenance
 - ssh into EC2 instance with - `ssh fakebook-ec2-ubuntu`, set via the local ~/.ssh/config file.
