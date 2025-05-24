@@ -2,15 +2,23 @@
 set -euo pipefail
 
 # Load environment variables
-ENV_PATH="/home/ubuntu/.env"
+# Determine the script's directory
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "Attempting to load .env from $ENV_PATH"
-if [ -f "$ENV_PATH" ]; then
+# Try local .env first (for local execution), then remote (for EC2 context)
+if [ -f "$DIR/.env" ]; then
+  echo "Loading local .env from $DIR/.env"
   set -o allexport
-  source "$ENV_PATH"
+  source "$DIR/.env"
+  set +o allexport
+elif [ -f "/home/ubuntu/.env" ]; then
+  echo "Loading remote .env from /home/ubuntu/.env"
+  set -o allexport
+  source "/home/ubuntu/.env"
   set +o allexport
 else
-    echo ".env file not found in $ENV_PATH"
+  echo "No .env file found locally or in /home/ubuntu/.env"
+  exit 1
 fi
 
 # ----------------------------------------
