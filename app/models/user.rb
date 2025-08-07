@@ -36,8 +36,8 @@ class User < ApplicationRecord
   has_many :messages
 
   # To differentiate whether the user was initiator of conversation - participant_one, or recipient of original message - participant_two
-  has_many :participating_conversations_as_one, foreign_key: :participant_one_id, class_name: "Conversation"
-  has_many :participating_conversations_as_two, foreign_key: :participant_two_id, class_name: "Conversation"
+  has_many :participating_conversations_as_one, foreign_key: :participant_one_id, class_name: "Conversation", dependent: destroy
+  has_many :participating_conversations_as_two, foreign_key: :participant_two_id, class_name: "Conversation", dependent: destroy
 
   # To get all conversations the user is participating in, no matter their role
   def conversations
