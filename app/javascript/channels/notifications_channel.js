@@ -1,4 +1,4 @@
-import consumer from "./consumer"
+import consumer from "channels/consumer"
 
 function getCSRFToken() {
   return document.querySelector("meta[name='csrf-token']").getAttribute("content");
