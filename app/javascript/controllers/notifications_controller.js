@@ -55,7 +55,7 @@ export default class extends Controller {
       .catch(error => console.error("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%cError marking all messages read;", "color: blue; font-weight: bold;", "", error));
     }
   }
-
+  
   checkForUnreadMessages() {
     fetch(`/check_unread?user_id=${this.currentUserIdValue}`, {
       headers: {
@@ -79,7 +79,7 @@ export default class extends Controller {
         console.log("%cNotificationsStimulus=>%c Removed notification ring", "color: blue; font-weight: bold;", "color: red; font-weight: bold;");
       }
     })
-    .catch(error => console.error("%cNotificationsStimulus#handleOpeningConversationsDropdown=>%c Error checking for unread messages:", "color: blue; font-weight: bold;", "", error));
+    .catch(error => console.error("%cNotificationsStimulus#checkForUnreadMessages=>%c Error checking for unread messages:", "color: blue; font-weight: bold;", "", error));
   }
 
   getCSRFToken() {

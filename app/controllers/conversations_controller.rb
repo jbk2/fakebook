@@ -89,10 +89,9 @@ class ConversationsController < ApplicationController
   end
 
   def ensure_ajax_request
-    unless request.xhr?
-      Rails.logger.debug "\e[31mNon-AJAX request detected, redirecting from:\e[0m] #{request.fullpath}"
-      redirect_to root_path, alert: "Endpoint only accessible via AJAX"
-    end
+    Rails.logger.info "XHR?=#{request.xhr?} format=#{request.format} Accept=#{request.get_header('HTTP_ACCEPT')} XRW=#{request.get_header('HTTP_X_REQUESTED_WITH')}"
+    return if request.xhr? || request.format.json?
+    render json: { error: 'AJAX/JSON only' }, status: :not_acceptable
   end
 
   def ensure_turbo_request

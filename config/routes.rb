@@ -27,6 +27,6 @@ Rails.application.routes.draw do
   delete 'close_conversation_card', to: 'conversations#close_conversation_card'
   post 'message_user', to: 'conversations#find_or_create_conversation'
 
-  get 'check_unread', to: 'conversations#check_unread'
-  patch 'mark_all_read', to: 'conversations#mark_all_read'
+  get 'check_unread', to: 'conversations#check_unread', defaults: { format: :json }
+  patch 'mark_all_read', to: 'conversations#mark_all_read', defaults: { format: :json }
 end
