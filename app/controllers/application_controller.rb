@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   helper DeviseHelpers # Include the DeviseHelpers 'controller & action identification' module
 
-  before_action :authenticate_user!#, :debug_session
+  before_action :authenticate_user!, limit_session_user_return_to#, :debug_session
   before_action :set_conversations_and_conversation, if: -> { user_signed_in? }
 
   private
@@ -26,5 +26,15 @@ class ApplicationController < ActionController::Base
   def debug_session
     Rails.logger.info "Session size: #{session.to_hash.to_s.bytesize} bytes"
     Rails.logger.info "Session keys: #{session.to_hash.keys.inspect}"
+  end
+
+  def limit_session_user_return_to
+    key = "user_return_to"
+    val = session[key]
+    return unless val.is_a?(String)
+  
+    if val.bytesize > 1024
+      session.delete(key)
+    end
   end
 end
