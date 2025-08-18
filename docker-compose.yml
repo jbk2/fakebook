@@ -1,6 +1,27 @@
 # This docker compose not only composes fakebook app's services but also composes the flight-booker app's services
 # which shares the db and redis services with fakebook app.
 services:
+
+  waldo-react:
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-react:1.0
+    ports:
+      - "3001:80"
+    depends_on:
+      - waldo-rails
+
+  waldo-rails:
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-rails:1.0
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    user: "1000:1000"
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: production
+      RAILS_MASTER_KEY: ${WALDO_RAILS_MASTER_KEY}
+      DATABASE_URL: postgresql://${WALDO_DATABASE_USER}:${WALDO_DATABASE_PASSWORD}@db:5432/waldo_production
+    env_file:
+      - .env
+
   db:
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-postgres:1.0
     restart: always
@@ -42,7 +63,7 @@ services:
       RAILS_ENV: production
       DATABASE_URL: postgresql://${FAKEBOOK_DATABASE_USER}:${FAKEBOOK_DATABASE_PASSWORD}@db:5432/fakebook_production
       REDIS_URL: redis://redis:6379/0
-      RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
+      RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_MASTER_KEY}
     env_file:
       - .env
 
