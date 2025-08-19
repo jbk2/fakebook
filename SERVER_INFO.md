@@ -1,5 +1,6 @@
 # Server Documentation for Fakebook app
-- This file's intention is as documentation for the server instance which these applications are deployed to:
+- This file's intention is as documentation for the server instance which hosts these containerised apps:
+  - waldo-bibble.com
   - fakebook.bibble.com
   - flight-booker@bibble.com
   - ubuntu@bibble.com (simple html page(s) hosted in docker nginx container)
@@ -9,7 +10,7 @@ Update this file, keep it synched with the github repo version, and save on the 
 
 ## General Information
 - **Purpose**: An AWS EC2 instance to host multiple demo/portfolio apps, most dockerised and composed in separate contianers.
-- **Public ipv4**: 13.38.128.29 (changes on every EC2 instance restart)
+- **Public ipv4**: 35.180.46.63 (changes on every EC2 instance restart)
 - **Domain Name**: currently DNS linked to www.bibble.com (via CloudFlare)
 - **OS**: Ubuntu 20.04.4 LTS
 - **EC2 Instance Type** t4g.small
@@ -35,7 +36,7 @@ Update this file, keep it synched with the github repo version, and save on the 
     `sudo fail2ban-client reload`, `sudo fail2ban-client unban <ip address>`, `sudo fail2ban-client set <jail> unbanip <ip address>`
 
 ## Docker Containers
-- x5 dockerised containers, via ~/docker-compose.yml, built from AWS ECR images:
+- x7 dockerised containers, via ~/docker-compose.yml, built from AWS ECR images:
   - **ubuntu-nginx-1**
     - image built from; docker hub's 'nginx:latest'
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-nginx:1.0
@@ -53,14 +54,20 @@ Update this file, keep it synched with the github repo version, and save on the 
     - image built from; docker hub's 'redis:latest'
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-redis:1.0
   - **ubuntu-sidekiq-1**
-    - image built from; prod.dockerfile
+    - image built from; prod.Dockerfile
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.1
   - **ubuntu-web-1**
-    - image built from; prod.dockerfile
-    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:1.2 <!-- the 1.2 tagged image was created from the built container which had manual updates ahead of the original built AWS ECR 1.1 image-->
+    - image built from; prod.Dockerfile
+    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:2.2
   - **ubuntu-flight-booker-1**
-    - image built from; dockerfile
+    - image built from; Dockerfile
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-flight-booker:1.0
+  - **ubuntu-waldo-react-1**
+    - image built from; prod.Dockerfile
+    - ECR repo URI; 9964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-rails:1.5
+  - **ubuntu-weldo-rails-1**
+    - image built from; prod.Dockerfile
+    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-react:1.1
 
 ## Services Running
 - HTTP Server on port 80
@@ -93,31 +100,32 @@ In `.env`:
 | dns-update.sh script related variables:                                                                            |
 | `CF_API_TOKEN`                        | CloudFlare API token with the assigned domain's DNS editing permissions    |
 | `ZONE_ID`                             | The zone id of the assigned domain name                                    |
-| `RECORD_ID`                           | The DNS record ID number that needs updating on restart                    |
-| `RECORD_NAME`                         | The DNS record name number that needs updating on restart                  |
+| `NC_API_KEY`                          | Namecheap API key                                                          |
+| `DNS_RECORD_NAMESANDIDS`              | The Cloudflare DNS record IDs for each domain for the script to update     |
 |---------------------------------------|----------------------------------------------------------------------------|
 
 ## Configuration Changes
 - `./nginx.conf` modified to serve all via SSL only.
 
 ## Maintenance Notes
-- To update and upgrade Ubuntu instance's packages, from this local repo (not from server) run;
+- To update and upgrade the EC2 Ubuntu instance's packages, run this (from this local repo, not from the server);
   `.setup.sh -u update_upgrade`.
 - System updates every ...? - not automated, currently only manual.
-- Daily backups at ...? - not authomated.
+- Daily backups at ...? - not automated.
 - DNS records updated via systemd service dns-update.service:
   - the service runs the executable '/usr/local/bin/dns-update.sh' script. This script is created and
     placed on the server when running the executable `setup.sh` script from this local repo.
   - Manually run the systemd service which runs the 'dns-update.sh' script by running
     `sudo systemctl start dns-update` from the server.
   - Check status of the script by running `systemctl status dns-update.service` from the server.
-    (All systemd user services are located in /etc/systemd/system/)
+    (All systemd user services are located in /etc/systemd/system/) `sudo systemctl list-units --type=service`
   - The 'dns-update.service' is not automated, it must be run manually when instance public IP address
     is known to have changed.
   - The 'dns-update.service' logs to /var/log/dns-update.log.
 
 ## Helpful Commands
-- `sudo systemctl status nginx`, `sudo systemctl status dns-update`, `sudo fail2ban-client status`
+- `sudo systemctl status nginx`, `sudo systemctl status dns-update`, `sudo fail2ban-client status`,
+  `sudo systemctl start/restart/enable/disable/status dns-update`
 
 ## Contact
 - **Admin**: James Kemp, james@bibble.com
