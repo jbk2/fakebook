@@ -1,5 +1,13 @@
-# This docker compose not only composes fakebook app's services but also composes the flight-booker app's services
-# which shares the db and redis services with fakebook app.
+# This docker compose not only serves the following services/apps:
+# - waldo-react
+# - waldo-rails
+# - db (postgres container serving all rails services (waldo, fakebook, flight-booker))
+# - redis (redis container serving fakebook & flight-booker)
+# - nginx (routes all of these services)
+# - faekbook (named 'web')
+# - sidekiq - (serves fakebook)
+# - flight-booker
+
 services:
 
   waldo-react:
