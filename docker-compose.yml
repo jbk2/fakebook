@@ -10,6 +10,11 @@
 
 services:
 
+  portfolio-react:
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/portfolio-react:1.1
+    expose:
+      - 80
+
   waldo-react:
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-react:1.2
     ports:
