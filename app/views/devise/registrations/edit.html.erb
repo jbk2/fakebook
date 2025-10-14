@@ -5,7 +5,7 @@
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field my-3 w-72">
-      <%= f.label :email %><br />
+      <%= f.label :email %>
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input input-bordered" %>
     </div>
     
@@ -56,7 +56,7 @@
     </div>
 
     <div class="field my-3 w-72" data-controller="input-visibility">
-      <%= f.label :password_confirmation, "New password confirmation"%><br />
+      <%= f.label :password_confirmation, "New password confirmation" %><br />
       <div class="relative w-full">
         <%= f.password_field :password_confirmation, {
           autocomplete: "new-password",
@@ -98,8 +98,6 @@
       <%= f.submit "Update", class: "btn btn-sm btn-primary my-2" %>
     </div>
   <% end %>
-
-  <h3 class="text-md font-bold mt-4 mb-2">Cancel my account</h3>
 
   <div class="">
     <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete, class: "link" %>
