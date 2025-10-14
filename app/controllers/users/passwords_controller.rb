@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
+  before_action :block_test_accounts, only: [:create, :update]
+
   # GET /resource/password/new
   # def new
   #   super
@@ -31,4 +33,16 @@ class Users::PasswordsController < Devise::PasswordsController
   # def after_sending_reset_password_instructions_path_for(resource_name)
   #   super(resource_name)
   # end
+
+  private
+  def block_test_accounts
+    if action_name == 'create'
+      email = resource_params[:email]
+
+      if email.to_s.match?(/@test\.com\z/)
+        flash[:alert] = "Password reset disabled for test accounts"
+        redirect_to new_user_session_path and return
+      end
+    end
+  end
 end
