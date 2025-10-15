@@ -3,7 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-  before_action :block_test_accounts , only: [:update]
+  before_action :block_test_accounts , only: [:update, :destroy]
 
   rate_limit to: 10, within: 3.minutes, only: :create,
     with: -> { redirect_to new_user_registration_path, alert: "Sign up rate limit exceeded - Try again later." }
@@ -91,10 +91,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private
   def block_test_accounts
-    email = resource_params[:email]
-
-    if email.to_s.match?(/@test\.com\z/)
-      flash[:alert] = "Password reset disabled for test accounts"
+    if current_user.email.to_s.match?(/@test\.com\z/)
+      action_type = action_name == 'destroy' ? 'deletion' : 'updates'
+      flash[:alert] = "Account #{action_type} disabled for test accounts"
       redirect_to edit_user_registration_path and return
     end
   end

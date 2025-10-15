@@ -4,19 +4,6 @@
   themes: light --default, dark --prefersdark, cupcake;
 }
 
-@layer base {
-  *,
-  ::before,
-  ::after {
-    border-color: theme('colors.gray.200');
-  }
-}
-
-/* Restore shadow for conversations dropdown button */
-#conversations-dropdown > summary.btn {
-  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.10) !important;
-}
-
 /* Override DaisyUI button styles with high specificity */
 :root .btn:not([id="conversations-dropdown"] summary):not(.dropdown-toggle):not(.chat-bubble),
 :root button.btn:not([id="conversations-dropdown"] summary):not(.dropdown-toggle):not(.chat-bubble),
@@ -54,6 +41,14 @@
   padding-right: 0.5rem !important;
 }
 
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: theme('colors.gray.200');
+  }
+}
+
 @layer components {
   .pagy {
     display: flex;
@@ -62,31 +57,30 @@
     font-size: 0.875rem;
     color: theme('colors.gray.500');
   }
-
+  
   .pagy .page a {
     display: block;
     border-radius: 0.5rem;
     padding: 0.25rem 0.75rem;
     background-color: theme('colors.gray.200');
   }
-
+  
   .pagy .page a:hover {
     background-color: theme('colors.gray.300');
   }
-
+  
   .pagy .page.active a {
     color: white;
     background-color: theme('colors.gray.400');
     cursor: default;
   }
-
+  
   .pagy .page.disabled a {
     color: theme('colors.gray.300');
     background-color: theme('colors.gray.100');
     cursor: default;
   }
-
-
+  
   .pagy .pagy-combo-input,
   .pagy.pagy-items-selector-js {
     display: inline-block;
@@ -95,7 +89,7 @@
     border-radius: 0.5rem;
     padding: 0.125rem 0.75rem;
   }
-
+  
   .pagy .pagy-combo-input input,
   .pagy.pagy-items-selector-js input {
     background-color: theme('colors.gray.100');
@@ -114,10 +108,15 @@
       opacity: 0;
     }
   }
-
+  
   /* CSS view transitions API: */
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation-duration: 0.5s;
   }
+}
+
+/* Restore shadow for conversations dropdown button */
+#conversations-dropdown > summary.btn {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.10) !important;
 }
