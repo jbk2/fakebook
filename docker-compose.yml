@@ -57,10 +57,14 @@ services:
       - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/nginx/ssl/default.crt:/etc/nginx/ssl/default.crt
-      - /etc/nginx/ssl/default.key:/etc/nginx/ssl/default.key
+# Cloudflare universal SSL cert for non www urls binding
+      - /etc/nginx/ssl/default.crt:/etc/nginx/ssl/default.crt:ro
+      - /etc/nginx/ssl/default.key:/etc/nginx/ssl/default.key:ro
+# LetsEncrypt SSL cert for unproxied www.* domains 
+      - /etc/nginx/ssl/www/fullchain.pem:/etc/nginx/ssl/www/fullchain.pem:ro
+      - /etc/nginx/ssl/www/privkey.pem:/etc/nginx/ssl/www/privkey.pem:ro
+# Static HTML page site bindings 
       - ./ubuntu-deploy-site/:/var/www/ubuntu-deploy-site/
-      - ./portfolio-site/:/var/www/portfolio-site/
     depends_on:
       - web
       - flight-booker
