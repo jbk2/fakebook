@@ -47,6 +47,9 @@ Update this file, keep it synched with the github repo version, and save on the 
         and it's accompanying styling assets. Repo [here](https://github.com/jbk2/portfolio). This 'app' was served from
         a volume mounted into the nginx container from this directory,`- ./portfolio-site/:/var/www/portfolio-site/`,
         at the host ubuntu users' home. NOW nginx routes portfolio-bibble.com to the full waldo-react app, which uses the waldo-rails API service.
+  - **ubuntu-portfolio-react-1**
+    - image built from; 'nginx:1.27-alpine' via ./Dockerfile
+    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/portfolio-react:1.3
   - **ubuntu-postgres-1**
     - image built from; docker hub's 'postgres:latest'
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-postgres:1.0
