@@ -71,6 +71,10 @@ Update this file, keep it synched with the github repo version, and save on the 
   - **ubuntu-waldo-rails-1**
     - image built from; prod.Dockerfile
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-react:1.1
+  - **ubuntu-battleship-1**
+    - image built from; Dockerfile 
+    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/battleship:1.0
+    - (note that service name is battleship but DNS is all battleships)
 
 ## DNS records & SSH certs
 - There are two SSH certs which cover all of these domain DNS record:
