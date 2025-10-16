@@ -26,7 +26,7 @@ Update this file, keep it synched with the github repo version, and save on the 
 - curl 8.5.0
 - at 3.2.5
 
-## Security
+## Server Security
 - AWS security group incoming rules
   - all on http 80 and https 443
   - ssh 22 from James Kemp's CIPR range only, must update inbound rules in AWS console when ssh'ing into server from new IP address.
@@ -43,10 +43,10 @@ Update this file, keep it synched with the github repo version, and save on the 
       - **ubuntu-deploy-site** Nginx container also routes to an index.html page displaying html mark up of
         [this repository](https://github.com/jbk2/ubuntu-setup-deploy). This html file is volume mounted
         into the nginx container from the host ubuntu users' root; `- ./ubuntu-deploy-site/:/var/www/ubuntu-deploy-site/`
-      - **portfolio-site** Nginx container also routes to a portfolio 'app', portfolio.bibble.com, simply an html page
-        and it's accompanying styling assets. Repo [here](https://github.com/jbk2/portfolio). This 'app' is served from
+      - (**NOW NOW LONGER USED**)**portfolio-site** Nginx container used to serve a statis html page for portfolio.bibble.com, simply an html page
+        and it's accompanying styling assets. Repo [here](https://github.com/jbk2/portfolio). This 'app' was served from
         a volume mounted into the nginx container from this directory,`- ./portfolio-site/:/var/www/portfolio-site/`,
-        at the host ubuntu users' home.
+        at the host ubuntu users' home. NOW nginx routes portfolio-bibble.com to the full waldo-react app, which uses the waldo-rails API service.
   - **ubuntu-postgres-1**
     - image built from; docker hub's 'postgres:latest'
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-postgres:1.0
@@ -58,16 +58,30 @@ Update this file, keep it synched with the github repo version, and save on the 
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-sidekiq:1.1
   - **ubuntu-web-1**
     - image built from; prod.Dockerfile
-    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:2.2
+    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-web:2.4
   - **ubuntu-flight-booker-1**
     - image built from; Dockerfile
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-flight-booker:1.0
   - **ubuntu-waldo-react-1**
     - image built from; prod.Dockerfile
-    - ECR repo URI; 9964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-rails:1.5
-  - **ubuntu-weldo-rails-1**
+    - ECR repo URI; 9964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-rails:1.6
+  - **ubuntu-waldo-rails-1**
     - image built from; prod.Dockerfile
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-react:1.1
+
+## DNS records & SSH certs
+- There are two SSH certs which cover all of these domain DNS record:
+  - Cloudflare Universal Cert - this covers non www subdomains, e.g. fakebook.bibble.com.
+    This cert and key is located on host at /etc/nginx/ssl/..
+  - LetsEncrypt SSL Cert - this covers www subdomains, e.g. www.fakebook.bibble.com, becuase the 
+    Cloudflare Universal vert will not cover 4th level subdomains.
+    This cert and key is located on host at /etc/nginx/ssl/www/..
+- docker-compose.yml's nginx server defines a read only binding for these two cert sets into the nginx container.
+- The DNS A records for the www.*.bibble.com have cloudflare proxy turned off, i.e. are set
+  to SSL only so that the Let's Encrypt SSL allows the browser handshake to pass.
+- After a www. subdomain handshake has passed the nginx.conf records define a redirect to the
+  non-www. subdomain anyway, so visits remain proxied by cloudflare anyway.
+
 
 ## Services Running
 - HTTP Server on port 80
