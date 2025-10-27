@@ -16,7 +16,7 @@ services:
       - 80
 
   portfolio-react:
-    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/portfolio-react:1.1
+    image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/portfolio-react:1.5
     expose:
       - 80
 
