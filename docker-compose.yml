@@ -42,18 +42,21 @@ services:
 
   db:
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-postgres:1.0
-    restart: always
     ports:
       - 5432:5432
     volumes:
       - dbdata:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
+    stop_grace_period: 60s
+    restart: always
 
   redis:
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-redis:1.0
     ports: 
       - 6379:6379
+    stop_grace_period: 60s
+    restart: always
 
   nginx:
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-nginx:1.0
@@ -104,6 +107,8 @@ services:
       RAILS_MASTER_KEY: ${FAKEBOOK_RAILS_PRODUCTION_KEY} # This is the secret key base for the fakebook app, should be namespaced to fakebook
     env_file:
       - .env
+    stop_grace_period: 60s
+    restart: always
   
   flight-booker:
     image: 964236740875.dkr.ecr.eu-west-3.amazonaws.com/flight-booker:1.0
