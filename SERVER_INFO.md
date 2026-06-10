@@ -49,7 +49,7 @@ Update this file, keep it synched with the github repo version, and save on the 
         at the host ubuntu users' home. NOW nginx routes portfolio-bibble.com to the full waldo-react app, which uses the waldo-rails API service.
   - **ubuntu-portfolio-react-1**
     - image built from; 'nginx:1.27-alpine' via ./Dockerfile
-    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/portfolio-react:1.5
+    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/portfolio-react:2.3
   - **ubuntu-postgres-1**
     - image built from; docker hub's 'postgres:latest'
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-postgres:1.0
@@ -67,10 +67,10 @@ Update this file, keep it synched with the github repo version, and save on the 
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/fakebook-flight-booker:1.0
   - **ubuntu-waldo-react-1**
     - image built from; prod.Dockerfile
-    - ECR repo URI; 9964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-rails:1.6
+    - ECR repo URI; 9964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-rails:1.2
   - **ubuntu-waldo-rails-1**
     - image built from; prod.Dockerfile
-    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-react:1.1
+    - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/waldo-react:1.6
   - **ubuntu-battleship-1**
     - image built from; Dockerfile 
     - ECR repo URI; 964236740875.dkr.ecr.eu-west-3.amazonaws.com/battleship:1.0
